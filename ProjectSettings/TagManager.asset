@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Map_rot
+  - Map_forw
   layers:
   - Default
   - TransparentFX
