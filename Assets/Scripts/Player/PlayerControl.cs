@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -17,6 +18,8 @@ public class PlayerControl : MonoBehaviour
     public bool isLive = true;
     public bool isGround = true;
 
+    private Vector3 last_mouse_pos;
+    private bool first_click = false;
     private Animator Animator;
     private Rigidbody Rigidbody;
     private ChankControl ChankNow;
@@ -42,6 +45,15 @@ public class PlayerControl : MonoBehaviour
         {
             Rigidbody.velocity = transform.forward * Speed;
         }
+        if(first_click == true)
+        {
+            Vector3 delta = Input.mousePosition - last_mouse_pos;
+            Vector3 pos = transform.position;
+            pos.x += delta.y * 2;
+            pos.x = Mathf.Clamp(0, pos.x, 0);
+            transform.position = pos;
+            last_mouse_pos = Input.mousePosition;
+        }
     }
     private void KeyManager()
     {
@@ -66,6 +78,16 @@ public class PlayerControl : MonoBehaviour
                 break;
             case ChankControl.Ttype.Floor:
                 CanJump = true;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    first_click = true;
+                    last_mouse_pos = Input.mousePosition;
+                }
+                else
+                {
+                    first_click = false;
+                }
+                
                 break;
             default: break;
         }
