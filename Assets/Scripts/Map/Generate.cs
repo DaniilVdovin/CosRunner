@@ -28,6 +28,7 @@ public class Generate : MonoBehaviour
     public int offset = 20;
     public int ChankCount = 100;
     private WaitForSeconds wait = new WaitForSeconds(.2f);
+    public int MemCount = 500;
     void Start()
     {
         StartCoroutine(GenerateRoad(ChankCount));
@@ -38,10 +39,10 @@ public class Generate : MonoBehaviour
         {
             GameObject last = MapParent;
             if (Map.Count != 0) last = Map.Last();
-            if (Map.Count > 50) {
-                if (!Map[i - 50].CompareTag("Map_rot"))
+            if (Map.Count > MemCount) {
+                if (!Map[i - MemCount].CompareTag("Map_rot"))
                 {
-                    Map.Add(Map[i - 50]);
+                    Map.Add(Map[i - MemCount]);
                     TTransform temp = GetNextPosotion(last.transform.position, true);
                     if (temp.Chank != null)
                     {
@@ -52,7 +53,7 @@ public class Generate : MonoBehaviour
                 }
                 else
                 {
-                    Destroy(Map[i - 50]);
+                    Destroy(Map[i - MemCount]);
                     TTransform temp = GetNextPosotion(last.transform.position);
                     Map.Add(Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform));
                 }
