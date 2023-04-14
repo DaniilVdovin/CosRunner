@@ -188,6 +188,8 @@ GameObject:
   - component: {fileID: 3657342638959005097}
   - component: {fileID: 1833631546347634332}
   - component: {fileID: 484695751221311985}
+  - component: {fileID: 1986117759372249853}
+  - component: {fileID: 4467410332931288439}
   m_Layer: 0
   m_Name: ChankRightPiwot
   m_TagString: Map_rot
@@ -245,3 +247,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 2, z: 20}
   m_Center: {x: 0, y: -1, z: 0}
+--- !u!65 &1986117759372249853
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657342638959005096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 14, z: 20}
+  m_Center: {x: -9, y: 6, z: 0}
+--- !u!65 &4467410332931288439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657342638959005096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 14, z: 3}
+  m_Center: {x: 0, y: 6, z: 9}
