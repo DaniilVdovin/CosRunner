@@ -62,15 +62,19 @@ public class PlayerControl : MonoBehaviour
         {
             difference = Input.mousePosition.z - last_mouse_pos.Value;
             now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188));
+            Debug.Log(difference);
 
         }
         else
         {
-            difference = Input.mousePosition.x - last_mouse_pos.Value;
-            now_vector = new Vector3(transform.position.x + (difference / 365), transform.position.y, transform.position.z);
+            difference =Input.mousePosition.x - last_mouse_pos.Value;
+            now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
         }
         transform.position = now_vector;
-        last_mouse_pos = Input.mousePosition.x;
+        if (isRotate)
+            last_mouse_pos = Input.mousePosition.z;
+        else
+            last_mouse_pos = Input.mousePosition.x;
     }
     void KeyManager()
     {
@@ -100,7 +104,11 @@ public class PlayerControl : MonoBehaviour
                 CanJump = true;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    last_mouse_pos = Input.mousePosition.x;
+                    
+                    if (isRotate)
+                        last_mouse_pos = Input.mousePosition.y;
+                    else
+                        last_mouse_pos = Input.mousePosition.z;
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
