@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class PlayerControl : MonoBehaviour
 
     private bool isRotate = false;
     private float? last_mouse_pos = null;
+    private float? mouse_up_position = null;
 
     private Animator Animator;
     private Rigidbody Rigidbody;
@@ -56,8 +58,40 @@ public class PlayerControl : MonoBehaviour
         }
         if (last_mouse_pos != null)
         {
-            moveXXX();
-        }  
+            if (ChankNow.type ==ChankControl.Ttype.Floor)
+            {
+                moveXXX();
+            }
+            if(ChankNow.type == ChankControl.Ttype.Pivot )
+            {
+                rotate();
+            }
+            
+        }
+        
+
+    }
+    /// <summary>
+    /// roatate player
+    /// </summary>
+    void rotate()
+    {
+        //??? bugs
+        if (mouse_up_position < last_mouse_pos)
+        {
+            ChankNow.WeRot = true;
+            transform.Rotate(Vector3.up, -90);
+            isRotate = !isRotate;
+       
+        }
+        if (mouse_up_position > last_mouse_pos)
+        {
+            ChankNow.WeRot = true;
+            transform.Rotate(Vector3.up, 90);
+            isRotate = !isRotate;
+            
+        }
+        mouse_up_position = null;
 
     }
     /// <summary>
@@ -76,7 +110,7 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            Debug.Log(difference);
+
             now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
         }
         transform.position = now_vector;
@@ -90,42 +124,25 @@ public class PlayerControl : MonoBehaviour
     void KeyManager()
     {
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
-        switch (ChankNow.type)
-        {
-            case ChankControl.Ttype.Pivot:
-                CanJump = false;
-                if (!ChankNow.WeRot)
-                {
-                    if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    {
-                       //TODO: make switch event to rotate
-                        ChankNow.WeRot = true;
-                        transform.Rotate(Vector3.up, -90);
-                        isRotate = !isRotate;
-                    }
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
-                    {
-                        ChankNow.WeRot = true;
-                        transform.Rotate(Vector3.up, 90);
-                        isRotate = !isRotate;
-                    }
-                }
-                break;
-            case ChankControl.Ttype.Floor:
-                CanJump = true;
-                if (Input.GetMouseButtonDown(0))
-                {
-                      last_mouse_pos = Input.mousePosition.x;
-                  
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    last_mouse_pos = null;
-                }
+       
 
-                break;
-            default: break;
+    
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log(mouse_up_position+"u");
+            last_mouse_pos = Input.mousePosition.x;
+
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log(last_mouse_pos+"L");
+            mouse_up_position = Input.mousePosition.x;
+            last_mouse_pos = null;
+        }
+
+
+
+
     }
     /// <summary>
     /// Update actions something like 50 times per second
