@@ -10,9 +10,12 @@ public class PlayerControl : MonoBehaviour
     public Camera Camera;
     public GameObject Map;
     public Transform CameraTarget;
+
     public Vector3 CameraOffset;
+
     public float Speed;
     public float JumpForce;
+
     public bool CanJump = true;
     public bool isJump = false;
     public bool isRun = false;
@@ -21,15 +24,19 @@ public class PlayerControl : MonoBehaviour
 
     private bool isRotate = false;
     private float? last_mouse_pos = null;
+
     private Animator Animator;
     private Rigidbody Rigidbody;
     private ChankControl ChankNow;
-
+    //Sets Physycs and anim fields
     void Start()
     {
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
     }
+    /// <summary>
+    /// update is makes something actions every frame
+    /// </summary>
     private void Update()
     {
         if (Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out RaycastHit hitC, 3f))
@@ -53,29 +60,33 @@ public class PlayerControl : MonoBehaviour
         }  
 
     }
-
+    /// <summary>
+    /// move player on axis by mouse
+    /// </summary>
     void moveXXX()
     {
         float difference;
         Vector3 now_vector;
+        difference = (Input.mousePosition.x - last_mouse_pos.Value);
         if (isRotate)
         {
-            difference = Input.mousePosition.z - last_mouse_pos.Value;
-            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188));
-            Debug.Log(difference);
+            //TODO:Fix rare inverse
+            now_vector = new Vector3(transform.position.x , transform.position.y, transform.position.z + (difference / 188)*-1);
 
         }
         else
         {
-            difference =Input.mousePosition.x - last_mouse_pos.Value;
+            Debug.Log(difference);
             now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
         }
         transform.position = now_vector;
-        if (isRotate)
-            last_mouse_pos = Input.mousePosition.z;
-        else
-            last_mouse_pos = Input.mousePosition.x;
+     
+        last_mouse_pos = Input.mousePosition.x ;
+    
     }
+    /// <summary>
+    /// check buttons events
+    /// </summary>
     void KeyManager()
     {
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
@@ -104,11 +115,8 @@ public class PlayerControl : MonoBehaviour
                 CanJump = true;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    
-                    if (isRotate)
-                        last_mouse_pos = Input.mousePosition.y;
-                    else
-                        last_mouse_pos = Input.mousePosition.z;
+                      last_mouse_pos = Input.mousePosition.x;
+                  
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
@@ -119,18 +127,26 @@ public class PlayerControl : MonoBehaviour
             default: break;
         }
     }
-
+    /// <summary>
+    /// Update actions something like 50 times per second
+    /// </summary>
     private void FixedUpdate()
     {
         Animator.SetBool("Run", isRun);
         Animator.SetBool("Die", !isLive);
     }
+    /// <summary>
+    /// last update func called when other update is make their deal
+    /// </summary>
     private void LateUpdate()
     {
         Camera.transform.position = Vector3.Lerp(Camera.transform.position, transform.position + transform.TransformVector(CameraOffset),
             Time.deltaTime * 3f);
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
+    /// <summary>
+    /// jump func make body up
+    /// </summary>
     private void Jump()
     {
         if (!CanJump) return;
