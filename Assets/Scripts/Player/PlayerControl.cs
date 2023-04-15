@@ -101,7 +101,7 @@ public class PlayerControl : MonoBehaviour
             {
                 isRotateL= !isRotateL;
             }
-            isRotateL = !isRotateL;
+
 
             Debug.Log("L" + isRotateL + "L  R" + isRotateR);
         }
