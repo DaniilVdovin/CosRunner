@@ -33,7 +33,7 @@ public class PlayerControl : MonoBehaviour
 
     private Animator Animator;
     private Rigidbody Rigidbody;
-    private ChankControl ChankNow;
+    public ChankControl ChankNow;
     //Sets Physycs and anim fields
     void Start()
     {

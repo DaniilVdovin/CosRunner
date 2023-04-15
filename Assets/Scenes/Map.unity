@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d759c18d845960842a1c0412ba7b3c5c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.036315814, g: 0.036315814, b: 0.036315814, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -217,6 +217,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &733347868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
+    type: 3}
+  m_PrefabInstance: {fileID: 809762070}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88600cc9fd404479d8696c31e0d2e490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &790793295
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,10 +264,7 @@ MonoBehaviour:
   Map: []
   MapParent: {fileID: 790793295}
   LastSide: 2
-  SideIter: 3
-  offset: 20
-  ChankCount: 10000
-  MemCount: 500
+  PlayerControl: {fileID: 733347868}
 --- !u!4 &790793297
 Transform:
   m_ObjectHideFlags: 0

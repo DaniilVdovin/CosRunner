@@ -24,25 +24,38 @@ public class Generate : MonoBehaviour
     public List<GameObject> Map;
     public GameObject MapParent;
     public Side LastSide = Side.Forward;
-    public int SideIter = 4;
-    public int offset = 20;
-    public int ChankCount = 100;
+    private int SideIter = 4;
+    private int offset = 20;
+    private int ChankCount = 20;
+    private int MemCount = 40;
+    public PlayerControl PlayerControl;
+    private bool isGenerate=false;
     private WaitForSeconds wait = new WaitForSeconds(.2f);
-    public int MemCount = 500;
+
     void Start()
     {
+        StartCoroutine(GenerateRoad(ChankCount*2));
+    }
+    private void FixedUpdate()
+    {
+        if(!isGenerate)
+        if(PlayerControl.ChankNow != null)
+        if(Map.LastIndexOf(PlayerControl.ChankNow.gameObject) == Map.Count-ChankCount)
         StartCoroutine(GenerateRoad(ChankCount));
     }
     IEnumerator GenerateRoad(int count)
     {
-        for (int i = 0; i < count; i++)
+        isGenerate = true;
+        int addition = Map.Count;
+        for (int i = addition; i < addition+count; i++)
         {
             GameObject last = MapParent;
             if (Map.Count != 0) last = Map.Last();
             if (Map.Count > MemCount) {
                 if (!Map[i - MemCount].CompareTag("Map_rot"))
                 {
-                    Map.Add(Map[i - MemCount]);
+                    GameObject Gemp = Map[i - MemCount];
+                    Map.Add(Gemp);
                     TTransform temp = GetNextPosotion(last.transform.position, true);
                     if (temp.Chank != null)
                     {
@@ -64,6 +77,7 @@ public class Generate : MonoBehaviour
             }
             yield return wait;
         }
+        isGenerate = false;
     }
 
     TTransform GetNextPosotion(Vector3 LastPosition,bool move = false) {
