@@ -38,12 +38,10 @@ public class Generate : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Debug.Log(Map.IndexOf(PlayerControl.ChankNow.gameObject));
         if(!isGenerate)
-        if(Map.IndexOf(PlayerControl.ChankNow.gameObject) == Map.Count - ChankCount)
-        {
-            StartCoroutine(GenerateRoad(ChankCount));
-        }
+        if(PlayerControl.ChankNow != null)
+        if(Map.LastIndexOf(PlayerControl.ChankNow.gameObject) == Map.Count-ChankCount)
+        StartCoroutine(GenerateRoad(ChankCount));
     }
     IEnumerator GenerateRoad(int count)
     {
@@ -56,7 +54,8 @@ public class Generate : MonoBehaviour
             if (Map.Count > MemCount) {
                 if (!Map[i - MemCount].CompareTag("Map_rot"))
                 {
-                    Map.Add(Map[i - MemCount]);
+                    GameObject Gemp = Map[i - MemCount];
+                    Map.Add(Gemp);
                     TTransform temp = GetNextPosotion(last.transform.position, true);
                     if (temp.Chank != null)
                     {
