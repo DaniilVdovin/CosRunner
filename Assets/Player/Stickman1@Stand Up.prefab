@@ -441,13 +441,14 @@ MonoBehaviour:
   Map: {fileID: 0}
   CameraTarget: {fileID: 519728140512025937}
   CameraOffset: {x: 0, y: 10, z: -20}
-  Speed: 0.5
-  JumpForce: 0
+  Speed: 10
+  JumpForce: 1
   CanJump: 1
   isJump: 0
   isRun: 1
   isLive: 1
   isGround: 1
+  ChankNow: {fileID: 0}
 --- !u!54 &675668252829229141
 Rigidbody:
   m_ObjectHideFlags: 0
