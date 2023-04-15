@@ -23,9 +23,13 @@ public class PlayerControl : MonoBehaviour
     public bool isLive = true;
     public bool isGround = true;
 
-    private bool isRotate = false;
+    private bool isRotateR = false;
+    private bool isRotateL = false;
+    private bool IsSwiping = false;
     private float? last_mouse_pos = null;
     private float? mouse_up_position = null;
+    private float? mouse_down_pos = null;
+    private int angle_rotate = 90;
 
     private Animator Animator;
     private Rigidbody Rigidbody;
@@ -56,19 +60,46 @@ public class PlayerControl : MonoBehaviour
         {
             Rigidbody.velocity = transform.forward * Speed;
         }
+
+
         if (last_mouse_pos != null)
         {
-            if (ChankNow.type ==ChankControl.Ttype.Floor)
+            if (ChankNow.type == ChankControl.Ttype.Floor)
             {
+
                 moveXXX();
             }
-            if(ChankNow.type == ChankControl.Ttype.Pivot )
-            {
-                rotate();
-            }
-            
+
+
+
         }
-        
+
+        if (ChankNow.type == ChankControl.Ttype.Pivot)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+
+               
+                mouse_down_pos = Input.mousePosition.x;
+
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                mouse_up_position = Input.mousePosition.x;
+
+                rotate();
+                mouse_down_pos = 0;
+                mouse_up_position = 0;
+
+
+            }
+
+
+
+        }
+
+
+
 
     }
     /// <summary>
@@ -76,23 +107,26 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void rotate()
     {
-        //??? bugs
-        if (mouse_up_position < last_mouse_pos)
+        Debug.Log(mouse_up_position + "U  L" + mouse_down_pos);
+        if (mouse_up_position < mouse_down_pos)
+            {
+            ChankNow.WeRot = true;
+                transform.Rotate(Vector3.up, angle_rotate *-1) ;
+                isRotateR = !isRotateR;
+                Debug.Log("L" + isRotateL + " " + isRotateR);
+        }
+        if (mouse_up_position > mouse_down_pos)
         {
             ChankNow.WeRot = true;
-            transform.Rotate(Vector3.up, -90);
-            isRotate = !isRotate;
-       
-        }
-        if (mouse_up_position > last_mouse_pos)
-        {
-            ChankNow.WeRot = true;
-            transform.Rotate(Vector3.up, 90);
-            isRotate = !isRotate;
-            
-        }
-        mouse_up_position = null;
+            transform.Rotate(Vector3.up, angle_rotate);
+            isRotateL = !isRotateL;
+            Debug.Log("R" + isRotateL + " " + isRotateR);
 
+        }
+    }
+    void inverse()
+    {
+        angle_rotate = angle_rotate * -1;
     }
     /// <summary>
     /// move player on axis by mouse
@@ -102,17 +136,29 @@ public class PlayerControl : MonoBehaviour
         float difference;
         Vector3 now_vector;
         difference = (Input.mousePosition.x - last_mouse_pos.Value);
-        if (isRotate)
+      
+       if (isRotateL== true & isRotateR == false)
         {
-            //TODO:Fix rare inverse
-            now_vector = new Vector3(transform.position.x , transform.position.y, transform.position.z + (difference / 188)*-1);
+          now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188) * -1);
 
         }
-        else
+        else if(isRotateR==true & isRotateL == false)
         {
-
+                now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188) );
+                
+        }
+        else if (isRotateR == true & isRotateL == true)
+        {
             now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
         }
+        else 
+        {
+            now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
+        }
+                //TODO:Fix rare inverse
+  
+        
+        
         transform.position = now_vector;
      
         last_mouse_pos = Input.mousePosition.x ;
@@ -129,17 +175,20 @@ public class PlayerControl : MonoBehaviour
     
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(mouse_up_position+"u");
+            
             last_mouse_pos = Input.mousePosition.x;
-
+            
+ 
+           
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log(last_mouse_pos+"L");
-            mouse_up_position = Input.mousePosition.x;
             last_mouse_pos = null;
-        }
+           
 
+
+        }
+       
 
 
 
