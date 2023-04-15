@@ -134,21 +134,22 @@ public class PlayerControl : MonoBehaviour
       
        if (isRotateL== true & isRotateR == false)
         {
-          now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188) );
+         
+          now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference / 188), -20, 20));
 
         }
         else if(isRotateL == false &  isRotateR == true)
         {
-                now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188)*-1 );
+                now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference / 188), -20, 20) * -1 );
                 
         }
         else if (isRotateR == true & isRotateL == true)
         {
-            now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
+            now_vector = new Vector3(transform.position.x + Mathf.Clamp((difference / 188), -20, 20), transform.position.y, transform.position.z);
         }
         else 
         {
-            now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
+            now_vector = new Vector3(transform.position.x + Mathf.Clamp((difference / 188), -20, 20), transform.position.y, transform.position.z);
         }
                 //TODO:Fix rare invers 
        transform.position = now_vector;
