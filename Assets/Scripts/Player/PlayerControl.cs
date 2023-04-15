@@ -99,7 +99,7 @@ public class PlayerControl : MonoBehaviour
             }
             else
             {
-                isRotateR = !isRotateR;
+                isRotateL= !isRotateL;
             }
             isRotateL = !isRotateL;
 
