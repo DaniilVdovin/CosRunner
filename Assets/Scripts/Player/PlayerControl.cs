@@ -25,7 +25,6 @@ public class PlayerControl : MonoBehaviour
 
     private bool isRotateR = false;
     private bool isRotateL = false;
-    private bool IsSwiping = false;
     private float? last_mouse_pos = null;
     private float? mouse_up_position = null;
     private float? mouse_down_pos = null;
@@ -60,45 +59,27 @@ public class PlayerControl : MonoBehaviour
         {
             Rigidbody.velocity = transform.forward * Speed;
         }
-
-
         if (last_mouse_pos != null)
         {
             if (ChankNow.type == ChankControl.Ttype.Floor)
             {
-
                 moveXXX();
             }
-
-
-
         }
-
         if (ChankNow.type == ChankControl.Ttype.Pivot)
         {
             if (Input.GetMouseButtonDown(0))
-            {
-
-               
+            {            
                 mouse_down_pos = Input.mousePosition.x;
-
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 mouse_up_position = Input.mousePosition.x;
-
                 rotate();
                 mouse_down_pos = 0;
                 mouse_up_position = 0;
-
-
             }
-
-
-
         }
-
-
 
 
     }
@@ -107,26 +88,40 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void rotate()
     {
-        Debug.Log(mouse_up_position + "U  L" + mouse_down_pos);
+        
         if (mouse_up_position < mouse_down_pos)
             {
             ChankNow.WeRot = true;
-                transform.Rotate(Vector3.up, angle_rotate *-1) ;
+            transform.Rotate(Vector3.up, angle_rotate *-1) ;
+            if (isRotateL == true & isRotateR == true)
+            {
                 isRotateR = !isRotateR;
-                Debug.Log("L" + isRotateL + " " + isRotateR);
+            }
+            else
+            {
+                isRotateR = !isRotateR;
+            }
+            isRotateL = !isRotateL;
+
+            Debug.Log("L" + isRotateL + "L  R" + isRotateR);
         }
         if (mouse_up_position > mouse_down_pos)
         {
             ChankNow.WeRot = true;
             transform.Rotate(Vector3.up, angle_rotate);
-            isRotateL = !isRotateL;
+            if(isRotateL == true & isRotateR == true)
+            {
+                isRotateL = !isRotateL;
+            }
+            else
+            {
+                isRotateR = !isRotateR;
+            }
+            
             Debug.Log("R" + isRotateL + " " + isRotateR);
 
         }
-    }
-    void inverse()
-    {
-        angle_rotate = angle_rotate * -1;
+        Debug.Log(mouse_up_position + "U  L" + mouse_down_pos);
     }
     /// <summary>
     /// move player on axis by mouse
@@ -139,12 +134,12 @@ public class PlayerControl : MonoBehaviour
       
        if (isRotateL== true & isRotateR == false)
         {
-          now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188) * -1);
+          now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188) );
 
         }
-        else if(isRotateR==true & isRotateL == false)
+        else if(isRotateL == false &  isRotateR == true)
         {
-                now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188) );
+                now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + (difference / 188)*-1 );
                 
         }
         else if (isRotateR == true & isRotateL == true)
@@ -155,12 +150,8 @@ public class PlayerControl : MonoBehaviour
         {
             now_vector = new Vector3(transform.position.x + (difference / 188), transform.position.y, transform.position.z);
         }
-                //TODO:Fix rare inverse
-  
-        
-        
-        transform.position = now_vector;
-     
+                //TODO:Fix rare invers 
+       transform.position = now_vector;
         last_mouse_pos = Input.mousePosition.x ;
     
     }
@@ -169,29 +160,15 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void KeyManager()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) Jump();
-       
-
-    
+        if (Input.GetKeyDown(KeyCode.Space)) Jump(); 
         if (Input.GetMouseButtonDown(0))
-        {
-            
-            last_mouse_pos = Input.mousePosition.x;
-            
- 
-           
+        {           
+            last_mouse_pos = Input.mousePosition.x;         
         }
         else if (Input.GetMouseButtonUp(0))
         {
             last_mouse_pos = null;
-           
-
-
         }
-       
-
-
-
     }
     /// <summary>
     /// Update actions something like 50 times per second
