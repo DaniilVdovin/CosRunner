@@ -19,8 +19,8 @@ public class ChankControl : MonoBehaviour
         if(type == Ttype.Floor)
         if (Random.Range(0,5)==2)
         {
-            Instantiate(Stoping[Random.Range(0, Stoping.Length - 1)],
-                Lines[Random.Range(0, Lines.Length - 1)].transform.position, Quaternion.identity, transform);
+            Instantiate(Stoping[Random.Range(0, Stoping.Length)],
+                Lines[Random.Range(0, Lines.Length)].transform.position, Quaternion.identity, transform);
         }
     }
 }

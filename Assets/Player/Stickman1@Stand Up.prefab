@@ -438,13 +438,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
+  Map: {fileID: 0}
   CameraTarget: {fileID: 519728140512025937}
   CameraOffset: {x: 0, y: 10, z: -20}
   Speed: 0.5
+  JumpForce: 0
   CanJump: 1
   isJump: 0
   isRun: 1
   isLive: 1
+  isGround: 1
 --- !u!54 &675668252829229141
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -801,7 +804,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04d84885b48e848d18ae089245bb2863, type: 2}
+  - {fileID: 2100000, guid: 455d9beda8a1a4fddb5c283861efccb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
