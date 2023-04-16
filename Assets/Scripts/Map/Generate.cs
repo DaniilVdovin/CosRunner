@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Generate : MonoBehaviour
 {
@@ -94,28 +95,52 @@ public class Generate : MonoBehaviour
     {
         End += Start;
         int pos = 1;
+        int ccount = 0;
         for (int i = Start; i < End; i++)
         {
             if (!Map[i].CompareTag("Map_rot"))
             {
+                if (ccount == 15)
+                {
+                    int pos_old = pos;
+                    pos = Random.Range(0, 3);
+                    int dif = Mathf.Abs(pos_old - pos);
+                    ccount = dif;
+                    for (int l = 0; l < dif; l++)
+                    {
+                        CreateCoin(Map[i], new Vector3((pos_old > pos
+                            ? 2.5f + ((pos_old > pos
+                            ? -2.5f:2.5f) * l-1) :
+                             -2.5f + ((pos_old > pos
+                            ? -2.5f:2.5f) * l-1)
+                             ), 0f, -10f + (1.5f *l)));
+                    }
+                    
+                }
                 Vector3 vector = Vector3.zero;
                 vector.x = -5f + (5f * pos);
                 vector.z = -7f;
-                ChankControl tempchank = Map[i].GetComponent<ChankControl>();
-                Transform temp = Map[i].transform;
                 for (int c = 0; c < 5; c++)
                 {
-                    GameObject coin = Instantiate(PrefCoin, temp);
-                    coin.transform.localPosition = transform.position + vector;
+                    CreateCoin(Map[i], vector);
                     vector.z += 3.5f;
-                    tempchank.Coins.Add(coin);
+                    ccount++;
                     yield return new WaitForSeconds(0.05f);
                 }
             }
-            else pos = Random.Range(0, 3);
+            else
+            {
+                pos = Random.Range(0, 3);
+                ccount = 0;
+            }
         }
     }
-
+    void CreateCoin(GameObject Parent, Vector3 Position)
+    {
+        GameObject coin = Instantiate(PrefCoin, Parent.transform);
+        coin.transform.localPosition = transform.position + Position;
+        Parent.GetComponent<ChankControl>().Coins.Add(coin);
+    }
     TTransform GetNextPosotion(Vector3 LastPosition,bool move = false) {
         int side = 0;
         side = (int)LastSide;

@@ -17,6 +17,7 @@ public class ChankControl : MonoBehaviour
 
     public void Start()
     {
+        if(Lines.Length>0)
         if(type == Ttype.Floor)
         if (Random.Range(0,5)==2)
         {
