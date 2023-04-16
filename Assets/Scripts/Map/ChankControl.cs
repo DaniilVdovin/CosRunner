@@ -13,6 +13,7 @@ public class ChankControl : MonoBehaviour
     public Ttype type;
     public Transform[] Lines;
     public GameObject[] Stoping;
+    public List<GameObject> Coins;
 
     public void Start()
     {
@@ -22,5 +23,12 @@ public class ChankControl : MonoBehaviour
             Instantiate(Stoping[Random.Range(0, Stoping.Length)],
                 Lines[Random.Range(0, Lines.Length)].transform.position, Quaternion.identity, transform);
         }
+    }
+    public void Regenerage() {
+        foreach (var item in Coins)
+        {
+            Destroy(item);
+        }
+        Coins.Clear();
     }
 }

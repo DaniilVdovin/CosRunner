@@ -31,17 +31,18 @@ public class Generate : MonoBehaviour
     public PlayerControl PlayerControl;
     private bool isGenerate=false;
     private WaitForSeconds wait = new WaitForSeconds(.2f);
-
+    public GameObject PrefCoin;
+    private bool firstGeneration = true;
     void Start()
     {
+        PlayerControl.isRun = false;
         StartCoroutine(GenerateRoad(ChankCount*2));
     }
     private void FixedUpdate()
     {
-        if(!isGenerate)
-        if(PlayerControl.ChankNow != null)
-        if(Map.LastIndexOf(PlayerControl.ChankNow.gameObject) == Map.Count-ChankCount)
-        StartCoroutine(GenerateRoad(ChankCount));
+           if(!isGenerate && PlayerControl.ChankNow != null)
+                if(Map.LastIndexOf(PlayerControl.ChankNow.gameObject) == Map.Count-ChankCount)
+                    StartCoroutine(GenerateRoad(ChankCount));
     }
     IEnumerator GenerateRoad(int count)
     {
@@ -62,7 +63,11 @@ public class Generate : MonoBehaviour
                         Destroy(Map[i]);
                         Map[i] = (Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform));
                     }
-                    else Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
+                    else
+                    {
+                        Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
+                        Map.Last().GetComponent<ChankControl>().Regenerage();
+                    }
                 }
                 else
                 {
@@ -77,7 +82,39 @@ public class Generate : MonoBehaviour
             }
             yield return wait;
         }
+        StartCoroutine(GenerateCoins(addition, count));
         isGenerate = false;
+        if (firstGeneration)
+        {
+            PlayerControl.isRun = true;
+            firstGeneration = false;
+        }
+    }
+    private IEnumerator GenerateCoins(int Start, int End)
+    {
+        End += Start;
+        int pos = 1;
+        for (int i = Start; i < End; i++)
+        {
+            if (!Map[i].CompareTag("Map_rot"))
+            {
+                
+                Vector3 vector = Vector3.zero;
+                vector.x = -5f + (5f * pos);
+                vector.z = -7f;
+                ChankControl tempchank = Map[i].GetComponent<ChankControl>();
+                Transform temp = Map[i].transform;
+                for (int c = 0; c < 5; c++)
+                {
+                    GameObject coin = Instantiate(PrefCoin, temp.transform.position, Quaternion.identity, temp);
+                    coin.transform.localPosition = transform.position + vector;
+                    vector.z += 3.5f;
+                    tempchank.Coins.Add(coin);
+                    yield return new WaitForSeconds(0.05f);
+                }
+            }
+            else pos = Random.Range(0, 3);
+        }
     }
 
     TTransform GetNextPosotion(Vector3 LastPosition,bool move = false) {
@@ -150,5 +187,4 @@ public class Generate : MonoBehaviour
         if(temp != x) return temp;
         else return URand(x, min, max);
     }
-
 }

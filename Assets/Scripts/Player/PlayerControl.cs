@@ -49,8 +49,6 @@ public class PlayerControl : MonoBehaviour
         KeyManager();
         if (Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out RaycastHit hit, 10f))
         {
-            if (isLive)
-                isRun = true;
             isGround = true;
             isJump = false;
         }
