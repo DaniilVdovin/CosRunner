@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -17,6 +16,7 @@ public class PlayerControl : MonoBehaviour
     public float Speed;
     public float JumpForce;
 
+    
     public bool CanJump = true;
     public bool isJump = false;
     public bool isRun = false;
@@ -32,6 +32,7 @@ public class PlayerControl : MonoBehaviour
 
     private Animator Animator;
     private Rigidbody Rigidbody;
+    [HideInInspector]
     public ChankControl ChankNow;
     //Sets Physycs and anim fields
     void Start()
@@ -78,48 +79,46 @@ public class PlayerControl : MonoBehaviour
                 mouse_up_position = 0;
             }
         }
-
-
     }
     /// <summary>
     /// roatate player
     /// </summary>
     void rotate()
     {
-        
-        if (mouse_up_position < mouse_down_pos)
-            {
-            ChankNow.WeRot = true;
-            transform.Rotate(Vector3.up, angle_rotate *-1) ;
-            if (isRotateL == true & isRotateR == true)
-            {
-                isRotateR = !isRotateR;
-            }
-            else
-            {
-                isRotateL= !isRotateL;
-            }
-
-
-            Debug.Log("L" + isRotateL + "L  R" + isRotateR);
-        }
-        if (mouse_up_position > mouse_down_pos)
+        if (ChankNow.WeRot == false)
         {
-            ChankNow.WeRot = true;
-            transform.Rotate(Vector3.up, angle_rotate);
-            if(isRotateL == true & isRotateR == true)
+            if (mouse_up_position < mouse_down_pos)
             {
-                isRotateL = !isRotateL;
+                ChankNow.WeRot = true;
+                transform.Rotate(Vector3.up, angle_rotate * -1);
+                if (isRotateL == true & isRotateR == true)
+                {
+                    isRotateR = !isRotateR;
+                }
+                else
+                {
+                    isRotateL = !isRotateL;
+                }
+                Debug.Log($"L:{isRotateL} | R:{isRotateR}");
             }
-            else
+            if (mouse_up_position > mouse_down_pos)
             {
-                isRotateR = !isRotateR;
-            }
-            
-            Debug.Log("R" + isRotateL + " " + isRotateR);
+                ChankNow.WeRot = true;
+                transform.Rotate(Vector3.up, angle_rotate);
+                if (isRotateL == true & isRotateR == true)
+                {
+                    isRotateL = !isRotateL;
+                }
+                else
+                {
+                    isRotateR = !isRotateR;
+                }
 
+                Debug.Log($"R:{isRotateR} | L:{isRotateL} ");
+
+            }
+            Debug.Log($"{mouse_up_position} U | L {mouse_down_pos} ");
         }
-        Debug.Log(mouse_up_position + "U  L" + mouse_down_pos);
     }
     /// <summary>
     /// move player on axis by mouse

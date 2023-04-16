@@ -98,7 +98,6 @@ public class Generate : MonoBehaviour
         {
             if (!Map[i].CompareTag("Map_rot"))
             {
-                
                 Vector3 vector = Vector3.zero;
                 vector.x = -5f + (5f * pos);
                 vector.z = -7f;
@@ -106,7 +105,7 @@ public class Generate : MonoBehaviour
                 Transform temp = Map[i].transform;
                 for (int c = 0; c < 5; c++)
                 {
-                    GameObject coin = Instantiate(PrefCoin, temp.transform.position, Quaternion.identity, temp);
+                    GameObject coin = Instantiate(PrefCoin, temp);
                     coin.transform.localPosition = transform.position + vector;
                     vector.z += 3.5f;
                     tempchank.Coins.Add(coin);
