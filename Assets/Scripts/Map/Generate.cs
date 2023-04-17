@@ -30,57 +30,48 @@ public class Generate : MonoBehaviour
     private int ChankCount = 20;
     private int MemCount = 40;
     public PlayerControl PlayerControl;
-    private bool isGenerate=false;
+    private bool isGenerate = false;
     private WaitForSeconds wait = new WaitForSeconds(.2f);
     public GameObject PrefCoin;
     private bool firstGeneration = true;
     void Start()
     {
         PlayerControl.isRun = false;
-        StartCoroutine(GenerateRoad(ChankCount*2));
+        StartCoroutine(GenerateRoad(ChankCount * 2));
     }
     private void FixedUpdate()
     {
-           if(!isGenerate && PlayerControl.ChankNow != null)
-                if(Map.LastIndexOf(PlayerControl.ChankNow.gameObject) == Map.Count-ChankCount)
-                    StartCoroutine(GenerateRoad(ChankCount));
+        if (!isGenerate && PlayerControl.ChankNow != null)
+            if (Map.LastIndexOf(PlayerControl.ChankNow.gameObject) == Map.Count - ChankCount)
+                StartCoroutine(GenerateRoad(ChankCount));
     }
     IEnumerator GenerateRoad(int count)
     {
         isGenerate = true;
         int addition = Map.Count;
-        for (int i = addition; i < addition+count; i++)
+        for (int i = addition; i < addition + count; i++)
         {
             GameObject last = MapParent;
             if (Map.Count != 0) last = Map.Last();
             if (Map.Count > MemCount) {
                 if (!Map[i - MemCount].CompareTag("Map_rot"))
                 {
-                    GameObject Gemp = Map[i - MemCount];
-                    Map.Add(Gemp);
+                    Map.Add(Map[i - MemCount]);
                     TTransform temp = GetNextPosotion(last.transform.position, true);
                     if (temp.Chank != null)
                     {
                         Destroy(Map[i]);
-                        Map[i] = (Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform));
+                        ChankInstantiate(temp);
                     }
-                    else
-                    {
-                        Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
-                        Map.Last().GetComponent<ChankControl>().Regenerage();
-                    }
+                    else ChankMove(temp);
                 }
                 else
                 {
                     Destroy(Map[i - MemCount]);
-                    TTransform temp = GetNextPosotion(last.transform.position);
-                    Map.Add(Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform));
+                    ChankInstantiate(GetNextPosotion(last.transform.position));
                 }
             }
-            else{
-                TTransform temp = GetNextPosotion(last.transform.position);
-                Map.Add(Instantiate(temp.Chank,temp.position,temp.rotation,MapParent.transform));
-            }
+            else ChankInstantiate(GetNextPosotion(last.transform.position));
             yield return wait;
         }
         StartCoroutine(GenerateCoins(addition, count));
@@ -90,6 +81,12 @@ public class Generate : MonoBehaviour
             PlayerControl.isRun = true;
             firstGeneration = false;
         }
+    }
+    private void ChankInstantiate(TTransform temp) => Map.Add(Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform));
+    private void ChankMove(TTransform temp)
+    {
+        Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
+        Map.Last().GetComponent<ChankControl>().Regenerage();
     }
     private IEnumerator GenerateCoins(int Start, int End)
     {
