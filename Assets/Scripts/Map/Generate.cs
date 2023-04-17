@@ -31,7 +31,7 @@ public class Generate : MonoBehaviour
     private int MemCount = 40;
     public PlayerControl PlayerControl;
     private bool isGenerate = false;
-    private WaitForSeconds wait = new WaitForSeconds(.2f);
+    private WaitForSeconds wait = new WaitForSeconds(.1f);
     public GameObject PrefCoin;
     private bool firstGeneration = true;
     void Start()
@@ -57,21 +57,21 @@ public class Generate : MonoBehaviour
                 if (!Map[i - MemCount].CompareTag("Map_rot"))
                 {
                     Map.Add(Map[i - MemCount]);
-                    TTransform temp = GetNextPosotion(last.transform.position, true);
+                    TTransform temp = GetNextPosotion(last.transform.position,true);
                     if (temp.Chank != null)
                     {
                         Destroy(Map[i]);
-                        ChankInstantiate(temp);
+                        ChankReplace(i,temp);
                     }
                     else ChankMove(temp);
                 }
                 else
                 {
                     Destroy(Map[i - MemCount]);
-                    ChankInstantiate(GetNextPosotion(last.transform.position));
+                    AddChank(GetNextPosotion(last.transform.position));
                 }
             }
-            else ChankInstantiate(GetNextPosotion(last.transform.position));
+            else AddChank(GetNextPosotion(last.transform.position));
             yield return wait;
         }
         StartCoroutine(GenerateCoins(addition, count));
@@ -82,7 +82,12 @@ public class Generate : MonoBehaviour
             firstGeneration = false;
         }
     }
-    private void ChankInstantiate(TTransform temp) => Map.Add(Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform));
+    private void AddChank(TTransform temp)
+        => Map.Add(ChankInstantiate(temp));
+    private GameObject ChankInstantiate(TTransform temp)
+        => Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform);
+    private void ChankReplace(int i,TTransform temp)
+        => Map[i] = ChankInstantiate(temp);
     private void ChankMove(TTransform temp)
     {
         Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
@@ -95,6 +100,7 @@ public class Generate : MonoBehaviour
         int ccount = 0;
         for (int i = Start; i < End; i++)
         {
+            if (Map[i] == null) continue;
             if (!Map[i].CompareTag("Map_rot"))
             {
                 if (ccount == 15)
