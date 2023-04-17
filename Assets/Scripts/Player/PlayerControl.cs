@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.UIElements;
+
 
 public class PlayerControl : MonoBehaviour
 {
@@ -16,12 +18,13 @@ public class PlayerControl : MonoBehaviour
     public float Speed;
     public float JumpForce;
 
-    
+
     public bool CanJump = true;
     public bool isJump = false;
     public bool isRun = false;
     public bool isLive = true;
     public bool isGround = true;
+    public bool godMod = true;
 
     private bool isRotateR = false;
     private bool isRotateL = false;
@@ -29,6 +32,7 @@ public class PlayerControl : MonoBehaviour
     private float? mouse_up_position = null;
     private float? mouse_down_pos = null;
     private int angle_rotate = 90;
+    private Vector3 data;
 
     private Animator Animator;
     private Rigidbody Rigidbody;
@@ -40,35 +44,89 @@ public class PlayerControl : MonoBehaviour
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+            Destroy(other.gameObject);
+    }
     /// <summary>
     /// update is makes something actions every frame
     /// </summary>
     private void Update()
     {
-        if (Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out RaycastHit hitC, 3f))
-            ChankNow = hitC.collider.GetComponent<ChankControl>();
         KeyManager();
-        if (Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out RaycastHit hit, 10f))
+        SetPlayerParameters();
+        run();
+        SideMove();
+        RotateOn();
+        Autorunning();
+    }
+
+
+    private void Autorunning()
+    {
+
+
+        if (godMod is true)
+        {
+            if (ChankNow.WeRot == false)
+            {
+                if (ChankNow.type == ChankControl.Ttype.Pivot)
+                {
+                    if (ChankNow.transform.rotation.y < 0)
+                    {
+                        ChankNow.WeRot = true;
+                        transform.Rotate(Vector3.up, angle_rotate * -1);
+                        if (isRotateL == true & isRotateR == true)
+                        {
+                            isRotateR = !isRotateR;
+                        }
+                        else
+                        {
+                            isRotateL = !isRotateL;
+                        }
+                        Debug.Log($"L:{isRotateL} | R:{isRotateR}");
+                    }
+                    else
+                    {
+                        ChankNow.WeRot = true;
+                        transform.Rotate(Vector3.up, angle_rotate);
+                        if (isRotateL == true & isRotateR == true)
+                        {
+                            isRotateR = !isRotateR;
+                        }
+                        else
+                        {
+                            isRotateL = !isRotateL;
+                        }
+                        Debug.Log($"L:{isRotateL} | R:{isRotateR}");
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    private void SetPlayerParameters()
+    {
+        if (RaycastConfigure(3f, out RaycastHit ht))
+            ChankNow = ht.collider.GetComponent<ChankControl>();
+
+        if (RaycastConfigure(3f, out RaycastHit _))
         {
             isGround = true;
             isJump = false;
         }
         else isGround = false;
-        if (isRun && isGround)
-        {
-            Rigidbody.velocity = transform.forward * Speed;
-        }
-        if (last_mouse_pos != null)
-        {
-            if (ChankNow.type == ChankControl.Ttype.Floor)
-            {
-                moveXXX();
-            }
-        }
+    }
+    private void RotateOn()
+    {
+
         if (ChankNow.type == ChankControl.Ttype.Pivot)
         {
             if (Input.GetMouseButtonDown(0))
-            {            
+            {
                 mouse_down_pos = Input.mousePosition.x;
             }
             else if (Input.GetMouseButtonUp(0))
@@ -80,10 +138,28 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+    private void SideMove()
+    {
+        if (last_mouse_pos != null)
+        {
+            if (ChankNow.type == ChankControl.Ttype.Floor)
+            {
+                moveXXX();
+            }
+        }
+    }
+    private bool RaycastConfigure(float duration, out RaycastHit hit) => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
+    private void run()
+    {
+        if (isRun && isGround)
+        {
+            Rigidbody.velocity = transform.forward * Speed;
+        }
+    }
     /// <summary>
     /// roatate player
     /// </summary>
-    void rotate()
+    private void rotate()
     {
         if (ChankNow.WeRot == false)
         {
@@ -123,50 +199,68 @@ public class PlayerControl : MonoBehaviour
     /// <summary>
     /// move player on axis by mouse
     /// </summary>
-    void moveXXX()
+    private void moveXXX()
     {
         float difference;
         Vector3 now_vector;
         difference = (Input.mousePosition.x - last_mouse_pos.Value);
-      
-       if (isRotateL== true & isRotateR == false)
+//      var mp = Camera.ScreenToWorldPoint(data); // new way
+        Vector3 test = transform.position;
+        if (isRotateL == true & isRotateR == false)
         {
-         
-          now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference / 188), -20, 20));
+
+            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference / 30), -20, 20));
 
         }
-        else if(isRotateL == false &  isRotateR == true)
+        else if (isRotateL == false & isRotateR == true)
         {
-                now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference / 188), -20, 20) * -1 );
-                
+            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference/30 ), -20, 20) * -1);
+
         }
-        else if (isRotateR == true & isRotateL == true)
+        else  
         {
-            now_vector = new Vector3(transform.position.x + Mathf.Clamp((difference / 188), -20, 20), transform.position.y, transform.position.z);
+            now_vector = new Vector3(transform.position.x + Mathf.Clamp((difference / 150), -20, 20), transform.position.y, transform.position.z);
+           
         }
-        else 
-        {
-            now_vector = new Vector3(transform.position.x + Mathf.Clamp((difference / 188), -20, 20), transform.position.y, transform.position.z);
-        }
-                //TODO:Fix rare invers 
-       transform.position = now_vector;
-        last_mouse_pos = Input.mousePosition.x ;
-    
+
+
+        //test.z = (Mathf.Lerp(transform.localPosition.z, mp.x, Time.deltaTime * 1));
+        //transform.position = test;
+        //data = Input.mousePosition;
+        transform.position = now_vector;
+       
+        last_mouse_pos = Input.mousePosition.x;
+
     }
     /// <summary>
     /// check buttons events
     /// </summary>
-    void KeyManager()
+    private void KeyManager()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) Jump(); 
+        if (Input.GetKeyDown(KeyCode.Space)) Jump();
         if (Input.GetMouseButtonDown(0))
-        {           
-            last_mouse_pos = Input.mousePosition.x;         
+        {
+            data = Input.mousePosition;
+            last_mouse_pos = Input.mousePosition.x;
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            
             last_mouse_pos = null;
         }
+    }
+    /// <summary>
+    /// jump func make body up
+    /// </summary>
+    private void Jump()
+    {
+        if (!CanJump) return;
+        if (isJump) return;
+        isRun = false;
+        isJump = true;
+        isGround = false;
+        Animator.SetTrigger("Jump");
+        Rigidbody.AddForce(100 * JumpForce * Vector3.up, ForceMode.Impulse);
     }
     /// <summary>
     /// Update actions something like 50 times per second
@@ -185,19 +279,8 @@ public class PlayerControl : MonoBehaviour
             Time.deltaTime * 3f);
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
-    /// <summary>
-    /// jump func make body up
-    /// </summary>
-    private void Jump()
-    {
-        if (!CanJump) return;
-        if (isJump) return;
-        isRun = false;
-        isJump = true;
-        isGround = false;
-        Animator.SetTrigger("Jump");
-        Rigidbody.AddForce(100 * JumpForce * Vector3.up, ForceMode.Impulse);
-    }
+  
+
 
 }
 
