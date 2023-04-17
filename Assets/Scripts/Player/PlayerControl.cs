@@ -24,6 +24,7 @@ public class PlayerControl : MonoBehaviour
     public bool isRun = false;
     public bool isLive = true;
     public bool isGround = true;
+    [Tooltip("goodmod")]
     public bool godMod = true;
 
     private bool isRotateR = false;
@@ -73,35 +74,40 @@ public class PlayerControl : MonoBehaviour
             {
                 if (ChankNow.type == ChankControl.Ttype.Pivot)
                 {
-                    if (ChankNow.transform.rotation.y < 0)
+                    var startx = Mathf.Abs((transform.position.x - ChankNow.transform.position.x));
+                    var startz = Mathf.Abs((transform.position.z - ChankNow.transform.position.z));
+                    if (startx >= 10 || startz >= 10)
                     {
-                        ChankNow.WeRot = true;
-                        transform.Rotate(Vector3.up, angle_rotate * -1);
-                        if (isRotateL == true & isRotateR == true)
+                        if (ChankNow.transform.rotation.y <= 0 & ChankNow.transform.rotation.y > -91)
                         {
-                            isRotateR = !isRotateR;
+                            ChankNow.WeRot = true;
+                            transform.Rotate(Vector3.up, angle_rotate);
+                            if (isRotateL == true & isRotateR == true)
+                            {
+                                isRotateR = !isRotateR;
+                            }
+                            else
+                            {
+                                isRotateL = !isRotateL;
+                            }
+                            Debug.Log($"L:{isRotateL} | R:{isRotateR}");
                         }
                         else
                         {
-                            isRotateL = !isRotateL;
+                            ChankNow.WeRot = true;
+                            transform.Rotate(Vector3.up, angle_rotate * -1);
+                            if (isRotateL == true & isRotateR == true)
+                            {
+                                isRotateR = !isRotateR;
+                            }
+                            else
+                            {
+                                isRotateL = !isRotateL;
+                            }
+                            Debug.Log($"L:{isRotateL} | R:{isRotateR}");
                         }
-                        Debug.Log($"L:{isRotateL} | R:{isRotateR}");
-                    }
-                    else
-                    {
-                        ChankNow.WeRot = true;
-                        transform.Rotate(Vector3.up, angle_rotate);
-                        if (isRotateL == true & isRotateR == true)
-                        {
-                            isRotateR = !isRotateR;
-                        }
-                        else
-                        {
-                            isRotateL = !isRotateL;
-                        }
-                        Debug.Log($"L:{isRotateL} | R:{isRotateR}");
-                    }
 
+                    }
                 }
             }
 
