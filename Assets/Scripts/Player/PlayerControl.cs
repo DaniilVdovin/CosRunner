@@ -78,9 +78,9 @@ public class PlayerControl : MonoBehaviour
             {
                 if (ChankNow.type == ChankControl.Ttype.Pivot)
                 {
-                    var startx = Mathf.Abs((transform.position.x - ChankNow.transform.position.x));
-                    var startz = Mathf.Abs((transform.position.z - ChankNow.transform.position.z));
-                    if (startx >= 10 || startz >= 10)
+                    
+                    var dis = Vector3.Distance(transform.position, ChankNow.transform.position);
+                    if (Vector3.Distance(transform.position, ChankNow.transform.position) <= 2)
                     {
                         if (ChankNow.transform.rotation.y <= 0 & ChankNow.transform.rotation.y > -91)
                         {
