@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour
     public float Speed;
     public float JumpForce;
 
+    public int Coins = 0;
 
     public bool CanJump = true;
     public bool isJump = false;
@@ -47,7 +48,10 @@ public class PlayerControl : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Coin"))
+        {
+            Coins++;
             Destroy(other.gameObject);
+        }
     }
     /// <summary>
     /// update is makes something actions every frame
