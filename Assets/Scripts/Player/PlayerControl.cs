@@ -9,17 +9,24 @@ using UnityEngine.UIElements;
 
 public class PlayerControl : MonoBehaviour
 {
+    [Header("Controls")]
     public Camera Camera;
     public GameObject Map;
     public Transform CameraTarget;
 
     public Vector3 CameraOffset;
 
+    [Range(10,100,order = 5)]
     public float Speed;
+
+    [Range(1, 100)]
     public float JumpForce;
-
+    [Space(10)]
+    [Header("Points")]
     public int Coins = 0;
-
+    public float Score = 0;
+    [Space(10)]
+    [Header("Statys")]
     public bool CanJump = true;
     public bool isJump = false;
     public bool isRun = false;
@@ -279,6 +286,10 @@ public class PlayerControl : MonoBehaviour
     {
         Animator.SetBool("Run", isRun);
         Animator.SetBool("Die", !isLive);
+        if (isRun && GetAverageVelosity()>1)
+        {
+            Score += 0.01f;
+        }
     }
     /// <summary>
     /// last update func called when other update is make their deal
@@ -289,8 +300,8 @@ public class PlayerControl : MonoBehaviour
             Time.deltaTime * 3f);
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
-  
 
+    private float GetAverageVelosity() => Mathf.Abs(Rigidbody.velocity.x) + Mathf.Abs(Rigidbody.velocity.z);
 
 }
 

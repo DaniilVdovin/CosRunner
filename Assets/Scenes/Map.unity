@@ -210,6 +210,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6165235588272232206, guid: 6f35f746e69ac4dfc96fd61724b0d264,
+        type: 3}
+      propertyPath: PlayerControl
+      value: 
+      objectReference: {fileID: 733347868}
     - target: {fileID: 6165235588272232207, guid: 6f35f746e69ac4dfc96fd61724b0d264,
         type: 3}
       propertyPath: m_RootOrder
@@ -527,6 +532,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 675668252829229141, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 675668252829229141, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
@@ -543,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: godMod
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
@@ -628,6 +638,11 @@ PrefabInstance:
     - target: {fileID: 5650557049131370858, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571129861697559301, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8982493153662964050, guid: 9fe270e9efd81412e9588372ad2ea8de,
@@ -1303,6 +1318,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 618450877678469358, guid: 8c522c6cb76de4c2895e07519289085d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 618450877678469360, guid: 8c522c6cb76de4c2895e07519289085d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 618450877678469361, guid: 8c522c6cb76de4c2895e07519289085d,
         type: 3}
       propertyPath: m_RootOrder
