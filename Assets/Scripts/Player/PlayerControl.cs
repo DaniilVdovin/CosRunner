@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 public class PlayerControl : MonoBehaviour
@@ -16,7 +14,7 @@ public class PlayerControl : MonoBehaviour
 
     public Vector3 CameraOffset;
 
-    [Range(10,100,order = 5)]
+    [Range(10,100)]
     public float Speed;
 
     [Range(1, 100)]
