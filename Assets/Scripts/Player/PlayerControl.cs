@@ -159,7 +159,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (ChankNow.type == ChankControl.Ttype.Floor)
             {
-                moveXXX();
+                moveXXX(now_vector);
             }
         }
     }
@@ -217,33 +217,44 @@ public class PlayerControl : MonoBehaviour
     private void moveXXX()
     {
         float difference;
-        Vector3 now_vector;
         difference = (Input.mousePosition.x - last_mouse_pos.Value);
-//      var mp = Camera.ScreenToWorldPoint(data); // new way
-        Vector3 test = transform.position;
-        if (isRotateL == true & isRotateR == false)
-        {
+        //      var mp = Camera.ScreenToWorldPoint(data); // new way
+        //TODO: рефакти расчёт отдельно
+        var target = Mathf.Clamp((difference / 30), -2, 2);
 
-            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference / 30), -20, 20));
+        var new_difZ= Mathf.Abs(target - transform.position.z)
+        var new_difX = Mathf.Abs(target - transform.position.x)
+
+        Vector3 now_vectorZ = new Vector3(transform.position.x, transform.position.y, transform.position.z + target);
+        Vector3 now_vectorX = new Vector3(transform.position.x + target, transform.position.y, transform.position.z);
+
+
+        if (new_difZ > 10)
+        {
+            if (isRotateL == true & isRotateR == false)
+            {
+                transform.position = now_vectorZ;
+
+
+            }
+            if (isRotateL == false & isRotateR == true)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + -target);
+
+            }
 
         }
-        else if (isRotateL == false & isRotateR == true)
+        if (new_difX > 10)
         {
-            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference/30 ), -20, 20) * -1);
+             if(isRotateL== isRotateR)
+            {
+
+                transform.position = now_vectorX;
+
+            }
+            
 
         }
-        else  
-        {
-            now_vector = new Vector3(transform.position.x + Mathf.Clamp((difference / 150), -20, 20), transform.position.y, transform.position.z);
-           
-        }
-
-
-        //test.z = (Mathf.Lerp(transform.localPosition.z, mp.x, Time.deltaTime * 1));
-        //transform.position = test;
-        //data = Input.mousePosition;
-        transform.position = now_vector;
-       
         last_mouse_pos = Input.mousePosition.x;
 
     }
