@@ -33,6 +33,7 @@ public class Generate : MonoBehaviour
     private bool isGenerate = false;
     private WaitForSeconds wait = new WaitForSeconds(.1f);
     public GameObject PrefCoin;
+    private int CoinnPosOlds = 1;
     private bool firstGeneration = true;
     void Start()
     {
@@ -96,7 +97,7 @@ public class Generate : MonoBehaviour
     private IEnumerator GenerateCoins(int Start, int End)
     {
         End += Start;
-        int pos = 1;
+        int pos = CoinnPosOlds;
         int ccount = 0;
         for (int i = Start; i < End; i++)
         {
@@ -112,11 +113,7 @@ public class Generate : MonoBehaviour
                     for (int l = 0; l < dif; l++)
                     {
                         CreateCoin(Map[i], new Vector3((pos_old > pos
-                            ? 2.5f + ((pos_old > pos
-                            ? -2.5f:2.5f) * l-1) :
-                             -2.5f + ((pos_old > pos
-                            ? -2.5f:2.5f) * l-1)
-                             ), 0f, -10f + (1.5f *l)));
+                            ? -1.1f : 1.1f), 0f, -10f + (1.5f *l)));
                     }
                     
                 }
@@ -137,6 +134,7 @@ public class Generate : MonoBehaviour
                 ccount = 0;
             }
         }
+        CoinnPosOlds = pos;
     }
     void CreateCoin(GameObject Parent, Vector3 Position)
     {
