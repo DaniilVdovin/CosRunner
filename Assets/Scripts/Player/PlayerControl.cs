@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 
 public class PlayerControl : MonoBehaviour
@@ -17,7 +14,7 @@ public class PlayerControl : MonoBehaviour
 
     public Vector3 CameraOffset;
 
-    [Range(10,100,order = 5)]
+    [Range(10,100)]
     public float Speed;
 
     [Range(1, 100)]
@@ -222,41 +219,22 @@ public class PlayerControl : MonoBehaviour
         float difference;
         Vector3 now_vector;
         difference = (Input.mousePosition.x - last_mouse_pos.Value);
-        float target = Mathf.Clamp((difference / 30), -20, 20);
-
-
-        //      var mp = Camera.ScreenToWorldPoint(data); // new way
-
-        /// *** тут должен быть ответ ***
-
-
-        //difference = (Input.mousePosition.x - last_mouse_pos.Value) / Screen.width / 30;
-        //var maximus = 20 * 2;
-        //var x_pos = 0.0f;
-        //target = target + maximus * difference;
-        //target = Mathf.Clamp(target, -2, 2);
-        //float newPositionTarget = Mathf.Lerp(x_pos, target, 10);
-        //float newPositionDifference = newPositionTarget - x_pos;
-        //newPositionDifference = Mathf.Clamp(newPositionDifference, -10, 10);
-
-
-
-
-
+//      var mp = Camera.ScreenToWorldPoint(data); // new way
+        Vector3 test = transform.position;
         if (isRotateL == true & isRotateR == false)
         {
 
-            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + target);
+            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference / 30), -20, 20));
 
         }
         else if (isRotateL == false & isRotateR == true)
         {
-            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + target * -1);
+            now_vector = new Vector3(transform.position.x, transform.position.y, transform.position.z + Mathf.Clamp((difference/30 ), -20, 20) * -1);
 
         }
         else  
         {
-            now_vector = new Vector3(transform.position.x + target, transform.position.y, transform.position.z);
+            now_vector = new Vector3(transform.position.x + Mathf.Clamp((difference / 150), -20, 20), transform.position.y, transform.position.z);
            
         }
 
