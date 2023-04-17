@@ -159,7 +159,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (ChankNow.type == ChankControl.Ttype.Floor)
             {
-                moveXXX(now_vector);
+                moveXXX();
             }
         }
     }
@@ -216,20 +216,21 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void moveXXX()
     {
-        float difference;
-        difference = (Input.mousePosition.x - last_mouse_pos.Value);
+         
+        float difference = (Input.mousePosition.x - last_mouse_pos.Value);
         //      var mp = Camera.ScreenToWorldPoint(data); // new way
         //TODO: рефакти расчёт отдельно
-        var target = Mathf.Clamp((difference / 30), -2, 2);
+        var target = (difference / 30);
+        target = Mathf.Clamp((difference / 30), -2, 2);
 
-        var new_difZ= Mathf.Abs(target - transform.position.z)
-        var new_difX = Mathf.Abs(target - transform.position.x)
+        var new_difZ = transform.position.z-  Mathf.Abs((difference / 30) - transform.position.z);
+        var new_difX = transform.position.x - Mathf.Abs((difference / 30) - transform.position.x);
 
         Vector3 now_vectorZ = new Vector3(transform.position.x, transform.position.y, transform.position.z + target);
         Vector3 now_vectorX = new Vector3(transform.position.x + target, transform.position.y, transform.position.z);
 
 
-        if (new_difZ > 10)
+        if (new_difZ <= 60)
         {
             if (isRotateL == true & isRotateR == false)
             {
@@ -244,7 +245,7 @@ public class PlayerControl : MonoBehaviour
             }
 
         }
-        if (new_difX > 10)
+        if (new_difX <= 60)
         {
              if(isRotateL== isRotateR)
             {
