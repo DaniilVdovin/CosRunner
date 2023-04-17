@@ -235,6 +235,7 @@ MonoBehaviour:
   - {fileID: 7874151065446119040}
   - {fileID: 3544357369088442223}
   Stoping: []
+  Coins: []
 --- !u!65 &484695751221311985
 BoxCollider:
   m_ObjectHideFlags: 0
