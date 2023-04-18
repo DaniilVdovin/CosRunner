@@ -72,9 +72,9 @@ public class PlayerControl : MonoBehaviour
     {
         KeyManager();
         SetPlayerParameters();
-        run();
+        Run();
         SideMove();
-        RotateOn();
+        OnRotate();
         Autorunning();
         Clamp();
     }
@@ -82,64 +82,18 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 vector = transform.position;
         Vector3 chankPoint = ChankNow.transform.position;
-        if ((!isRotateL && !isRotateR) || (isRotateL && isRotateR))
+        if (isRotateL == isRotateR)
              vector.x = chankPoint.x + ClampValue(vector.x-chankPoint.x);
         else vector.z = chankPoint.z + ClampValue(vector.z-chankPoint.z);
         transform.position = vector;
     }
-    private float ClampValue(float value)
-        => Mathf.Clamp(value, -ClampOffset, ClampOffset);
-
     private void Autorunning()
     {
-
-
-        if (godMod is true)
-        {
-            if (ChankNow.WeRot == false)
-            {
-                if (ChankNow.type == ChankControl.Ttype.Pivot)
-                {
-                    
-                    var dis = Vector3.Distance(transform.position, ChankNow.transform.position);
-                    if (Vector3.Distance(transform.position, ChankNow.transform.position) <= 2)
-                    {
-                        if (ChankNow.transform.rotation.y <= 0 & ChankNow.transform.rotation.y > -91)
-                        {
-                            ChankNow.WeRot = true;
-                            transform.Rotate(Vector3.up, angle_rotate);
-                            if (isRotateL == true & isRotateR == true)
-                            {
-                                isRotateR = !isRotateR;
-                            }
-                            else
-                            {
-                                isRotateL = !isRotateL;
-                            }
-                            Debug.Log($"L:{isRotateL} | R:{isRotateR}");
-                        }
-                        else
-                        {
-                            ChankNow.WeRot = true;
-                            transform.Rotate(Vector3.up, angle_rotate * -1);
-                            if (isRotateL == true & isRotateR == true)
-                            {
-                                isRotateR = !isRotateR;
-                            }
-                            else
-                            {
-                                isRotateL = !isRotateL;
-                            }
-                            Debug.Log($"L:{isRotateL} | R:{isRotateR}");
-                        }
-
-                    }
-                }
-            }
-
-        }
+        Transform chankPoint = ChankNow.transform;
+        if (godMod && !ChankNow.WeRot && ChankNow.type == ChankControl.Ttype.Pivot
+            && Vector3.Distance(transform.position, chankPoint.position) <= 2)
+            Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
     }
-
     private void SetPlayerParameters()
     {
         if (RaycastConfigure(3f, out RaycastHit ht))
@@ -152,22 +106,14 @@ public class PlayerControl : MonoBehaviour
         }
         else isGround = false;
     }
-    private void RotateOn()
+    private void OnRotate()
     {
-
-        if (ChankNow.type == ChankControl.Ttype.Pivot)
+        if (ChankNow.type == ChankControl.Ttype.Pivot && !ChankNow.WeRot)
         {
             if (Input.GetMouseButtonDown(0))
-            {
                 mouse_down_pos = Input.mousePosition.x;
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                mouse_up_position = Input.mousePosition.x;
-                rotate();
-                mouse_down_pos = 0;
-                mouse_up_position = 0;
-            }
+            if (Input.GetMouseButtonUp(0))
+                Rotate(Input.mousePosition.x > mouse_down_pos);
         }
     }
     private void SideMove()
@@ -176,13 +122,47 @@ public class PlayerControl : MonoBehaviour
         {
             if (ChankNow.type == ChankControl.Ttype.Floor)
             {
-                moveXXX();
+                float difference = (Input.mousePosition.x - last_mouse_pos.Value);
+                //      var mp = Camera.ScreenToWorldPoint(data); // new way
+                //TODO: 
+                var target = (difference / 30);
+                target = Mathf.Clamp((difference / 30), -2, 2);
+
+                var new_difZ = transform.position.z - Mathf.Abs((difference / 30) - transform.position.z);
+                var new_difX = transform.position.x - Mathf.Abs((difference / 30) - transform.position.x);
+
+                Vector3 now_vectorZ = new Vector3(transform.position.x, transform.position.y, transform.position.z + target);
+                Vector3 now_vectorX = new Vector3(transform.position.x + target, transform.position.y, transform.position.z);
+
+
+                if (new_difZ <= 60)
+                {
+                    if (isRotateL == true & isRotateR == false)
+                    {
+                        transform.position = now_vectorZ;
+                    }
+                    if (isRotateL == false & isRotateR == true)
+                    {
+                        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + -target);
+                    }
+
+                }
+                if (new_difX <= 60)
+                {
+                    if (isRotateL == isRotateR)
+                    {
+
+                        transform.position = now_vectorX;
+
+                    }
+
+
+                }
+                last_mouse_pos = Input.mousePosition.x;
             }
         }
     }
-    private bool RaycastConfigure(float duration, out RaycastHit hit)
-        => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
-    private void run()
+    private void Run()
     {
         if (isRun && isGround)
         {
@@ -192,87 +172,16 @@ public class PlayerControl : MonoBehaviour
     /// <summary>
     /// roatate player
     /// </summary>
-    private void rotate()
+    private void Rotate(bool left)
     {
-        if (ChankNow.WeRot == false)
-        {
-            if (mouse_up_position < mouse_down_pos)
-            {
-                ChankNow.WeRot = true;
-                transform.Rotate(Vector3.up, angle_rotate * -1);
-                if (isRotateL == true & isRotateR == true)
-                {
-                    isRotateR = !isRotateR;
-                }
-                else
-                {
-                    isRotateL = !isRotateL;
-                }
-                Debug.Log($"L:{isRotateL} | R:{isRotateR}");
-            }
-            if (mouse_up_position > mouse_down_pos)
-            {
-                ChankNow.WeRot = true;
-                transform.Rotate(Vector3.up, angle_rotate);
-                if (isRotateL == true & isRotateR == true)
-                {
-                    isRotateL = !isRotateL;
-                }
-                else
-                {
-                    isRotateR = !isRotateR;
-                }
-
-                Debug.Log($"R:{isRotateR} | L:{isRotateL} ");
-
-            }
-            Debug.Log($"{mouse_up_position} U | L {mouse_down_pos} ");
-        }
-    }
-    /// <summary>
-    /// move player on axis by mouse
-    /// </summary>
-    private void moveXXX()
-    {
-         
-        float difference = (Input.mousePosition.x - last_mouse_pos.Value);
-        //      var mp = Camera.ScreenToWorldPoint(data); // new way
-        //TODO: 
-        var target = (difference / 30);
-        target = Mathf.Clamp((difference / 30), -2, 2);
-
-        var new_difZ = transform.position.z-  Mathf.Abs((difference / 30) - transform.position.z);
-        var new_difX = transform.position.x - Mathf.Abs((difference / 30) - transform.position.x);
-
-        Vector3 now_vectorZ = new Vector3(transform.position.x, transform.position.y, transform.position.z + target);
-        Vector3 now_vectorX = new Vector3(transform.position.x + target, transform.position.y, transform.position.z);
-
-
-        if (new_difZ <= 60)
-        {
-            if (isRotateL == true & isRotateR == false)
-            {
-                transform.position = now_vectorZ;
-            }
-            if (isRotateL == false & isRotateR == true)
-            {
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + -target);
-            }
-
-        }
-        if (new_difX <= 60)
-        {
-             if(isRotateL== isRotateR)
-            {
-
-                transform.position = now_vectorX;
-
-            }
-            
-
-        }
-        last_mouse_pos = Input.mousePosition.x;
-
+        transform.Rotate(Vector3.up, angle_rotate * (!left?-1:1));
+        if (isRotateL == true & isRotateR == true)
+             if(!left) isRotateR = !isRotateR;
+             else      isRotateL = !isRotateL;
+        else
+             if (left) isRotateR = !isRotateR;
+             else      isRotateL = !isRotateL;
+        ChankNow.WeRot = true;
     }
     /// <summary>
     /// check buttons events
@@ -328,6 +237,9 @@ public class PlayerControl : MonoBehaviour
 
     private float GetAverageVelosity()
         => Mathf.Abs(Rigidbody.velocity.x) + Mathf.Abs(Rigidbody.velocity.z);
-
+    private bool RaycastConfigure(float duration, out RaycastHit hit)
+        => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
+    private float ClampValue(float value)
+        => Mathf.Clamp(value, -ClampOffset, ClampOffset);
 }
 
