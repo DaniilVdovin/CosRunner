@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
 
     public Vector3 CameraOffset;
 
-    [Range(10,100)]
+    [Range(10, 100)]
     public float Speed;
 
     [Range(1, 100)]
@@ -33,8 +33,14 @@ public class PlayerControl : MonoBehaviour
     [Tooltip("goodmod")]
     public bool godMod = true;
 
-    private bool isRotateR = false;
-    private bool isRotateL = false;
+    [Space(10)]
+    [Header("Inversing")]
+    public bool isRotateR = false;
+    public bool isRotateL = false;
+    [Space(10)]
+    [Header("Clamp")]
+    public float ClampOffset = 7f;
+
     private float? last_mouse_pos = null;
     private float? mouse_up_position = null;
     private float? mouse_down_pos = null;
@@ -70,8 +76,19 @@ public class PlayerControl : MonoBehaviour
         SideMove();
         RotateOn();
         Autorunning();
+        Clamp();
     }
-
+    private void Clamp()
+    {
+        Vector3 vector = transform.position;
+        Vector3 chankPoint = ChankNow.transform.position;
+        if ((!isRotateL && !isRotateR) || (isRotateL && isRotateR))
+             vector.x = chankPoint.x + ClampValue(vector.x-chankPoint.x);
+        else vector.z = chankPoint.z + ClampValue(vector.z-chankPoint.z);
+        transform.position = vector;
+    }
+    private float ClampValue(float value)
+        => Mathf.Clamp(value, -ClampOffset, ClampOffset);
 
     private void Autorunning()
     {
@@ -163,7 +180,8 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
-    private bool RaycastConfigure(float duration, out RaycastHit hit) => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
+    private bool RaycastConfigure(float duration, out RaycastHit hit)
+        => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
     private void run()
     {
         if (isRun && isGround)
@@ -219,7 +237,7 @@ public class PlayerControl : MonoBehaviour
          
         float difference = (Input.mousePosition.x - last_mouse_pos.Value);
         //      var mp = Camera.ScreenToWorldPoint(data); // new way
-        //TODO: рефакти расчёт отдельно
+        //TODO: 
         var target = (difference / 30);
         target = Mathf.Clamp((difference / 30), -2, 2);
 
@@ -235,13 +253,10 @@ public class PlayerControl : MonoBehaviour
             if (isRotateL == true & isRotateR == false)
             {
                 transform.position = now_vectorZ;
-
-
             }
             if (isRotateL == false & isRotateR == true)
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + -target);
-
             }
 
         }
@@ -311,7 +326,8 @@ public class PlayerControl : MonoBehaviour
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
 
-    private float GetAverageVelosity() => Mathf.Abs(Rigidbody.velocity.x) + Mathf.Abs(Rigidbody.velocity.z);
+    private float GetAverageVelosity()
+        => Mathf.Abs(Rigidbody.velocity.x) + Mathf.Abs(Rigidbody.velocity.z);
 
 }
 
