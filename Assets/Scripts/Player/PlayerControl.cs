@@ -88,6 +88,7 @@ public class PlayerControl : MonoBehaviour
                 && !ht.collider.CompareTag("Item"))
             {
                 Instantiate(Boom, transform.position + Vector3.up * 4,Quaternion.identity);
+                Rigidbody.velocity = Vector3.zero;
                 Debug.Log("Die");
                 isLive = false;
                 isRun = false;
