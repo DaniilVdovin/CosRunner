@@ -80,6 +80,14 @@ public class PlayerControl : MonoBehaviour
         Autorunning();
         Clamp();
     }
+    private void check_pivot()
+    {
+        if(ChankNow.type == ChankControl.Ttype.Pivot)
+        {
+            Transform chankPoint = ChankNow.transform;
+            Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
+        }
+    }
     private void Die()
     {
         if(isLive)
@@ -91,9 +99,23 @@ public class PlayerControl : MonoBehaviour
                 Debug.Log("Die");
                 isLive = false;
                 isRun = false;
+                check_pivot();
+                ressurect();
 
             }
         }
+    }
+    private void ressurect()
+    {
+        if (!isLive)
+        {
+            int now =  MapGenerator.Map.LastIndexOf(ChankNow.gameObject);
+            transform.position = MapGenerator.Map[now + 1].transform.position;
+
+            isRun = true;
+            isLive = true;
+        }
+        
     }
     //TODO: Function back life in next chank
     private void Clamp()
@@ -142,7 +164,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void SideMove()
     {
-        if (isRun && !(last_mouse_pos is null) && ChankNow.type == ChankControl.Ttype.Floor)
+        if (ChankNow != null && isRun && last_mouse_pos is not null && ChankNow.type == ChankControl.Ttype.Floor)
         {
             float difference = (Input.mousePosition.x - last_mouse_pos.Value) / 30;
             Vector3 new_vector = transform.position;
