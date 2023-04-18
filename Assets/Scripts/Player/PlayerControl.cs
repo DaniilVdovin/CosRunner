@@ -10,15 +10,9 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     [Header("Controls")]
-    public Camera Camera;
-    public GameObject Map;
-    public Transform CameraTarget;
-
     public Vector3 CameraOffset;
-
     [Range(10, 100)]
     public float Speed;
-
     [Range(1, 100)]
     public float JumpForce;
     [Space(10)]
@@ -43,6 +37,17 @@ public class PlayerControl : MonoBehaviour
     [Space(10)]
     [Header("Clamp")]
     public float ClampOffset = 7f;
+    [Space(10)]
+    [Header("Effects")]
+    public GameObject Boom;
+
+    [Space(10)]
+    [Header("System")]
+
+    public Camera Camera;
+    public GameObject Map;
+    public Transform CameraTarget;
+    public Generate MapGenerator;
 
 
 
@@ -64,7 +69,7 @@ public class PlayerControl : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Coin"))
+        if (other.CompareTag("Item"))
         {
             other.GetComponent<ItemControl>().Get(this);
         }
@@ -86,32 +91,38 @@ public class PlayerControl : MonoBehaviour
     {
         if(isLive)
         {
-            Debug.DrawRay(transform.position + Vector3.up * 2 + transform.forward, transform.forward, Color.red, 5);
             if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && ht.collider.CompareTag("Coin") != true)
             {
+                Instantiate(Boom, transform.position + Vector3.up * 4,Quaternion.identity);
                 Debug.Log("Die");
-                isLive = !isLive;
-                isRun = !isRun;
+                isLive = false;
+                isRun = false;
+
             }
         }
-        
-
     }
+    //TODO: Function back life in next chank
     private void Clamp()
     {
-        Vector3 vector = transform.position;
-        Vector3 chankPoint = ChankNow.transform.position;
-        if (isRotateL == isRotateR)
-             vector.x = chankPoint.x + ClampValue(vector.x-chankPoint.x);
-        else vector.z = chankPoint.z + ClampValue(vector.z-chankPoint.z);
-        transform.position = vector;
+        if (ChankNow != null)
+        {
+            Vector3 vector = transform.position;
+            Vector3 chankPoint = ChankNow.transform.position;
+            if (isRotateL == isRotateR)
+                vector.x = chankPoint.x + ClampValue(vector.x - chankPoint.x);
+            else vector.z = chankPoint.z + ClampValue(vector.z - chankPoint.z);
+            transform.position = vector;
+        }
     }
     private void Autorunning()
     {
-        Transform chankPoint = ChankNow.transform;
-        if (godMod && !ChankNow.WeRot && ChankNow.type == ChankControl.Ttype.Pivot
-            && Vector3.Distance(transform.position, chankPoint.position) <= 2)
-            Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
+        if (ChankNow != null && ChankNow.type == ChankControl.Ttype.Pivot)
+        {
+            Transform chankPoint = ChankNow.transform;
+            if (godMod && !ChankNow.WeRot
+                && Vector3.Distance(transform.position, chankPoint.position) <= 2)
+                Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
+        }
     }
     private void SetPlayerParameters()
     {
@@ -127,7 +138,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void OnRotate()
     {
-        if (ChankNow.type == ChankControl.Ttype.Pivot && !ChankNow.WeRot)
+        if (ChankNow != null && ChankNow.type == ChankControl.Ttype.Pivot && !ChankNow.WeRot)
         {
             if (Input.GetMouseButtonDown(0))
                 mouse_down_pos = Input.mousePosition.x;

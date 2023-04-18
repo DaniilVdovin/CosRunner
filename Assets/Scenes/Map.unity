@@ -530,6 +530,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 519728140512025937, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 519728140512025937, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 519728140512025937, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 675668252829229141, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: m_UseGravity
@@ -545,6 +560,12 @@ PrefabInstance:
       propertyPath: Map
       value: 
       objectReference: {fileID: 790793295}
+    - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: Boom
+      value: 
+      objectReference: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9,
+        type: 3}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: Speed
@@ -565,6 +586,11 @@ PrefabInstance:
       propertyPath: isGodMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: MapGenerator
+      value: 
+      objectReference: {fileID: 790793296}
     - target: {fileID: 4981296878071993296, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: m_Name

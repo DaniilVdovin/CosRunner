@@ -21,13 +21,12 @@ public class ItemControl : MonoBehaviour
     private IEnumerator GetAnination()
     {
         GameObject er_temp = Instantiate(model.Effect, transform.position+Vector3.up*2, Quaternion.identity);
-        for (int i = 0; i < max; i++)
+        for (float i = 1; i >= 0; i-=0.05f)
         {
-
+            this.gameObject.transform.localScale = new Vector3(i,i,i);
+            yield return new WaitForSeconds(.01f);
         }
-        this.gameObject.transform.localScale = Vector3.zero;
         yield return new WaitForSeconds(.2f);
         Destroy(this.gameObject);
-        Destroy(er_temp);
     }
 }
