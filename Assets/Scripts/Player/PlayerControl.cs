@@ -67,13 +67,6 @@ public class PlayerControl : MonoBehaviour
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Item"))
-        {
-            other.GetComponent<ItemControl>().Get(this);
-        }
-    }
     /// <summary>
     /// update is makes something actions every frame
     /// </summary>
@@ -91,7 +84,8 @@ public class PlayerControl : MonoBehaviour
     {
         if(isLive)
         {
-            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && ht.collider.CompareTag("Coin") != true)
+            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward)
+                && !ht.collider.CompareTag("Item"))
             {
                 Instantiate(Boom, transform.position + Vector3.up * 4,Quaternion.identity);
                 Debug.Log("Die");
@@ -148,24 +142,18 @@ public class PlayerControl : MonoBehaviour
     }
     private void SideMove()
     {
-        if (isRun)
+        if (isRun && !(last_mouse_pos is null) && ChankNow.type == ChankControl.Ttype.Floor)
         {
-            if (last_mouse_pos != null)
+            float difference = (Input.mousePosition.x - last_mouse_pos.Value) / 30;
+            Vector3 new_vector = transform.position;
+            if (isRotateL == isRotateR) new_vector.x += difference;
+            else
             {
-                if (ChankNow.type == ChankControl.Ttype.Floor)
-                {
-                    float difference = (Input.mousePosition.x - last_mouse_pos.Value)/30;
-                    Vector3 new_vector = transform.position;
-                    if (isRotateL == isRotateR) new_vector.x += difference;
-                    else
-                    {
-                        if (isRotateL & !isRotateR) new_vector.z += difference;
-                        else new_vector.z += -difference;
-                    }
-                    transform.position = new_vector;
-                    last_mouse_pos = Input.mousePosition.x;
-                }
+                if (isRotateL & !isRotateR) new_vector.z += difference;
+                else new_vector.z += -difference;
             }
+            transform.position = new_vector;
+            last_mouse_pos = Input.mousePosition.x;
         }
        
     }
@@ -243,17 +231,20 @@ public class PlayerControl : MonoBehaviour
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            other.GetComponent<ItemControl>().Get(this);
+        }
+    }
+
     private float GetAverageVelosity()
         => Mathf.Abs(Rigidbody.velocity.x) + Mathf.Abs(Rigidbody.velocity.z);
     private bool RaycastConfigure(float duration, out RaycastHit hit)
-    {
-       return Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
-    }
+        => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
     private bool RaycastConfigure(Vector3 start,float duration, out RaycastHit hit, Vector3 direction)
-    {
-       return Physics.Raycast(new Ray(start, direction), out hit, duration);
-    }
-
+        => Physics.Raycast(new Ray(start, direction), out hit, duration);
     private float ClampValue(float value)
         => Mathf.Clamp(value, -ClampOffset, ClampOffset);
 }

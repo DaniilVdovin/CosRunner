@@ -165,3 +165,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 11400000, guid: 03bf693d2ea954b148a3ed3be6c0dbbb, type: 2}
+  CanTake: 1

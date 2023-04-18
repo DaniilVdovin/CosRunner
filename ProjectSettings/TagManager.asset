@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Map_rot
   - Map_forw
+  - Item
   layers:
   - Default
   - TransparentFX
