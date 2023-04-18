@@ -61,8 +61,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            Coins++;
-            Destroy(other.gameObject);
+            other.GetComponent<ItemControl>().Get(this);
         }
     }
     /// <summary>

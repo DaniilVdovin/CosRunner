@@ -558,7 +558,7 @@ PrefabInstance:
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: godMod
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
@@ -648,7 +648,7 @@ PrefabInstance:
     - target: {fileID: 8571129861697559301, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8982493153662964050, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
