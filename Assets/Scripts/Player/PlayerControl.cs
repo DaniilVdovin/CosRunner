@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -30,6 +32,7 @@ public class PlayerControl : MonoBehaviour
     public bool isRun = false;
     public bool isLive = true;
     public bool isGround = true;
+
     [Tooltip("goodmod")]
     public bool godMod = true;
 
@@ -40,6 +43,8 @@ public class PlayerControl : MonoBehaviour
     [Space(10)]
     [Header("Clamp")]
     public float ClampOffset = 7f;
+
+
 
     private float? last_mouse_pos = null;
     private float? mouse_up_position = null;
@@ -77,6 +82,21 @@ public class PlayerControl : MonoBehaviour
         OnRotate();
         Autorunning();
         Clamp();
+    }
+    private void Die()
+    {
+        if(isLive)
+        {
+            Debug.DrawRay(transform.position + Vector3.up * 2 + transform.forward, transform.forward, Color.red, 5);
+            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && ht.collider.CompareTag("Coin") != true)
+            {
+                Debug.Log("Die");
+                isLive = !isLive;
+                isRun = !isRun;
+            }
+        }
+        
+
     }
     private void Clamp()
     {
@@ -118,49 +138,26 @@ public class PlayerControl : MonoBehaviour
     }
     private void SideMove()
     {
-        if (last_mouse_pos != null)
+        if (isRun)
         {
-            if (ChankNow.type == ChankControl.Ttype.Floor)
+            if (last_mouse_pos != null)
             {
-                float difference = (Input.mousePosition.x - last_mouse_pos.Value);
-                //      var mp = Camera.ScreenToWorldPoint(data); // new way
-                //TODO: 
-                var target = (difference / 30);
-                target = Mathf.Clamp((difference / 30), -2, 2);
-
-                var new_difZ = transform.position.z - Mathf.Abs((difference / 30) - transform.position.z);
-                var new_difX = transform.position.x - Mathf.Abs((difference / 30) - transform.position.x);
-
-                Vector3 now_vectorZ = new Vector3(transform.position.x, transform.position.y, transform.position.z + target);
-                Vector3 now_vectorX = new Vector3(transform.position.x + target, transform.position.y, transform.position.z);
-
-
-                if (new_difZ <= 60)
+                if (ChankNow.type == ChankControl.Ttype.Floor)
                 {
-                    if (isRotateL == true & isRotateR == false)
+                    float difference = (Input.mousePosition.x - last_mouse_pos.Value)/30;
+                    Vector3 new_vector = transform.position;
+                    if (isRotateL == isRotateR) new_vector.x += difference;
+                    else
                     {
-                        transform.position = now_vectorZ;
+                        if (isRotateL & !isRotateR) new_vector.z += difference;
+                        else new_vector.z += -difference;
                     }
-                    if (isRotateL == false & isRotateR == true)
-                    {
-                        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + -target);
-                    }
-
+                    transform.position = new_vector;
+                    last_mouse_pos = Input.mousePosition.x;
                 }
-                if (new_difX <= 60)
-                {
-                    if (isRotateL == isRotateR)
-                    {
-
-                        transform.position = now_vectorX;
-
-                    }
-
-
-                }
-                last_mouse_pos = Input.mousePosition.x;
             }
         }
+       
     }
     private void Run()
     {
@@ -230,6 +227,7 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
+        Die();
         Camera.transform.position = Vector3.Lerp(Camera.transform.position, transform.position + transform.TransformVector(CameraOffset),
             Time.deltaTime * 3f);
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
@@ -238,7 +236,14 @@ public class PlayerControl : MonoBehaviour
     private float GetAverageVelosity()
         => Mathf.Abs(Rigidbody.velocity.x) + Mathf.Abs(Rigidbody.velocity.z);
     private bool RaycastConfigure(float duration, out RaycastHit hit)
-        => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
+    {
+       return Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
+    }
+    private bool RaycastConfigure(Vector3 start,float duration, out RaycastHit hit, Vector3 direction)
+    {
+       return Physics.Raycast(new Ray(start, direction), out hit, duration);
+    }
+
     private float ClampValue(float value)
         => Mathf.Clamp(value, -ClampOffset, ClampOffset);
 }
