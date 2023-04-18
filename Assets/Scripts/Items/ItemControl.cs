@@ -20,7 +20,11 @@ public class ItemControl : MonoBehaviour
     }
     private IEnumerator GetAnination()
     {
-        GameObject er_temp = Instantiate(model.Effect, transform.position, Quaternion.identity);
+        GameObject er_temp = Instantiate(model.Effect, transform.position+Vector3.up*2, Quaternion.identity);
+        for (int i = 0; i < max; i++)
+        {
+
+        }
         this.gameObject.transform.localScale = Vector3.zero;
         yield return new WaitForSeconds(.2f);
         Destroy(this.gameObject);
