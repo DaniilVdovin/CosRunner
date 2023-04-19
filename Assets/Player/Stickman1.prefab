@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 4012297025888165251}
   - component: {fileID: 675668252829229141}
   m_Layer: 0
-  m_Name: Stickman1@Stand Up
+  m_Name: Stickman1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,17 +438,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88600cc9fd404479d8696c31e0d2e490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 0}
-  Map: {fileID: 0}
-  CameraTarget: {fileID: 519728140512025937}
   CameraOffset: {x: 0, y: 10, z: -20}
   Speed: 10
   JumpForce: 1
+  Coins: 0
+  Score: 0
   CanJump: 1
   isJump: 0
   isRun: 1
   isLive: 1
   isGround: 1
+  godMod: 1
+  isRotateR: 0
+  isRotateL: 0
+  ClampOffset: 7
+  Boom: {fileID: 0}
+  Camera: {fileID: 0}
+  Map: {fileID: 0}
+  CameraTarget: {fileID: 519728140512025937}
+  MapGenerator: {fileID: 0}
+  GameUI: {fileID: 0}
   ChankNow: {fileID: 0}
 --- !u!54 &675668252829229141
 Rigidbody:
