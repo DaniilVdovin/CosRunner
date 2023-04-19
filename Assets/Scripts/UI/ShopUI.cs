@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ShopItem
+[CreateAssetMenu(fileName = "Item Model", menuName = "Items/Shop Item Model", order = 2)]
+public class ShopItem:ScriptableObject
 {
     public string Name;
     public bool Has;
@@ -34,7 +36,7 @@ public class ShopUI : MonoBehaviour
         UI = GetComponent<UIDocument>();
         Holder = UI.rootVisualElement.Q<VisualElement>("ShopContainer");
 
-        LoadItems();
+        //LoadItems();
         Generate();
     }
     private void LoadItems()
@@ -46,8 +48,8 @@ public class ShopUI : MonoBehaviour
             ShopItem temp = new()
             {
                 Name = "Pers: " + i,
-                Prefab = Resources.Load("Player/Stickman1", typeof(GameObject)) as GameObject,
-                Icon = Resources.Load("UI/LOCK", typeof(Sprite)) as Sprite,
+                Prefab = AssetDatabase.LoadAssetAtPath("Assets/Player/Stickman1.prefab", typeof(GameObject)) as GameObject,
+                Icon = AssetDatabase.LoadAssetAtPath("Assets/Player/Icons/pdp.png", typeof(Sprite)) as Sprite,
                 Has = false,
                 Price = 100 * i
             };
@@ -60,14 +62,17 @@ public class ShopUI : MonoBehaviour
         {
             TemplateContainer temp = Def_Item.Instantiate();
             temp.name = item.Name;
-            temp.Q<Label>("Price").text = item.Price==0?"FREE":item.Price.ToString();
+            if (item.Has)
+                temp.Q<Label>("Price").text = "Have";
+            else temp.Q<Label>("Price").text = item.Price == 0 ? "FREE" : item.Price.ToString();
             temp.Q<VisualElement>("Icon").style.backgroundImage = new(item.Icon != null ? item.Icon : SpriteLock);
             item.template = temp;
-            item.Click += (i, e) =>
-            {
-                Debug.Log("CLICK: " + i.Name);
-            };
+            item.Click += ClickEvent;
             Holder.Add(temp);
         }
+    }
+    private void ClickEvent(ShopItem item,ClickEvent e)
+    {
+        Instantiate(item.Prefab);
     }
 }
