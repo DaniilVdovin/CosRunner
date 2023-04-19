@@ -136,12 +136,13 @@ public class PlayerControl : MonoBehaviour
     public void PreRessurect()
     {
         int now = MapGenerator.Map.LastIndexOf(ChankNow.gameObject);
-        
-        if (MapGenerator.Map[now + 1].GetComponent<ChankControl>().type == ChankControl.Ttype.Pivot) now++;
-        MapGenerator.Map[now].GetComponent<ChankControl>().Clear();
-        Transform chankPoint = MapGenerator.Map[now].transform;
+        ChankControl chank_now = MapGenerator.Map[now].GetComponent<ChankControl>();
+        ChankControl chank_next = MapGenerator.Map[now + 1].GetComponent<ChankControl>();
+        if (chank_next.type == ChankControl.Ttype.Pivot) chank_next = MapGenerator.Map[now + 2].GetComponent<ChankControl>(); ;
+        chank_next.Clear();
+        Transform chankPoint = chank_next.transform;
         if (chankPoint.rotation.y != transform.rotation.y)
-            Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
+            Rotate(chank_now.transform.rotation.y <= 0 & chank_now.transform.rotation.y > -91);
         transform.position = chankPoint.position;
         isLive = true;
     }
