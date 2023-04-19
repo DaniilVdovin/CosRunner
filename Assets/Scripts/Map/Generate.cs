@@ -92,7 +92,7 @@ public class Generate : MonoBehaviour
     private void ChankMove(TTransform temp)
     {
         Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
-        Map.Last().GetComponent<ChankControl>().Regenerage();
+        Map.Last().GetComponent<ChankControl>().Regenerate();
     }
     private IEnumerator GenerateCoins(int Start, int End)
     {

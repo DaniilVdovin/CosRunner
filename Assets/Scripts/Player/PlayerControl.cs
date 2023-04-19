@@ -48,6 +48,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject Map;
     public Transform CameraTarget;
     public Generate MapGenerator;
+    public GameUI GameUI;
 
 
 
@@ -66,57 +67,81 @@ public class PlayerControl : MonoBehaviour
     {
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
+
+        GameUI.ConnectPlayer(this);
     }
     /// <summary>
     /// update is makes something actions every frame
     /// </summary>
     private void Update()
     {
-        KeyManager();
-        SetPlayerParameters();
-        Run();
-        SideMove();
-        OnRotate();
-        Autorunning();
-        Clamp();
-    }
-    private void check_pivot()
-    {
-        if(ChankNow.type == ChankControl.Ttype.Pivot)
+
+        if (isLive)
         {
-            Transform chankPoint = ChankNow.transform;
-            Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
+            KeyManager();
+            SetPlayerParameters();
+            Run();
+            SideMove();
+            OnRotate();
+            Autorunning();
+            Clamp();
         }
+        UIUpdate();
+    }
+    /// <summary>
+    /// Update actions something like 50 times per second
+    /// </summary>
+    private void FixedUpdate()
+    {
+        Animator.SetBool("Run", isRun);
+        Animator.SetBool("Die", !isLive);
+        if (isRun && GetAverageVelosity() > 1)
+        {
+            Score += 0.01f;
+        }
+        if (isLive)
+        {
+            Die();
+        }
+    }
+    /// <summary>
+    /// last update func called when other update is make their deal
+    /// </summary>
+    private void LateUpdate()
+    {
+        Camera.transform.position = Vector3.Lerp(Camera.transform.position, transform.position + transform.TransformVector(CameraOffset),
+            Time.deltaTime * 3f);
+        Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
+    }
+
+    private void UIUpdate()
+    {
+        GameUI.SetCoinsAndScore(Coins,Score);
     }
     private void Die()
     {
-        if(isLive)
-        {
-            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward)
+        if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward)
                 && !ht.collider.CompareTag("Item"))
-            {
-                Instantiate(Boom, transform.position + Vector3.up * 4,Quaternion.identity);
-                Rigidbody.velocity = Vector3.zero;
-                Debug.Log("Die");
-                isLive = false;
-                isRun = false;
-                check_pivot();
-                ressurect();
+        {
+            Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity);
+            Rigidbody.velocity = Vector3.zero;
+            Debug.Log("Die");
+            isLive = false;
+            isRun = false;
+            GameUI.Die();
 
-            }
         }
     }
-    private void ressurect()
+    public void PreRessurect()
     {
-        if (!isLive)
-        {
-            int now =  MapGenerator.Map.LastIndexOf(ChankNow.gameObject);
-            transform.position = MapGenerator.Map[now + 1].transform.position;
-
-            isRun = true;
-            isLive = true;
-        }
-        
+        int now = MapGenerator.Map.LastIndexOf(ChankNow.gameObject);
+        if (MapGenerator.Map[now + 1].GetComponent<ChankControl>().type == ChankControl.Ttype.Pivot) now++;
+        MapGenerator.Map[now + 1].GetComponent<ChankControl>().Clear();
+        Transform chankPoint = MapGenerator.Map[now + 1].transform;
+        if (chankPoint.rotation.y != transform.rotation.y)
+            Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
+        transform.position = chankPoint.position;
+        isLive = true;
     }
     //TODO: Function back life in next chank
     private void Clamp()
@@ -231,29 +256,6 @@ public class PlayerControl : MonoBehaviour
         Animator.SetTrigger("Jump");
         Rigidbody.AddForce(100 * JumpForce * Vector3.up, ForceMode.Impulse);
     }
-    /// <summary>
-    /// Update actions something like 50 times per second
-    /// </summary>
-    private void FixedUpdate()
-    {
-        Animator.SetBool("Run", isRun);
-        Animator.SetBool("Die", !isLive);
-        if (isRun && GetAverageVelosity()>1)
-        {
-            Score += 0.01f;
-        }
-    }
-    /// <summary>
-    /// last update func called when other update is make their deal
-    /// </summary>
-    private void LateUpdate()
-    {
-        Die();
-        Camera.transform.position = Vector3.Lerp(Camera.transform.position, transform.position + transform.TransformVector(CameraOffset),
-            Time.deltaTime * 3f);
-        Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Item"))
