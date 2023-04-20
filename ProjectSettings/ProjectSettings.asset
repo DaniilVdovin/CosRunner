@@ -136,7 +136,7 @@ PlayerSettings:
   bundleVersion: 1.0.3
   preloadedAssets:
   - {fileID: 0}
-  - {fileID: 1458832778253057850, guid: fc4a064ae583d574899c1b0075a06dea, type: 2}
+  - {fileID: -6737695081758598104, guid: fc4a064ae583d574899c1b0075a06dea, type: 2}
   - {fileID: 11400000, guid: 17d00cb9d1ce82c4fb32d939519fc817, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -857,7 +857,7 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 1
   useDeterministicCompilation: 1
-  selectedPlatform: 2
+  selectedPlatform: 4
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
@@ -951,4 +951,4 @@ PlayerSettings:
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
   virtualTexturingSupportEnabled: 0
-  insecureHttpOption: 0
+  insecureHttpOption: 2

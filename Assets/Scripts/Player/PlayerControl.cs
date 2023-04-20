@@ -85,6 +85,7 @@ public class PlayerControl : MonoBehaviour
             OnRotate();
             Autorunning();
             Clamp();
+            Jump();
         }
         UIUpdate();
     }
@@ -251,13 +252,23 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void Jump()
     {
-        if (!CanJump) return;
-        if (isJump) return;
-        isRun = false;
-        isJump = true;
-        isGround = false;
-        Animator.SetTrigger("Jump");
-        Rigidbody.AddForce(100 * JumpForce * Vector3.up, ForceMode.Impulse);
+        if (Input.GetMouseButtonDown(0))
+            mouse_down_pos = Input.mousePosition.y;
+        if (Input.GetMouseButtonUp(0))
+        {
+
+            if (Input.mousePosition.y > mouse_down_pos)
+            {
+                if (!CanJump) return;
+                isRun = false;
+                isJump = true;
+                isGround = false;
+                Animator.SetTrigger("Jump");
+                Rigidbody.AddForce(10 * JumpForce * Vector3.up, ForceMode.Impulse);
+                isRun = true;
+            }
+        }
+        
     }
     void OnTriggerEnter(Collider other)
     {
