@@ -48,8 +48,8 @@ public class ShopUI : MonoBehaviour
             ShopItem temp = new()
             {
                 Name = "Pers: " + i,
-                Prefab = AssetDatabase.LoadAssetAtPath("Assets/Player/Stickman1.prefab", typeof(GameObject)) as GameObject,
-                Icon = AssetDatabase.LoadAssetAtPath("Assets/Player/Icons/pdp.png", typeof(Sprite)) as Sprite,
+                Prefab = Resources.Load("Assets/Player/Stickman1.prefab", typeof(GameObject)) as GameObject,
+                Icon = Resources.Load("Assets/Player/Icons/pdp.png", typeof(Sprite)) as Sprite,
                 Has = false,
                 Price = 100 * i
             };
