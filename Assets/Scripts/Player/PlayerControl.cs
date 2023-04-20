@@ -141,7 +141,7 @@ public class PlayerControl : MonoBehaviour
         if (chank_next.type == ChankControl.Ttype.Pivot) chank_next = MapGenerator.Map[now + 2].GetComponent<ChankControl>(); ;
         chank_next.Clear();
         Transform chankPoint = chank_next.transform;
-        if (chankPoint.rotation.y != transform.rotation.y)
+        while (chankPoint.rotation.y != transform.rotation.y)
             Rotate(chank_now.transform.rotation.y <= 0 & chank_now.transform.rotation.y > -91);
         transform.position = chankPoint.position;
         isLive = true;
