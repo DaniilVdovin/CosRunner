@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mycom.Target.Unity/Samples/RewardedAdSample.unity
+    guid: 0fbdbc41e9bb24001940dede8efdaf79
+  - enabled: 1
     path: Assets/Scenes/Map.unity
     guid: b1ac4ae4ba74c460782f349ec275685a
   - enabled: 1
