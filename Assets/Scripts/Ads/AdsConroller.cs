@@ -15,7 +15,7 @@ public class AdsConroller : MonoBehaviour
     {
         MyTargetManager.DebugMode = true;
         MyTargetConfig conf = new MyTargetConfig.Builder()
-            .WithTestDevices(new[] { "" })
+            .WithTestDevices(new[] { "b51e3a7a-b7c2-4563-999b-10ca1ad1abel"/*Android Artem*/ })
             .Build();
         MyTargetManager.Config = conf;
         MyTargetManager.InitSdk();
