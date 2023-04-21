@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
     [Range(10, 100)]
     public float Speed;
     [Range(1, 100)]
-    public float JumpForce;
+    public float JumpForce = 2;
     [Space(10)]
     [Header("Points")]
     public int Coins = 0;
@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour
 
     private float? last_mouse_pos = null;
     private float? mouse_up_position = null;
-    private float? mouse_down_pos = null;
+    private Vector3 mouse_down_pos;
     private int angle_rotate = 90;
     private Vector3 data;
 
@@ -124,12 +124,14 @@ public class PlayerControl : MonoBehaviour
             RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
                 && !hts.collider.CompareTag("Item"))
         {
-            Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity);
+            Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity),4f);
+
             Rigidbody.velocity = Vector3.zero;
             Debug.Log("Die");
             isLive = false;
             isRun = false;
             GameUI.Die();
+
 
         }
     }
@@ -173,6 +175,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (RaycastConfigure(3f, out RaycastHit ht))
             ChankNow = ht.collider.GetComponent<ChankControl>();
+            isGround = true;
 
         if (RaycastConfigure(3f, out RaycastHit _))
         {
@@ -186,9 +189,9 @@ public class PlayerControl : MonoBehaviour
         if (ChankNow != null && ChankNow.type == ChankControl.Ttype.Pivot && !ChankNow.WeRot)
         {
             if (Input.GetMouseButtonDown(0))
-                mouse_down_pos = Input.mousePosition.x;
+                mouse_down_pos = Input.mousePosition;
             if (Input.GetMouseButtonUp(0))
-                Rotate(Input.mousePosition.x > mouse_down_pos);
+                Rotate(Input.mousePosition.x > mouse_down_pos.x);
         }
     }
     private void SideMove()
@@ -251,23 +254,27 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void Jump()
     {
+        int offset = 30;
         if (Input.GetMouseButtonDown(0))
-            mouse_down_pos = Input.mousePosition.y;
+            mouse_down_pos = Input.mousePosition;
+            isJump = false;
         if (Input.GetMouseButtonUp(0))
         {
 
-            if (Input.mousePosition.y > mouse_down_pos)
+            if ((Input.mousePosition.y > mouse_down_pos.y) && ((Input.mousePosition.x - mouse_down_pos.x) <=offset)&& (mouse_down_pos.x - Input.mousePosition.x <= offset)&& isGround == true)
             {
                 if (!CanJump) return;
                 isRun = false;
                 isJump = true;
-                isGround = false;
                 Animator.SetTrigger("Jump");
-                Rigidbody.AddForce(10 * JumpForce * Vector3.up, ForceMode.Impulse);
-                isRun = true;
+                var force = 100 * JumpForce * Vector3.up;
+                Rigidbody.AddForce(force, ForceMode.Impulse);
+                isGround = false;
+ 
             }
         }
-        
+        isRun = true;
+
     }
     void OnTriggerEnter(Collider other)
     {
