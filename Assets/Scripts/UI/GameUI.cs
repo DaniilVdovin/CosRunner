@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.WSA;
 
 public class GameUI : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class GameUI : MonoBehaviour
     private Label Coins;
 
     private PlayerControl PlayerControl;
+    private AdsConroller AdsConroller;
+    
     private void Start()
     {
+        AdsConroller = GameObject.Find("ADS").GetComponent<AdsConroller>();
+
         UI = GetComponent<UIDocument>();
         Setting = UI.rootVisualElement.Q<Button>("Settings");
         LittleSettings = UI.rootVisualElement.Q<GroupBox>("LittleSettings");
@@ -54,12 +59,23 @@ public class GameUI : MonoBehaviour
     }
     private void CallbackResurect(ClickEvent e)
     {
-        Time.timeScale = 1;
-        DieFrame.visible = false;
-        StartCoroutine(ResurestAction());
+        AdsConroller.SkipByAD((T, M) =>
+        {
+            if (T)
+            {
+                Time.timeScale = 1;
+                DieFrame.visible = false;
+                StartCoroutine(ResurestAction());
+                Debug.Log(M);
+            }
+            else
+            {
+                CallbackReplay(new ClickEvent());
+                Debug.LogError(M);
+            }
+        });
     }
     private IEnumerator ResurestAction() {
-
         PlayerControl.PreRessurect();
         for (int i = 4; i >= 1; i--)
         {

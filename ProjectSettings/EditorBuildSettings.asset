@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/NDY.unity
+    guid: e80c39eb53822417ba2249578429010a
+  - enabled: 1
     path: Assets/Scenes/Map.unity
     guid: b1ac4ae4ba74c460782f349ec275685a
   m_configObjects:

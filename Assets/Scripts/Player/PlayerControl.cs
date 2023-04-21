@@ -51,7 +51,6 @@ public class PlayerControl : MonoBehaviour
     public GameUI GameUI;
 
 
-
     private float? last_mouse_pos = null;
     private float? mouse_up_position = null;
     private float? mouse_down_pos = null;
