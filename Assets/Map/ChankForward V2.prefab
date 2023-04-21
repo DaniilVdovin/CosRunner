@@ -145,6 +145,9 @@ MonoBehaviour:
   - {fileID: 7525058738907249484, guid: ffd772f0d1a1449a1be3e057eed5501d, type: 3}
   - {fileID: 5703830349210026140, guid: b2f05053aeebb4d8aa1e51d43560c705, type: 3}
   Coins: []
+  Stopings: []
+  HardChankItems:
+  - {fileID: 3302740243409703042, guid: c097387f7cb8a4815a9d9d21682b5c04, type: 3}
 --- !u!65 &1791465853850043279
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -153,9 +156,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3657342638959005096}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 20, y: 2, z: 20}
   m_Center: {x: 0, y: -1, z: 0}
 --- !u!65 &6193103841390197368
@@ -166,9 +177,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3657342638959005096}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 3, y: 14, z: 20}
   m_Center: {x: 11, y: 6, z: 0}
 --- !u!65 &2059114068023534667
@@ -179,9 +198,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3657342638959005096}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 3, y: 14, z: 20}
   m_Center: {x: -11, y: 6, z: 0}
 --- !u!1 &5046428174614924692

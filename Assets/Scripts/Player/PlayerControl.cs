@@ -52,10 +52,8 @@ public class PlayerControl : MonoBehaviour
 
 
     private float? last_mouse_pos = null;
-    private float? mouse_up_position = null;
     private Vector3 mouse_down_pos;
     private int angle_rotate = 90;
-    private Vector3 data;
 
     private Animator Animator;
     private Rigidbody Rigidbody;
@@ -84,7 +82,7 @@ public class PlayerControl : MonoBehaviour
             OnRotate();
             Autorunning();
             Clamp();
-            Jump();
+            //Jump();
         }
         UIUpdate();
     }
@@ -131,7 +129,6 @@ public class PlayerControl : MonoBehaviour
             isLive = false;
             isRun = false;
             GameUI.Die();
-
 
         }
     }
@@ -240,7 +237,6 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
         if (Input.GetMouseButtonDown(0))
         {
-            data = Input.mousePosition;
             last_mouse_pos = Input.mousePosition.x;
         }
         else if (Input.GetMouseButtonUp(0))
@@ -274,7 +270,6 @@ public class PlayerControl : MonoBehaviour
             }
         }
         isRun = true;
-
     }
     void OnTriggerEnter(Collider other)
     {

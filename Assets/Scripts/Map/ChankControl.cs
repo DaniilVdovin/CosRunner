@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChankControl : MonoBehaviour
@@ -16,6 +17,8 @@ public class ChankControl : MonoBehaviour
     public List<GameObject> Coins;
     public List<GameObject> Stopings;
 
+    public GameObject[] HardChankItems;
+
     public void Start()
     {
         Generate();
@@ -23,12 +26,18 @@ public class ChankControl : MonoBehaviour
     private void Generate()
     {
         if (Lines.Length > 0)
-            if (type == Ttype.Floor)
+            if (type == Ttype.Floor) {
                 if (Random.Range(0, 5) == 2)
                 {
                     Stopings.Add(Instantiate(Stoping[Random.Range(0, Stoping.Length)],
                         Lines[Random.Range(0, Lines.Length)].transform.position, Quaternion.identity, transform));
                 }
+                if (Random.Range(0, 5) == 3) {
+                    Stopings.Add(Instantiate(HardChankItems[Random.Range(0, HardChankItems.Length)],
+                        transform.position,Quaternion.identity,transform));
+                    Stopings.Last().transform.localRotation = Quaternion.Euler(0, (Random.Range(0, 2) == 1 ? 0 : 180), 0);
+                }
+             }
     }
     public void Regenerate()
     {
