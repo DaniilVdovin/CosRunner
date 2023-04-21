@@ -252,8 +252,10 @@ public class PlayerControl : MonoBehaviour
     {
         int offset = 30;
         if (Input.GetMouseButtonDown(0))
+        {
             mouse_down_pos = Input.mousePosition;
             isJump = false;
+        }   
         if (Input.GetMouseButtonUp(0))
         {
 
@@ -266,10 +268,11 @@ public class PlayerControl : MonoBehaviour
                 var force = 100 * JumpForce * Vector3.up;
                 Rigidbody.AddForce(force, ForceMode.Impulse);
                 isGround = false;
- 
+                isRun = true;
             }
+
         }
-        isRun = true;
+        
     }
     void OnTriggerEnter(Collider other)
     {
