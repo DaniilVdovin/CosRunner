@@ -136,7 +136,7 @@ PlayerSettings:
   bundleVersion: 1.0.3
   preloadedAssets:
   - {fileID: 0}
-  - {fileID: -6737695081758598104, guid: fc4a064ae583d574899c1b0075a06dea, type: 2}
+  - {fileID: 1458832778253057850, guid: fc4a064ae583d574899c1b0075a06dea, type: 2}
   - {fileID: 11400000, guid: 17d00cb9d1ce82c4fb32d939519fc817, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -147,7 +147,7 @@ PlayerSettings:
     enable360StereoCapture: 0
   isWsaHolographicRemotingEnabled: 0
   enableFrameTimingStats: 0
-  enableOpenGLProfilerGPURecorders: 1
+  enableOpenGLProfilerGPURecorders: 0
   useHDRDisplay: 0
   hdrBitDepth: 0
   m_ColorGamuts: 00000000
@@ -251,7 +251,7 @@ PlayerSettings:
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 1
-  AndroidTargetDevices: 0
+  AndroidTargetDevices: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
