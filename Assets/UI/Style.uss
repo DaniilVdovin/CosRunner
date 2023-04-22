@@ -1,0 +1,7 @@
+.H:hover {
+    -unity-background-image-tint-color: rgb(173, 173, 173);
+    transition-timing-function: ease-out-back;
+    transition-delay: 1s;
+    transition-duration: 3s;
+    transition-property: position;
+}

@@ -5,7 +5,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-
+using UnityEngine.UIElements;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -24,8 +24,9 @@ public class PlayerControl : MonoBehaviour
     public bool CanJump = true;
     public bool isJump = false;
     public bool isRun = false;
-    public bool isLive = true;
+    public bool isLive = false;
     public bool isGround = true;
+    public bool CameraFlow = false;
 
     [Tooltip("goodmod")]
     public bool godMod = true;
@@ -64,8 +65,15 @@ public class PlayerControl : MonoBehaviour
     {
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
+    }
+    public void StartGame()
+    {
+        isLive = true;
+        CameraFlow = true;
 
         GameUI.ConnectPlayer(this);
+
+        GameUI.StartGame();
     }
     /// <summary>
     /// update is makes something actions every frame
@@ -107,8 +115,11 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
-        Camera.transform.position = Vector3.Lerp(Camera.transform.position, transform.position + transform.TransformVector(CameraOffset),
-            Time.deltaTime * 3f);
+        if (CameraFlow)
+        {
+            Camera.transform.position = Vector3.Lerp(Camera.transform.position, transform.position + transform.TransformVector(CameraOffset),
+                Time.deltaTime * 3f);
+        }
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
 
@@ -145,7 +156,7 @@ public class PlayerControl : MonoBehaviour
         transform.position = chankPoint.position;
         isLive = true;
     }
-    //TODO: Function back life in next chank
+   
     private void Clamp()
     {
         if (ChankNow != null)
@@ -158,6 +169,7 @@ public class PlayerControl : MonoBehaviour
             transform.position = vector;
         }
     }
+    //TODO: FIX GODMOD
     private void Autorunning()
     {
         if (ChankNow != null && ChankNow.type == ChankControl.Ttype.Pivot)

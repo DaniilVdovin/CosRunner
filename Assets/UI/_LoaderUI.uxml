@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Sprite/GUI.png?fileID=21300026&amp;guid=1eaee135ce037439d925cee5e41ce026&amp;type=3#GUI_13&apos;); position: absolute; height: 100%; width: 100%;" />
+    <ui:VisualElement name="progress" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Sprite/GUI.png?fileID=21300024&amp;guid=1eaee135ce037439d925cee5e41ce026&amp;type=3#GUI_12&apos;); height: 100px; width: 0;" />
+    <ui:Label tabindex="-1" text="Loading ..." display-tooltip-when-elided="true" name="title" style="position: absolute; align-items: auto; align-self: center; top: 25px; font-size: 30px; -unity-font-style: bold; color: rgb(255, 255, 255); justify-content: flex-start;" />
+</ui:UXML>

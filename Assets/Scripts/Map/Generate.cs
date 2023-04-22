@@ -35,9 +35,8 @@ public class Generate : MonoBehaviour
     public GameObject PrefCoin;
     private int CoinnPosOlds = 1;
     private bool firstGeneration = true;
-    void Start()
+    public void StartGenerate()
     {
-        PlayerControl.isRun = false;
         StartCoroutine(GenerateRoad(ChankCount * 2));
     }
     private void FixedUpdate()

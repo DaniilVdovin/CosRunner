@@ -1,40 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using DG.Tweening;
+using UnityEngine.Assertions.Must;
 
 public class GameUI : MonoBehaviour
 {
-    private UIDocument UI;
-    private Button Setting;
+    private VisualElement UI, DieFrame, _LoaderUI,StatsFrame;
     private GroupBox LittleSettings;
-
-    private VisualElement DieFrame;
-    private Button Replay,Resurect,Rating;
-
-
-    private Label Score;
-    private Label Coins;
+    private Button Setting, Replay,Resurect,Rating;
+    private Label Score, Coins;
 
     private PlayerControl PlayerControl;
     private AdsConroller AdsConroller;
-    
+
     private void Start()
     {
         AdsConroller = GameObject.Find("ADS").GetComponent<AdsConroller>();
 
-        UI = GetComponent<UIDocument>();
-        Setting = UI.rootVisualElement.Q<Button>("Settings");
-        LittleSettings = UI.rootVisualElement.Q<GroupBox>("LittleSettings");
-        DieFrame = UI.rootVisualElement.Q<VisualElement>("DieFrame");
-        Replay = UI.rootVisualElement.Q<Button>("Replay");
-        Resurect = UI.rootVisualElement.Q<Button>("Resurect");
-        Rating = UI.rootVisualElement.Q<Button>("Rating");
+        UI = GetComponent<UIDocument>().rootVisualElement;
+        Setting = UI.Q<Button>("Settings");
+        LittleSettings = UI.Q<GroupBox>("LittleSettings");
+        DieFrame = UI.Q<VisualElement>("DieFrame");
+        Replay = UI.Q<Button>("Replay");
+        Resurect = UI.Q<Button>("Resurect");
+        Rating = UI.Q<Button>("Rating");
+        StatsFrame = UI.Q<VisualElement>("Stats");
+        Score = UI.Q<Label>("Score");
+        Coins = UI.Q<Label>("Coins");
 
-        Score = UI.rootVisualElement.Q<Label>("Score");
-        Coins = UI.rootVisualElement.Q<Label>("Coins");
+        _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
 
+        _LoaderUI.visible = false;
+        Setting.visible = false;
+        StatsFrame.visible = false;
 
         Replay.RegisterCallback<ClickEvent>(CallbackReplay);
         Resurect.RegisterCallback<ClickEvent>(CallbackResurect);
@@ -43,10 +46,19 @@ public class GameUI : MonoBehaviour
         Setting.RegisterCallback<ClickEvent>((e) => {
             LittleSettings.visible = !LittleSettings.visible;
         });
-
-
     }
-    public void ConnectPlayer(PlayerControl playerControl) => PlayerControl = playerControl;
+    public void ConnectPlayer(PlayerControl playerControl)
+    {
+        PlayerControl = playerControl;
+    }
+    public void StartGame()
+    {
+        _LoaderUI.visible = true;
+        Setting.visible = true;
+        StatsFrame.visible = true;
+
+        AnimateLoading();
+    }
     /*---------------------------DIE FRAME----------------------------*/
     public void Die()
     {
@@ -54,7 +66,8 @@ public class GameUI : MonoBehaviour
     }
     private void CallbackReplay(ClickEvent e) {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);
+        GameCotroller.StartGame();
     }
     private void CallbackResurect(ClickEvent e)
     {
@@ -92,9 +105,21 @@ public class GameUI : MonoBehaviour
     /*-------------------------END DIE FRAME-------------------------*/
     public void SetCoinsAndScore(int Coin, float Score)
     {
-        SetCoins(Coin);
-        SetScore(Score);
+        if (this.enabled)
+        {
+            SetCoins(Coin);
+            SetScore(Score);
+        }
     }
     public void SetScore(float value) => Score.text = "Score: " + value.ToString("f2");
     public void SetCoins(int value) => Coins.text = "Coins: " + value.ToString();
+
+    public void AnimateLoading()
+    {
+        VisualElement p = _LoaderUI[1];
+        DOTween.To(() => 0, x =>
+        p.style.width = x, _LoaderUI.worldBound.width, 40 * .2f)
+            .SetEase(Ease.Linear)
+            .OnComplete(()=>_LoaderUI.visible = false);
+    }
 }
