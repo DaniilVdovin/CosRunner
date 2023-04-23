@@ -132,14 +132,14 @@ public class PlayerControl : MonoBehaviour
     }
     private void Die()
     {
-        if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
-            RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
+        if (RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
+            RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit hts, transform.forward)
                 && !hts.collider.CompareTag("Item"))
         {
             Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity),4f);
 
             Rigidbody.velocity = Vector3.zero;
-            Debug.Log("Die");
+            Debug.Log("Die" + RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit htt, transform.forward) + htt.collider.tag + htt.collider.name);
             isLive = false;
             isRun = false;
             GameUI.Die();
@@ -208,7 +208,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void SideMove()
     {
-        if (ChankNow != null && isRun && last_mouse_pos is not null && ChankNow.type == ChankControl.Ttype.Floor)
+        if (ChankNow != null && isRun && last_mouse_pos is not null)
         {
             float difference = (Input.mousePosition.x - last_mouse_pos.Value) / 30;
             Vector3 new_vector = transform.position;
