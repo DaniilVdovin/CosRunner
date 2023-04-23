@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mycom.Target;
-using Mycom.Target.Unity.Ads;
 using System;
+using Mycom.Target.Unity.Ads;
 using Mycom.Target.Unity.Common;
 
 public class AdsConroller : MonoBehaviour
@@ -14,8 +13,8 @@ public class AdsConroller : MonoBehaviour
     private void Awake()
     {
         MyTargetManager.DebugMode = true;
-        MyTargetManager.DebugMode = true;
-        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("b51e3a7a-b7c2-4563-999b-10ca1ad1abel").Build();
+        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("b51e3a7a-b7c2-4563-999b-10ca1ad1abel",
+            "9c6130f4-28dc-4623-bb75-78182d6d508c").Build();
         
         InitAd();
         DontDestroyOnLoad(this.gameObject);
@@ -73,7 +72,7 @@ public class AdsConroller : MonoBehaviour
 #if UNITY_ANDROID
         slotId = 38837;
 #elif UNITY_IOS
-        slotId = 0;
+        slotId = 38838;
 #endif
         Debug.Log("CreateInterstitialAd");
         // Создаем экземпляр InterstitialAd

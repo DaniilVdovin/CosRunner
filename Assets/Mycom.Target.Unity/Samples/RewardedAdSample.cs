@@ -44,7 +44,7 @@ namespace Mycom.Target.Unity.Samples
         private void Awake()
         {
             MyTargetManager.DebugMode = true;
-            MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("b51e3a7a-b7c2-4563-999b-10ca1ad1abel").Build();
+            MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("TEST_DEVICE_ID").Build();
 
             var buttons = FindObjectsOfType<Button>().ToArray();
 

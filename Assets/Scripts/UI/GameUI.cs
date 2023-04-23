@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using DG.Tweening;
-using UnityEngine.Assertions.Must;
 
 public class GameUI : MonoBehaviour
 {
@@ -22,7 +21,7 @@ public class GameUI : MonoBehaviour
     {
         AdsConroller = GameObject.Find("ADS").GetComponent<AdsConroller>();
 
-        UI = GetComponent<UIDocument>().rootVisualElement;
+        UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("GameUI");
         Setting = UI.Q<Button>("Settings");
         LittleSettings = UI.Q<GroupBox>("LittleSettings");
         DieFrame = UI.Q<VisualElement>("DieFrame");
@@ -34,10 +33,6 @@ public class GameUI : MonoBehaviour
         Coins = UI.Q<Label>("Coins");
 
         _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
-
-        _LoaderUI.visible = false;
-        Setting.visible = false;
-        StatsFrame.visible = false;
 
         Replay.RegisterCallback<ClickEvent>(CallbackReplay);
         Resurect.RegisterCallback<ClickEvent>(CallbackResurect);
@@ -53,10 +48,7 @@ public class GameUI : MonoBehaviour
     }
     public void StartGame()
     {
-        _LoaderUI.visible = true;
-        Setting.visible = true;
-        StatsFrame.visible = true;
-
+        UI.visible = true;
         AnimateLoading();
     }
     /*---------------------------DIE FRAME----------------------------*/

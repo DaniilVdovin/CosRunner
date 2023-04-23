@@ -9,7 +9,7 @@ public class GameCotroller : MonoBehaviour
 {
     public static PlayerControl PlayerControl;
     public static Generate Generate;
-    private static UIDocument Menu;
+    private static VisualElement Menu;
 
 
     private void Awake()
@@ -19,20 +19,20 @@ public class GameCotroller : MonoBehaviour
     }
     private void Start()
     {
-        Menu = GetComponent<UIDocument>();
+        Menu = GetComponent<UIDocument>().rootVisualElement.Q<TemplateContainer>("MainUI");
         PlayerControl = FindAnyObjectByType<PlayerControl>();
         Generate = FindAnyObjectByType<Generate>();
 
-        Menu.rootVisualElement.Q<Button>("Start").RegisterCallback<ClickEvent>(StartGame);
+        Menu.Q<Button>("Start").RegisterCallback<ClickEvent>(StartGame);
     }
     public static void StartGame(ClickEvent e = null)
     {
-        Menu.enabled = false;
+        Menu.visible = false;
         PlayerControl.StartGame();
         Generate.StartGenerate();
     }
     private void OnDestroy()
     {
-        Menu.rootVisualElement.Q<Button>("Start").UnregisterCallback<ClickEvent>(StartGame);
+        Menu.Q<Button>("Start").UnregisterCallback<ClickEvent>(StartGame);
     }
 }

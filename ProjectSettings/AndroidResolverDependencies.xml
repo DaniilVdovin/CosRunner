@@ -2,7 +2,12 @@
   <packages>
     <package>com.my.target:mytarget-sdk:5.15.3</package>
   </packages>
-  <files />
+  <files>
+    <file>Assets/Plugins/Android/com.google.android.exoplayer.exoplayer-datasource-2.17.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.exoplayer.exoplayer-decoder-2.17.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.exoplayer.exoplayer-extractor-2.17.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.exoplayer.exoplayer-hls-2.17.1.aar</file>
+  </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />
     <setting name="bundleId" value="com.DaniilVdovin.CosmicRun" />
@@ -16,6 +21,6 @@
     <setting name="patchAndroidManifest" value="True" />
     <setting name="patchMainTemplateGradle" value="True" />
     <setting name="projectExportEnabled" value="False" />
-    <setting name="useJetifier" value="False" />
+    <setting name="useJetifier" value="True" />
   </settings>
 </dependencies>

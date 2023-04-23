@@ -91,8 +91,11 @@ public class PlayerControl : MonoBehaviour
             Autorunning();
             Clamp();
             //Jump();
+
+            if(isRun)
+                UIUpdate();
         }
-        UIUpdate();
+        
     }
     /// <summary>
     /// Update actions something like 50 times per second
