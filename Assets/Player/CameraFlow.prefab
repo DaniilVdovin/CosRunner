@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 618450877678469363}
   - component: {fileID: 618450877678469359}
   - component: {fileID: 618450877678469360}
-  - component: {fileID: 618450877678469358}
   m_Layer: 0
   m_Name: CameraFlow
   m_TagString: Untagged
@@ -50,9 +49,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -164,21 +171,3 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!114 &618450877678469358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618450877678469364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c520d478f3d2445429bd7ac9c92b03a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  postProcessLayer: {fileID: 618450877678469359}
-  lightMeter: 1
-  histogram: 1
-  waveform: 1
-  vectorscope: 1
-  debugOverlay: 0
