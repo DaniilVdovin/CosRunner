@@ -110,10 +110,10 @@ public class GameUI : MonoBehaviour
         Label t = _LoaderUI[2] as Label;
         var txt = new[] {"Готовим печеньки","Генерируем карту","Э А когда играть ?","Погнали !"};
         DOTween.To(() => 0, x =>
-        t.text = txt[x], txt.Length-1, 42 * .2f)
+        t.text = txt[x], txt.Length-1, 42 * .1f)
             .SetEase(Ease.Linear);
         DOTween.To(() => 0, x =>
-        p.style.width = x, _LoaderUI.worldBound.width, 42 * .2f)
+        p.style.width = x, _LoaderUI.worldBound.width, 42 * .1f)
             .SetEase(Ease.Linear)
             .OnComplete(()=>_LoaderUI.visible = false);
     }

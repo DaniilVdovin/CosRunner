@@ -1,9 +1,26 @@
 .H:hover {
     -unity-background-image-tint-color: rgb(173, 173, 173);
     transition-timing-function: ease-out-back;
-    width: 90;
-    height: 90;
     transition-delay: 1s;
     transition-duration: 3s;
     transition-property: position;
+    border-left-color: rgba(0, 252, 255, 0.37);
+    border-right-color: rgba(0, 252, 255, 0.37);
+    border-top-color: rgba(0, 252, 255, 0.37);
+    border-bottom-color: rgba(0, 252, 255, 0.37);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.unity-text-element {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }
