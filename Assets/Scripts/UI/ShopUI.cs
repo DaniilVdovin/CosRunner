@@ -62,6 +62,7 @@ public class ShopUI : MonoBehaviour
     }
     private IEnumerator Generate()
     {
+        Holder.Clear();
         foreach (var item in items)
         {
             TemplateContainer temp = Def_Item.Instantiate();
@@ -82,6 +83,7 @@ public class ShopUI : MonoBehaviour
     private void ClickEvent(ShopItem item,ClickEvent e)
     {
         //Instantiate(item.Prefab);
+        Debug.Log(item.Name);
     }
     public void StartShop()
     {
