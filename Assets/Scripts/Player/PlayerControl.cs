@@ -27,7 +27,8 @@ public class PlayerControl : MonoBehaviour
     public bool isLive = false;
     public bool isGround = true;
     public bool CameraFlow = false;
-
+    public bool isShield;
+    
     [Tooltip("goodmod")]
     public bool godMod = true;
 
@@ -44,14 +45,14 @@ public class PlayerControl : MonoBehaviour
 
     [Space(10)]
     [Header("System")]
-
     public Camera Camera;
     public GameObject Map;
+
     public Transform CameraTarget;
     public Generate MapGenerator;
     public GameUI GameUI;
 
-
+    private Time ShieldCounddown;
     private float? last_mouse_pos = null;
     private Vector3 mouse_down_pos;
     private int angle_rotate = 90;
@@ -91,11 +92,11 @@ public class PlayerControl : MonoBehaviour
             Autorunning();
             Clamp();
             //Jump();
-
-            if(isRun)
+            Shieldet();
+            if (isRun)
                 UIUpdate();
         }
-        
+
     }
     /// <summary>
     /// Update actions something like 50 times per second
@@ -125,6 +126,22 @@ public class PlayerControl : MonoBehaviour
         }
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
+ 
+    public void Shieldet()
+    {
+        if(isShield == true)
+        {
+            var shield = gameObject.transform.Find("PlayerShield").gameObject;
+            shield.SetActive(true);
+            float time = 10f;
+            time -= Time.deltaTime;
+            if (time < 0)
+            {
+                shield.SetActive(false);
+                isShield = false;
+            }
+        }
+    }
 
     private void UIUpdate()
     {
@@ -132,19 +149,22 @@ public class PlayerControl : MonoBehaviour
     }
     private void Die()
     {
-        if (RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
+        if (!isShield)
+        {
+            if (RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
             RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit hts, transform.forward)
                 && !hts.collider.CompareTag("Item"))
-        {
-            Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity),4f);
+            {
+                Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
 
-            Rigidbody.velocity = Vector3.zero;
-            Debug.Log("Die" + RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit htt, transform.forward) + htt.collider.tag + htt.collider.name);
-            isLive = false;
-            isRun = false;
-            GameUI.Die();
-
+                Rigidbody.velocity = Vector3.zero;
+                Debug.Log("Die" + RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit htt, transform.forward) + htt.collider.tag + htt.collider.name);
+                isLive = false;
+                isRun = false;
+                GameUI.Die();
+            }
         }
+        
     }
     public void PreRessurect()
     {

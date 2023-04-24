@@ -14,10 +14,13 @@ public class ItemControl : MonoBehaviour
             {
                 case ItemModel.TType.Coin: pc.Coins += model.Value; break;
                 case ItemModel.TType.Oxygen: break;
+                case ItemModel.TType.Shield: pc.isShield = true; break;
             }
+
             StartCoroutine(GetAnination());
         }
     }
+
     private IEnumerator GetAnination()
     {
         GameObject er_temp = Instantiate(model.Effect, transform.position+Vector3.up*2, Quaternion.identity);

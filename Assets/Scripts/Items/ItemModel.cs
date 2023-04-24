@@ -8,7 +8,8 @@ public class ItemModel : ScriptableObject
     public enum TType
     {
         Coin,
-        Oxygen
+        Oxygen,
+        Shield
     }
     public TType Type;
     public int Value;
