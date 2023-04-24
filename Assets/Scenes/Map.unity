@@ -1605,6 +1605,28 @@ MonoBehaviour:
   Def_Item: {fileID: 9197481963319205126, guid: d59298ed927ed44e6b76d0134f3e14f8,
     type: 3}
   SpriteLock: {fileID: 21300000, guid: 2e5074f46142340349926d541c76c5d4, type: 3}
+  Menu: {fileID: 0}
+--- !u!114 &1804978036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804978026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417c9443adb43468db8357fc1f67fb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Def_Item: {fileID: 9197481963319205126, guid: 5dffdd05c9dc84e0fa4d14af882508ec,
+    type: 3}
+  Menu: {fileID: 0}
+  Spites:
+  - {fileID: 21300044, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300008, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300010, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300012, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300002, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
 --- !u!20 &1806605389 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 618450877678469362, guid: 8c522c6cb76de4c2895e07519289085d,
@@ -2186,4 +2208,8 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1804978035}
+    - targetCorrespondingSourceObject: {fileID: 4997388508218723421, guid: 6ca6548ff0cc64f449535f4dcf2c408c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1804978036}
   m_SourcePrefab: {fileID: 100100000, guid: 6ca6548ff0cc64f449535f4dcf2c408c, type: 3}
