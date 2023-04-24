@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,10 +8,12 @@ using UnityEngine.UIElements;
 
 public class GameCotroller : MonoBehaviour
 {
-    public static PlayerControl PlayerControl;
-    public static Generate Generate;
-    private static VisualElement Menu;
+    public PlayerControl PlayerControl;
+    public Generate Generate;
 
+    public VisualElement Menu;
+
+    public ShopUI Shop;
 
     private void Awake()
     {
@@ -20,12 +23,21 @@ public class GameCotroller : MonoBehaviour
     private void Start()
     {
         Menu = GetComponent<UIDocument>().rootVisualElement.Q<TemplateContainer>("MainUI");
+        Shop = GetComponent<ShopUI>();
+
         PlayerControl = FindAnyObjectByType<PlayerControl>();
         Generate = FindAnyObjectByType<Generate>();
 
         Menu.Q<Button>("Start").RegisterCallback<ClickEvent>(StartGame);
+        Menu.Q<Button>("Shop").RegisterCallback<ClickEvent>(StartShop);
     }
-    public static void StartGame(ClickEvent e = null)
+
+    private void StartShop(ClickEvent e)
+    {
+        Menu.visible = false;
+        Shop.StartShop();
+    }
+    private void StartGame(ClickEvent e = null)
     {
         Menu.visible = false;
         PlayerControl.StartGame();
@@ -34,5 +46,6 @@ public class GameCotroller : MonoBehaviour
     private void OnDestroy()
     {
         Menu.Q<Button>("Start").UnregisterCallback<ClickEvent>(StartGame);
+        Menu.Q<Button>("Shop").UnregisterCallback<ClickEvent>(StartShop);
     }
 }

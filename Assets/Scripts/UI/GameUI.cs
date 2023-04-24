@@ -31,7 +31,6 @@ public class GameUI : MonoBehaviour
         StatsFrame = UI.Q<VisualElement>("Stats");
         Score = UI.Q<Label>("Score");
         Coins = UI.Q<Label>("Coins");
-
         _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
 
         Replay.RegisterCallback<ClickEvent>(CallbackReplay);
@@ -59,7 +58,6 @@ public class GameUI : MonoBehaviour
     private void CallbackReplay(ClickEvent e) {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);
-        GameCotroller.StartGame();
     }
     private void CallbackResurect(ClickEvent e)
     {

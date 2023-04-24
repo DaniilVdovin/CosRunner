@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -26,37 +27,40 @@ public class ShopUI : MonoBehaviour
 {
     public List<ShopItem> items;
 
-    private UIDocument UI;
+    private VisualElement UI;
     private VisualElement Holder;
     public VisualTreeAsset Def_Item;
     public Sprite SpriteLock;
+    public Button Close;
+
+    public GameCotroller Menu;
 
     void Start()
     {
-        UI = GetComponent<UIDocument>();
-        Holder = UI.rootVisualElement.Q<VisualElement>("ShopContainer");
-
-        //LoadItems();
-        Generate();
+        Menu = GetComponent<GameCotroller>();
+        UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShopUI");
+        Holder = UI.Q<VisualElement>("ShopContainer");
+        Close = UI.Q<Button>("ShopClose");
+        Close.RegisterCallback<ClickEvent>(ShopClose);
+        UI.visible = false;
     }
-    private void LoadItems()
+    private void LoadItems()//TEST
     {
-        //TEST
         items = new();
         for (int i = 0; i < 30; i++)
         {
             ShopItem temp = new()
             {
                 Name = "Pers: " + i,
-                Prefab = Resources.Load("Assets/Player/Stickman1.prefab", typeof(GameObject)) as GameObject,
-                Icon = Resources.Load("Assets/Player/Icons/pdp.png", typeof(Sprite)) as Sprite,
+                Prefab = null,
+                Icon = null,
                 Has = false,
                 Price = 100 * i
             };
             items.Add(temp);
         }
     }
-    private void Generate()
+    private IEnumerator Generate()
     {
         foreach (var item in items)
         {
@@ -69,10 +73,29 @@ public class ShopUI : MonoBehaviour
             item.template = temp;
             item.Click += ClickEvent;
             Holder.Add(temp);
+            DOTween.To(() => 0f, x => temp.style.opacity = x
+                    , 1f, .5f)
+            .SetEase(Ease.Linear);
+            yield return new WaitForSeconds(.5f);
         }
     }
     private void ClickEvent(ShopItem item,ClickEvent e)
     {
-        Instantiate(item.Prefab);
+        //Instantiate(item.Prefab);
+    }
+    public void StartShop()
+    {
+        UI.visible = true;
+        LoadItems();//TEST
+        StartCoroutine(Generate());
+    }
+    private void ShopClose(ClickEvent evt)
+    {
+        UI.visible = false;
+        Menu.Menu.visible = true;
+    }
+    private void OnDestroy()
+    {
+        Close.UnregisterCallback<ClickEvent>(ShopClose);
     }
 }
