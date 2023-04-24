@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
 
 public class GameCotroller : MonoBehaviour
@@ -14,6 +15,7 @@ public class GameCotroller : MonoBehaviour
     public VisualElement Menu;
 
     public ShopUI Shop;
+    public LeaderBoardUI LeaderBoard;
 
     private void Awake()
     {
@@ -24,18 +26,25 @@ public class GameCotroller : MonoBehaviour
     {
         Menu = GetComponent<UIDocument>().rootVisualElement.Q<TemplateContainer>("MainUI");
         Shop = GetComponent<ShopUI>();
+        LeaderBoard = GetComponent<LeaderBoardUI>();
 
         PlayerControl = FindAnyObjectByType<PlayerControl>();
         Generate = FindAnyObjectByType<Generate>();
 
         Menu.Q<Button>("Start").RegisterCallback<ClickEvent>(StartGame);
         Menu.Q<Button>("Shop").RegisterCallback<ClickEvent>(StartShop);
+        Menu.Q<Button>("Rating").RegisterCallback<ClickEvent>(StartLeaderBoard);
     }
 
     private void StartShop(ClickEvent e)
     {
         Menu.visible = false;
         Shop.StartShop();
+    }
+    private void StartLeaderBoard(ClickEvent e)
+    {
+        Menu.visible = false;
+        LeaderBoard.StartLeaderBoard();
     }
     private void StartGame(ClickEvent e = null)
     {

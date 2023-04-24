@@ -31,7 +31,7 @@ public class Generate : MonoBehaviour
     private int MemCount = 40;
     public PlayerControl PlayerControl;
     private bool isGenerate = false;
-    private WaitForSeconds wait = new WaitForSeconds(.2f);
+    private WaitForSeconds wait = new WaitForSeconds(.1f);
     public GameObject PrefCoin;
     private int CoinnPosOlds = 1;
     private bool firstGeneration = true;

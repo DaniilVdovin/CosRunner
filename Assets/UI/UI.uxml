@@ -2,8 +2,10 @@
     <ui:Template name="MainUI" src="project://database/Assets/UI/MainUI.uxml?fileID=9197481963319205126&amp;guid=c7f0f6c8e8adf49878cca6ebf945b4b3&amp;type=3#MainUI" />
     <ui:Template name="GameUI" src="project://database/Assets/UI/GameUI.uxml?fileID=9197481963319205126&amp;guid=854029adb28d2465c87c46c4f09cdfb2&amp;type=3#GameUI" />
     <ui:Template name="ShopUI" src="project://database/Assets/UI/ShopUI.uxml?fileID=9197481963319205126&amp;guid=a3706d76bfcf446f3855a35ba566bcc9&amp;type=3#ShopUI" />
+    <ui:Template name="LeaderBoardUI" src="project://database/Assets/UI/LeaderBoardUI.uxml?fileID=9197481963319205126&amp;guid=e27e938944abc433aadf0505cb1c7fb0&amp;type=3#LeaderBoardUI" />
     <Style src="project://database/Assets/UI/Style.uss?fileID=7433441132597879392&amp;guid=b9415202368f448ecb6ec83275122020&amp;type=3#Style" />
     <ui:Instance template="MainUI" name="MainUI" style="height: 100%; width: 100%; display: flex; position: absolute;" />
     <ui:Instance template="GameUI" name="GameUI" style="height: 100%; width: 100%; display: flex; visibility: hidden; position: absolute;" />
     <ui:Instance template="ShopUI" name="ShopUI" style="display: flex; visibility: hidden; position: absolute; width: 100%; height: 100%;" />
+    <ui:Instance template="LeaderBoardUI" name="LeaderBoardUI" style="visibility: hidden;" />
 </ui:UXML>
