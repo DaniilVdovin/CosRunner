@@ -829,6 +829,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8571129861697559301, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8982493153662964050, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -2325,7 +2330,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Generate
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 790793296}
     - target: {fileID: 859371666545767177, guid: 6ca6548ff0cc64f449535f4dcf2c408c,
         type: 3}
       propertyPath: m_Enabled
