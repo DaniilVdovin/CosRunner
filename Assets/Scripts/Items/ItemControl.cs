@@ -13,7 +13,11 @@ public class ItemControl : MonoBehaviour
             switch (model.Type)
             {
                 case ItemModel.TType.Coin: pc.Coins += model.Value; break;
-                case ItemModel.TType.Oxygen:pc.Oxygen += model.Value; break;
+                case ItemModel.TType.Oxygen:{
+                        pc.Oxygen += model.Value;
+                        if (pc.Oxygen > 100)
+                            pc.Oxygen = 100;
+                                              }; break;
                 case ItemModel.TType.Shield: { pc.isShield = true; pc.ShieldCounddown += 10f; } ; break;
             }
 

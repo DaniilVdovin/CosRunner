@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -36,12 +37,10 @@ public class PlayerControl : MonoBehaviour
     [Space(10)]
     [Header("Effects")]
     public GameObject Boom;
-
     [Space(10)]
     [Header("System")]
     public Camera Camera;
     public GameObject Map;
-
     public Transform CameraTarget;
     public Generate MapGenerator;
     public GameUI GameUI;
@@ -51,7 +50,7 @@ public class PlayerControl : MonoBehaviour
     private float? last_mouse_pos = null;
     private Vector3 mouse_down_pos;
     private int angle_rotate = 90;
-
+    private bool isBreath = false;
     private Animator Animator;
     private Rigidbody Rigidbody;
     [HideInInspector]
@@ -80,15 +79,17 @@ public class PlayerControl : MonoBehaviour
         {
             KeyManager();
             SetPlayerParameters();
-            Run();
-            SideMove();
+            if(isBreath == true)
+                Breath();
             OnRotate();
             Autorunning();
             Clamp();
-            Jump();
-            Shieldet();
             if (isRun)
+                Run();
                 UIUpdate();
+                SideMove();
+                Shieldet();
+                Jump();
         }
 
     }
@@ -124,36 +125,30 @@ public class PlayerControl : MonoBehaviour
     private void Breath()
     {
         BreathTime-=Time.deltaTime;
-        if (BreathTime < 0)
+        Oxygen -= Time.deltaTime*1.6f;
+        if (BreathTime <= 0)
         {
-
             Die();
         }
+
     }
 
 
     public void Shieldet()
     {
-        
         if (isShield == true)
         {
-
             GameObject shield = gameObject.transform.Find("PlayerShield").gameObject;
             shield.SetActive(true);
-           
             if (ShieldCounddown > 0)
             {
                 ShieldCounddown -= Time.deltaTime;
-                
             }
             else
             {
                 isShield = false;
-                shield.SetActive(false);
-               
+                shield.SetActive(false);  
             }
-           
-
         }
     }
 
@@ -165,16 +160,14 @@ public class PlayerControl : MonoBehaviour
     private void Die()
     {
 
-        if (isShield == false );
+        if (isShield == false )
         {
             if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
             RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
-                && !hts.collider.CompareTag("Item"))
+                && !hts.collider.CompareTag("Item") || Oxygen <= 0)
             {
                 Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
-
                 Rigidbody.velocity = Vector3.zero;
-                Debug.Log("Die" + RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit htt, transform.forward) + htt.collider.tag + htt.collider.name);
                 isLive = false;
                 isRun = false;
                 GameUI.Die();
@@ -258,6 +251,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void Run()
     {
+        isBreath = true;
         if (isRun && isGround)
         {
             Rigidbody.velocity = transform.forward * Speed;
@@ -299,32 +293,33 @@ public class PlayerControl : MonoBehaviour
     private void Jump()
     {
         //fix flying
-        if (CanJump == false) return;
+        if (CanJump == false && isRun == true) return;
         int offset = 30;
         if (isGround == true)
         {
-
             if (Input.GetMouseButtonDown(0))
             {
                 mouse_down_pos = Input.mousePosition;
             }
-            if (Input.GetMouseButtonUp(0))
+            else if (Input.GetMouseButtonUp(0))
             {
-
-                
                 if ((Input.mousePosition.y > mouse_down_pos.y) && ((Input.mousePosition.x - mouse_down_pos.x) <= offset) && (mouse_down_pos.x - Input.mousePosition.x <= offset))
                 {
 
-                    isRun = false;
-                    Vector3 force = 120 * JumpForce * Vector3.up;
-                    Rigidbody.AddForce(force, ForceMode.Impulse);
+
+                    // Vector3 force = 120 * JumpForce * Vector3.up;
+                    // Rigidbody.AddForce(force, ForceMode.Impulse);
                     Animator.SetTrigger("Jump");
 
                     isGround = false;
-                    isRun = true;
-                }
 
+                }
             }
+
+
+               
+
+            
 
         }
         return;
