@@ -46,7 +46,7 @@ public class PlayerControl : MonoBehaviour
     public GameUI GameUI;
     
 
-    private float ShieldCounddown = 0f;
+    public float ShieldCounddown = 0f;
     private float? last_mouse_pos = null;
     private Vector3 mouse_down_pos;
     private int angle_rotate = 90;
@@ -130,14 +130,13 @@ public class PlayerControl : MonoBehaviour
     }
     public void Shieldet()
     {
-        ShieldCounddown += 10f;
+        
         if (isShield == true)
         {
 
             GameObject shield = gameObject.transform.Find("PlayerShield").gameObject;
             shield.SetActive(true);
-            if (ChankNow != null && ChankNow.WeRot == true)
-                ChankNow.WeRot = false;
+           
             if (ShieldCounddown > 0)
             {
                 ShieldCounddown -= Time.deltaTime;
@@ -147,6 +146,7 @@ public class PlayerControl : MonoBehaviour
             {
                 isShield = false;
                 shield.SetActive(false);
+               
             }
            
 
@@ -160,10 +160,10 @@ public class PlayerControl : MonoBehaviour
     }
     private void Die()
     {
-        if (isShield == false)
+        if (isShield == false && (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit htr, transform.forward) && ChankNow.type == ChankControl.Ttype.Floor));
         {
-            if (RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
-            RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit hts, transform.forward)
+            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
+            RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
                 && !hts.collider.CompareTag("Item"))
             {
                 Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
