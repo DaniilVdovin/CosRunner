@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 325066201057653944}
   m_Layer: 0
   m_Name: oxygen
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -274,12 +274,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4, y: 10, z: 4}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!114 &325066201057653944
 MonoBehaviour:
   m_ObjectHideFlags: 0

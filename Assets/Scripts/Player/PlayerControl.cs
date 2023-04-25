@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     public int Coins = 0;
     public float Score = 0;
     public float Oxygen = 100f;
+    public float BreathTime = 60f;
     [Space(10)]
     [Header("Statys")]
     public bool CanJump = true;
@@ -120,14 +121,17 @@ public class PlayerControl : MonoBehaviour
         }
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
-    private bool IsAnimationPlaying(string AnimationName)
+    private void Breath()
     {
-        AnimatorStateInfo animatorState = Animator.GetCurrentAnimatorStateInfo(0);
-        Debug.Log(animatorState.nameHash);
-        if (animatorState.IsName(AnimationName))
-            return true;
-        return false;
+        BreathTime-=Time.deltaTime;
+        if (BreathTime < 0)
+        {
+
+            Die();
+        }
     }
+
+
     public void Shieldet()
     {
         
@@ -160,7 +164,8 @@ public class PlayerControl : MonoBehaviour
     }
     private void Die()
     {
-        if (isShield == false && (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit htr, transform.forward) && ChankNow.type == ChankControl.Ttype.Floor));
+
+        if (isShield == false );
         {
             if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
             RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
