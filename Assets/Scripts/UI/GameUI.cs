@@ -106,7 +106,7 @@ public class GameUI : MonoBehaviour
     public void SetScore(float value) => Score.text = "Score: " + value.ToString("f2");
     public void SetCoins(int value) => Coins.text = "Coins: " + value.ToString();
     public void SetOxygen(float value)
-        => _OxygenUI.Q<VisualElement>("Ox_Bar").style.height = ((float)_OxygenUI.localBound.height/100f)*value;
+        => _OxygenUI.Q<VisualElement>("Ox_Bar").style.height = (float)(((float)_OxygenUI.localBound.height/100f)*value);
     private void SaveStats() { SaveBestScore(); SaveCoins(); }
     private void SaveBestScore()
     {

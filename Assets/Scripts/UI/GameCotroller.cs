@@ -23,7 +23,7 @@ public class GameCotroller : MonoBehaviour
         if(!SceneManager.GetSceneByName("NDY").isLoaded)
             SceneManager.LoadSceneAsync("NDY", LoadSceneMode.Additive);
 
-        
+        PlayerGeneralData.Init();
     }
     private void Start()
     {

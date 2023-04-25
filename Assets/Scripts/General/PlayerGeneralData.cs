@@ -48,6 +48,11 @@ public static class PlayerGeneralData
     }
 
     public static EventHandler StatsUpdate;
+    public static void Init()
+    {
+        StatsUpdate += (s,e)=> PlayerPrefs.Save();
+        LoadData();
+    }
     public static void LoadData() {
         _Coins = PlayerPrefs.GetInt("Coins", 0);
         _id_Prefs = PlayerPrefs.GetInt("id_Prefs", 0);

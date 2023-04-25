@@ -32,12 +32,12 @@ public class ChankControl : MonoBehaviour
                     Stopings.Add(Instantiate(Stoping[Random.Range(0, Stoping.Length)],
                         Lines[Random.Range(0, Lines.Length)].transform.position, Quaternion.identity, transform));
                 }
-                if (Random.Range(0, 5) == 3) {
+                if (Random.Range(0, 7) == 3) {
                     Stopings.Add(Instantiate(HardChankItems[Random.Range(0, HardChankItems.Length)],
                         transform.position,Quaternion.identity,transform));
                     Stopings.Last().transform.localRotation = Quaternion.Euler(0, (Random.Range(0, 2) == 1 ? 0 : 180), 0);
                 }
-             }
+            }
     }
     public void Regenerate()
     {

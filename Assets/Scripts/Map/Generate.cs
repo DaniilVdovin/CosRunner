@@ -32,7 +32,7 @@ public class Generate : MonoBehaviour
     public PlayerControl PlayerControl;
     private bool isGenerate = false;
     private WaitForSeconds wait = new WaitForSeconds(.1f);
-    public GameObject PrefCoin;
+    public GameObject PrefCoin, PrefOxygen;
     private int CoinnPosOlds = 1;
     private bool firstGeneration = true;
     public void StartGenerate()
@@ -72,6 +72,10 @@ public class Generate : MonoBehaviour
                 }
             }
             else AddChank(GetNextPosotion(last.transform.position));
+            if (i % 2 == 0)
+            {
+                CreateOxygen(Map[i],Vector3.zero);
+            }
             yield return wait;
         }
         StartCoroutine(GenerateCoins(addition, count));
@@ -134,6 +138,12 @@ public class Generate : MonoBehaviour
             }
         }
         CoinnPosOlds = pos;
+    }
+    void CreateOxygen(GameObject Parent, Vector3 Position)
+    {
+        GameObject oxygen = Instantiate(PrefOxygen, Parent.transform);
+        oxygen.transform.localPosition = transform.position + Position;
+        Parent.GetComponent<ChankControl>().Coins.Add(oxygen);
     }
     void CreateCoin(GameObject Parent, Vector3 Position)
     {
