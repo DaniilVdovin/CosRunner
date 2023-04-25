@@ -43,6 +43,7 @@ public class PlayerControl : MonoBehaviour
     public Transform CameraTarget;
     public Generate MapGenerator;
     public GameUI GameUI;
+    public float Oxygen = 100f;
 
     private float ShieldCounddown = 0f;
     private float? last_mouse_pos = null;
@@ -136,12 +137,17 @@ public class PlayerControl : MonoBehaviour
             shield.SetActive(true);
             if (ChankNow != null && ChankNow.WeRot == true)
                 ChankNow.WeRot = false;
-            while (ShieldCounddown > 0)
+            if (ShieldCounddown > 0)
+            {
+                ShieldCounddown -= Time.deltaTime;
+                
+            }
+            else
             {
                 isShield = false;
-                ShieldCounddown -= Time.deltaTime;
+                shield.SetActive(false);
             }
-            shield.SetActive(false);
+           
 
         }
     }
@@ -152,7 +158,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void Die()
     {
-        if (!isShield)
+        if (isShield == false)
         {
             if (RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
             RaycastConfigure(transform.position + Vector3.up * 4 + transform.forward, 3f, out RaycastHit hts, transform.forward)
@@ -303,7 +309,7 @@ public class PlayerControl : MonoBehaviour
                 {
 
                     isRun = false;
-                    Vector3 force = 220 * JumpForce * Vector3.up;
+                    Vector3 force = 120 * JumpForce * Vector3.up;
                     Rigidbody.AddForce(force, ForceMode.Impulse);
                     Animator.SetTrigger("Jump");
 
