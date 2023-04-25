@@ -9,9 +9,9 @@ using DG.Tweening;
 
 public class GameUI : MonoBehaviour
 {
-    private VisualElement UI, DieFrame, _LoaderUI,StatsFrame, _OxygenUI;
+    private VisualElement UI, DieFrame, _LoaderUI, StatsFrame, _OxygenUI;
     private GroupBox LittleSettings;
-    private Button Setting, Replay,Resurect,Rating;
+    private Button Setting, Replay, Resurect, Rating;
     private Label Score, Coins;
 
     private PlayerControl PlayerControl;
@@ -58,7 +58,8 @@ public class GameUI : MonoBehaviour
     }
     private void CallbackReplay(ClickEvent e) {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);
+        SaveStats();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
     private void CallbackResurect(ClickEvent e)
     {
@@ -106,6 +107,16 @@ public class GameUI : MonoBehaviour
     public void SetCoins(int value) => Coins.text = "Coins: " + value.ToString();
     public void SetOxygen(float value)
         => _OxygenUI.Q<VisualElement>("Ox_Bar").style.height = ((float)_OxygenUI.localBound.height/100f)*value;
+    private void SaveStats() { SaveBestScore(); SaveCoins(); }
+    private void SaveBestScore()
+    {
+        if (PlayerControl.Score > PlayerGeneralData.Score)
+            PlayerGeneralData.Score = PlayerControl.Score;
+    }
+    private void SaveCoins()
+    {
+        PlayerGeneralData.Coins += PlayerControl.Coins;
+    }
 
     public void AnimateLoading()
     {

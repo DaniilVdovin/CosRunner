@@ -17,10 +17,13 @@ public class GameCotroller : MonoBehaviour
     public ShopUI Shop;
     public LeaderBoardUI LeaderBoard;
 
+
     private void Awake()
     {
         if(!SceneManager.GetSceneByName("NDY").isLoaded)
             SceneManager.LoadSceneAsync("NDY", LoadSceneMode.Additive);
+
+        
     }
     private void Start()
     {
