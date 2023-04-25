@@ -2,13 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 public class LeaderBoardItem
 {
