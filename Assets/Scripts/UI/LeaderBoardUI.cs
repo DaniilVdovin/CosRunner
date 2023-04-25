@@ -23,6 +23,7 @@ public class LeaderBoardUI : MonoBehaviour
     private VisualElement UI, Holder;
     public List<LeaderBoardItem> items;
     public VisualTreeAsset Def_Item;
+    public Label Score;
     public Button Close;
     public GameCotroller Menu;
     public Sprite[] Spites;
@@ -40,6 +41,7 @@ public class LeaderBoardUI : MonoBehaviour
         items = new();
         Menu = GetComponent<GameCotroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("LeaderBoardUI");
+        Score = UI.Q<Label>("Score");
         Holder = UI.Q<VisualElement>("LeaderBoardContainer");
         Close = UI.Q<Button>("LeaderBoardClose");
         Close.RegisterCallback<ClickEvent>(LBUIClose);
@@ -52,9 +54,14 @@ public class LeaderBoardUI : MonoBehaviour
                 Score = 1234 * i
             });
         }
+        PlayerGeneralData.StatsUpdate += UPD;
+    }
+    private void UPD(object s,EventArgs e) {
+        Score.text = "Score: " + PlayerGeneralData.Score.ToString("f2");
     }
     public void StartLeaderBoard() {
         UI.visible = true;
+        UPD(null, null);
         StartCoroutine(Generate());
     }
     private IEnumerator Generate()

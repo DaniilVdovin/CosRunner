@@ -6,6 +6,7 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
 using static UnityEditor.Progress;
 
@@ -76,6 +77,7 @@ public class ShopUI : MonoBehaviour
     private VisualElement UI;
     private VisualElement Holder;
     public VisualTreeAsset Def_Item;
+    public Label Coin;
     public Sprite SpriteLock;
     public Button Close;
 
@@ -86,9 +88,15 @@ public class ShopUI : MonoBehaviour
         Menu = GetComponent<GameCotroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShopUI");
         Holder = UI.Q<VisualElement>("ShopContainer");
+        Coin = UI.Q<Label>("Coins");
         Close = UI.Q<Button>("ShopClose");
         Close.RegisterCallback<ClickEvent>(ShopClose);
         UI.visible = false;
+        PlayerGeneralData.StatsUpdate += UPD;
+    }
+    private void UPD(object s, EventArgs e)
+    {
+        Coin.text = "Coins: " + PlayerGeneralData.Coins;
     }
     private void LoadItems()//TEST
     {
@@ -141,16 +149,31 @@ public class ShopUI : MonoBehaviour
             items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
         }
         else {
-            item.Has = true;
+            Buy(item);
         }
 
         //UPDATE
         item.Update();
     }
+    private void Buy(ShopItem item)
+    {
+        if (PlayerGeneralData.Coins >= item.Price)
+        {
+            PlayerGeneralData.Coins -= item.Price;
+            item.Has = true;
+            Debug.LogWarning("You buy item id:"+item.id);
+        }
+        else
+        {
+            //Dont Have Coins
+            Debug.LogWarning("Dont Have Coins");
+        }
+    }
     public void StartShop()
     {
         UI.visible = true;
         //LoadItems();//TEST
+        UPD(null, null);
         StartCoroutine(Generate());
     }
     private void ShopClose(ClickEvent evt)
