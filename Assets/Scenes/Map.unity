@@ -530,6 +530,8 @@ MonoBehaviour:
   PlayerControl: {fileID: 733347868}
   PrefCoin: {fileID: 7587895646236154011, guid: 2f63071ffa2ff4fe7b348e81485420cf,
     type: 3}
+  PrefOxygen: {fileID: 5819175578173902013, guid: a10c9e20dc201493ba16779b25e96545,
+    type: 3}
 --- !u!4 &790793297
 Transform:
   m_ObjectHideFlags: 0
