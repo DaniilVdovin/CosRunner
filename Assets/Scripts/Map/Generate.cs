@@ -72,10 +72,6 @@ public class Generate : MonoBehaviour
                 }
             }
             else AddChank(GetNextPosotion(last.transform.position));
-            if (i % 2 == 0)
-            {
-                CreateOxygen(Map[i],Vector3.zero);
-            }
             yield return wait;
         }
         StartCoroutine(GenerateCoins(addition, count));
@@ -125,7 +121,11 @@ public class Generate : MonoBehaviour
                 vector.z = -7f;
                 for (int c = 0; c < 5; c++)
                 {
-                    CreateCoin(Map[i], vector);
+                    //Every 5 chank
+                    if (i % 5 == 0 && c == 3)
+                        CreateOxygen(Map[i], vector);
+                    else
+                        CreateCoin(Map[i], vector);
                     vector.z += 3.5f;
                     ccount++;
                     yield return new WaitForSeconds(0.05f);
