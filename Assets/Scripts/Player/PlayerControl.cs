@@ -101,6 +101,7 @@ public class PlayerControl : MonoBehaviour
         if (isRun && GetAverageVelosity() > 1)
         {
             Score += 0.01f;
+            Oxygen -= 0.01f;
         }
         if (isLive)
         {
@@ -155,6 +156,7 @@ public class PlayerControl : MonoBehaviour
     private void UIUpdate()
     {
         GameUI.SetCoinsAndScore(Coins, Score);
+        GameUI.SetOxygen(Oxygen);
     }
     private void Die()
     {
