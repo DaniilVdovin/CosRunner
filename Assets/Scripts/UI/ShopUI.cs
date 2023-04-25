@@ -1,29 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "Item Model", menuName = "Items/Shop Item Model", order = 2)]
 public class ShopItem : ScriptableObject
 {
     public int id;
-    public string Name;
-    public bool Has;
+    private string _name;
+    
+    public string Name
+    {
+        get => _name; set
+        {
+            _name = value;
+            Update();
+        }
+    }
+    public bool _has;
+    public bool Has
+    {
+        get => _has; set
+        {
+            _has = value;
+            Update();
+        }
+    }
     public GameObject Prefab;
     public int Price;
     public Sprite Icon;
-    private bool _selected = false;
+    private bool _selected;
     public bool Selected
     {
         get => _selected; set
         {
             _selected = value;
-            if (_template != null)
-                template.Q<VisualElement>("ItemSelected").visible = _selected;
+            Update();
         }
     }
     private TemplateContainer _template;
@@ -33,10 +51,23 @@ public class ShopItem : ScriptableObject
         {
             _template = value;
             _template.RegisterCallback<ClickEvent>(ClickEvent);
+            Update();
         }
     }
-    public Action<ShopItem, ClickEvent> Click;
-    private void ClickEvent(ClickEvent e) => Click.Invoke(this, e);
+    public Action<ShopItem, ClickEvent> EventClick;
+    public Action<ShopItem> EventUpdate;
+    private void ClickEvent(ClickEvent e) => EventClick.Invoke(this, e);
+
+    public void Update() {
+        if (_template != null)
+        {
+            template.Q<VisualElement>("ItemSelected").visible = _selected;
+            if (_has) template.Q<Label>("Price").text = "Have";
+            else template.Q<Label>("Price").text = Price == 0 ? "FREE" : Price.ToString();
+        }
+        if (EventUpdate != null)
+            EventUpdate.Invoke(this);
+    }
 }
 public class ShopUI : MonoBehaviour
 {
@@ -82,20 +113,23 @@ public class ShopUI : MonoBehaviour
         {
             TemplateContainer temp = Def_Item.Instantiate();
             temp.style.opacity = 0;
-            temp.name = item.Name;
-            if (item.Has)
-                temp.Q<Label>("Price").text = "Have";
-            else temp.Q<Label>("Price").text = item.Price == 0 ? "FREE" : item.Price.ToString();
-            temp.Q<VisualElement>("Icon").style.backgroundImage = new(item.Icon != null ? item.Icon : SpriteLock);
             item.template = temp;
-            item.Selected = false;
-            item.Click += ClickEvent;
+            temp.name = item.Name;
+            item.EventUpdate += ItemUpdate;
+            item.EventClick += ClickEvent;
             Holder.Add(temp);
             DOTween.To(() => 0f, x => temp.style.opacity = x
                     , 1f, .5f)
             .SetEase(Ease.Linear);
             yield return new WaitForSeconds(.1f);
         }
+    }
+    private void ItemUpdate(ShopItem item)
+    {
+        //Debug.Log(item.Name);
+        bool allunsel = false;
+        items.ForEach((i) => allunsel = i.Selected?true:allunsel);
+        if (!allunsel) { items[0].Selected = true; }
     }
     private void ClickEvent(ShopItem item,ClickEvent e)
     {
@@ -104,20 +138,29 @@ public class ShopUI : MonoBehaviour
 
         if (item.Has) {
             item.Selected = !item.Selected;
+            items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
         }
         else {
             item.Has = true;
         }
+
+        //UPDATE
+        item.Update();
     }
     public void StartShop()
     {
         UI.visible = true;
-        LoadItems();//TEST
+        //LoadItems();//TEST
         StartCoroutine(Generate());
     }
     private void ShopClose(ClickEvent evt)
     {
         UI.visible = false;
+        items.ForEach((i) => {
+            i.template.Q<VisualElement>("ItemSelected").visible = false;
+            i.EventClick -= ClickEvent;
+            i.EventUpdate -= ItemUpdate;
+            });
         Menu.Menu.visible = true;
     }
     private void OnDestroy()

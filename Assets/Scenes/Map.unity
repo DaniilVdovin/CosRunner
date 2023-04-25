@@ -1601,7 +1601,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e72da5b1e32f4798849e2e4dc162855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 11400000, guid: e54965f13a2354afcacd1b0152985e1e, type: 2}
+  - {fileID: 11400000, guid: ec277da4d9c654e219559f7414ebd884, type: 2}
   Def_Item: {fileID: 9197481963319205126, guid: d59298ed927ed44e6b76d0134f3e14f8,
     type: 3}
   SpriteLock: {fileID: 21300000, guid: 2e5074f46142340349926d541c76c5d4, type: 3}
