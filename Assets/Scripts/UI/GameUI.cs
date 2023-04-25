@@ -9,7 +9,7 @@ using DG.Tweening;
 
 public class GameUI : MonoBehaviour
 {
-    private VisualElement UI, DieFrame, _LoaderUI,StatsFrame;
+    private VisualElement UI, DieFrame, _LoaderUI,StatsFrame, _OxygenUI;
     private GroupBox LittleSettings;
     private Button Setting, Replay,Resurect,Rating;
     private Label Score, Coins;
@@ -32,6 +32,7 @@ public class GameUI : MonoBehaviour
         Score = UI.Q<Label>("Score");
         Coins = UI.Q<Label>("Coins");
         _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
+        _OxygenUI = UI.Q<VisualElement>("_OxygenBarUI");
 
         Replay.RegisterCallback<ClickEvent>(CallbackReplay);
         Resurect.RegisterCallback<ClickEvent>(CallbackResurect);
@@ -103,6 +104,8 @@ public class GameUI : MonoBehaviour
     }
     public void SetScore(float value) => Score.text = "Score: " + value.ToString("f2");
     public void SetCoins(int value) => Coins.text = "Coins: " + value.ToString();
+    public void SetOxygen(float value)
+        => _OxygenUI.Q<VisualElement>("Ox_Bar").style.height = ((float)_OxygenUI.localBound.height/100f)*value;
 
     public void AnimateLoading()
     {
