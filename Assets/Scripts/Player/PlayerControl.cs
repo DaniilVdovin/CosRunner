@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Points")]
     public int Coins = 0;
     public float Score = 0;
+    public float Oxygen = 100f;
     [Space(10)]
     [Header("Statys")]
     public bool CanJump = true;
@@ -43,7 +44,7 @@ public class PlayerControl : MonoBehaviour
     public Transform CameraTarget;
     public Generate MapGenerator;
     public GameUI GameUI;
-    public float Oxygen = 100f;
+    
 
     private float ShieldCounddown = 0f;
     private float? last_mouse_pos = null;
@@ -74,7 +75,6 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void Update()
     {
-
         if (isLive)
         {
             KeyManager();
