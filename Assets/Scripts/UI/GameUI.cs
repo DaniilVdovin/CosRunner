@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -9,9 +8,7 @@ using DG.Tweening;
 using System;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using UnityEditor.VersionControl;
-using UnityEngine.AdaptivePerformance.VisualScripting;
-using static UnityEditor.Progress;
+using Unity.VisualScripting;
 
 public class ExtraItem
 {
@@ -67,6 +64,10 @@ public class ExtraItem
             _tweener.SetEase(Ease.Linear);
             _tweener.OnComplete(() => Close());
             _tweener.Play();
+            
+            DOTween.To(() => d??Duration,
+                x => (t ?? _template).Q<Label>("Timer").text = x.ToString("f2"), 0f, d ?? Duration);
+            _tweener.SetEase(Ease.Linear);
         }
     }
 }
@@ -78,12 +79,15 @@ public class GameUI : MonoBehaviour
     private Button Setting, Replay, Resurect, Rating;
     private Label Score, Coins;
 
-    private PlayerControl PlayerControl;
+    private PlayerControl PC;
     private AdsConroller AdsConroller;
 
     public VisualTreeAsset ExtraTemplate;
 
     public List<ExtraItem> extraItems;
+
+    private float temp_Score;
+    private int temp_Coins;
 
     private void Start()
     {
@@ -110,10 +114,6 @@ public class GameUI : MonoBehaviour
         Setting.RegisterCallback<ClickEvent>((e) => {
             LittleSettings.visible = !LittleSettings.visible;
         });
-    }
-    public void ConnectPlayer(PlayerControl playerControl)
-    {
-        PlayerControl = playerControl;
     }
     public ExtraItem AddExtraItem(int id, Sprite sprite, float Duration, EventHandler<ExtraItem> ActionClose)
     {
@@ -149,8 +149,8 @@ public class GameUI : MonoBehaviour
         StartCoroutine(ShowDieFrame());
     }
     private void CallbackReplay(ClickEvent e) {
-        Time.timeScale = 1;
         SaveStats();
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
     private void CallbackResurect(ClickEvent e)
@@ -172,13 +172,13 @@ public class GameUI : MonoBehaviour
         });
     }
     private IEnumerator ResurestAction() {
-        PlayerControl.PreRessurect();
+        PC.PreRessurect();
         for (int i = 4; i >= 1; i--)
         {
             Debug.Log("RESURECT: " + i);
             yield return new WaitForSeconds(1f);
         }
-        PlayerControl.isRun = true;
+        PC.isRun = true;
     }
     private IEnumerator ShowDieFrame()
     {
@@ -187,10 +187,13 @@ public class GameUI : MonoBehaviour
         Time.timeScale = 0;
     }
     /*-------------------------END DIE FRAME-------------------------*/
-    public void SetCoinsAndScore(int Coin, float Score)
+    public void SetCoinsAndScore(PlayerControl pc,int Coin, float Score)
     {
         if (this.enabled)
         {
+            PC = pc;
+            temp_Score = Score;
+            temp_Coins = Coin;
             SetCoins(Coin);
             SetScore(Score);
         }
@@ -202,12 +205,11 @@ public class GameUI : MonoBehaviour
     private void SaveStats() { SaveBestScore(); SaveCoins(); }
     private void SaveBestScore()
     {
-        if (PlayerControl.Score > PlayerGeneralData.Score)
-            PlayerGeneralData.Score = PlayerControl.Score;
+        PlayerGeneralData.Score = temp_Score;
     }
     private void SaveCoins()
     {
-        PlayerGeneralData.Coins += PlayerControl.Coins;
+        PlayerGeneralData.Coins = temp_Coins;
     }
     public void AnimateLoading()
     {

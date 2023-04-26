@@ -66,8 +66,6 @@ public class PlayerControl : MonoBehaviour
         isLive = true;
         CameraFlow = true;
 
-        GameUI.ConnectPlayer(this);
-
         GameUI.StartGame();
     }
     /// <summary>
@@ -204,7 +202,7 @@ public class PlayerControl : MonoBehaviour
 
     private void UIUpdate()
     {
-        GameUI.SetCoinsAndScore(Coins, Score);
+        GameUI.SetCoinsAndScore(this,Coins, Score);
         GameUI.SetOxygen(Oxygen);
     }
     private void Die()

@@ -182,8 +182,4 @@ public class ShopUI : MonoBehaviour
             });
         Menu.Menu.visible = true;
     }
-    private void OnDestroy()
-    {
-        Close.UnregisterCallback<ClickEvent>(ShopClose);
-    }
 }

@@ -6,27 +6,24 @@ using Unity.VisualScripting;
 
 public static class PlayerGeneralData
 {
-    private static int _Coins;
-    private static float _Score;
-    private static int _id_Prefs;
+    private static int _Coins = 0 ;
+    private static float _Score = 0;
+    private static int _id_Prefs = 0;
 
     public static int Coins
     {
         get => _Coins; set
         {
-            if(_Coins != value)
-            {
-                _Coins = value;
-                StatsUpdate.Invoke(null, EventArgs.Empty);
-                PlayerPrefs.SetInt("Coins", _Coins);
-            }
+            _Coins += value;
+            StatsUpdate.Invoke(null, EventArgs.Empty);
+            PlayerPrefs.SetInt("Coins", _Coins);
         }
     }
     public static float Score
     {
         get => _Score; set
         {
-            if (_Score != value)
+            if (_Score != value && _Score > value)
             {
                 _Score = value;
                 StatsUpdate.Invoke(null, EventArgs.Empty);
@@ -50,13 +47,15 @@ public static class PlayerGeneralData
     public static EventHandler StatsUpdate;
     public static void Init()
     {
-        StatsUpdate += (s,e)=> PlayerPrefs.Save();
+        //StatsUpdate += (s,e) => PlayerPrefs.Save();
         LoadData();
     }
     public static void LoadData() {
         _Coins = PlayerPrefs.GetInt("Coins", 0);
         _id_Prefs = PlayerPrefs.GetInt("id_Prefs", 0);
         _Score = PlayerPrefs.GetFloat("BestScore", 0);
+
+        Debug.Log($"Stats:\nCoins:\t{_Coins}\nBestScore:\t{_Score}\nid_Prefs:\t{_id_Prefs}");
     }
     //DANGER
     public static void Clear()

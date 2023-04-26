@@ -9,7 +9,8 @@ public class ItemModel : ScriptableObject
     {
         Coin,
         Oxygen,
-        Shield
+        Shield,
+        Magnit
     }
     public TType Type;
     public int Value;
