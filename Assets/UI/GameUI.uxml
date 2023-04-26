@@ -29,4 +29,5 @@
     </ui:VisualElement>
     <ui:Instance template="_LoaderUI" name="_LoaderUI" style="align-self: center; width: 500px;" />
     <ui:Instance template="_OxygenBarUI" name="_OxygenBarUI" style="position: absolute; height: 40%; width: 15%; top: 30%;" />
+    <ui:VisualElement name="ExtraItemsHolder" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-wrap: wrap; flex-direction: row; justify-content: flex-start; align-items: center; margin-left: 50px; margin-right: 50px; margin-top: 50px; margin-bottom: 50px;" />
 </ui:UXML>

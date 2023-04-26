@@ -6,10 +6,78 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using UnityEditor.VersionControl;
+
+public class ExtraItem
+{
+    public int id;
+    private Sprite _Icon;
+    public Sprite Icon
+    {
+        get => Icon; set
+        {
+            Icon = value;
+            if(_template != null)
+            {
+                _template.Q<VisualElement>("Icon").style.backgroundImage = new StyleBackground(Icon);
+            }
+        }
+    }
+    private float _Duration;
+    public float Duration
+    {
+        get => _Duration; set
+        {
+            _Duration = value;
+            Start();
+        }
+    }
+    private TemplateContainer _template;
+    public TemplateContainer template
+    {
+        get => _template; set
+        {
+            _template = value;
+            _template.RegisterCallback<ClickEvent>(Click);
+        }
+    }
+    private TweenerCore<float, float, FloatOptions> _tweener { get; set; }
+    public Action<ExtraItem> EventClose;
+    private void Click(ClickEvent e)
+    {
+        Close();
+    }
+    private void Close()
+    {
+        if ( EventClose != null) EventClose.Invoke(this);
+        if (_tweener.IsActive()) _tweener.Kill();
+        _template.parent.Remove(_template);
+    }
+    public void Start()
+    {
+        if (_template != null)
+        {
+            _tweener = DOTween.To(() => _template.Q<VisualElement>("Holder").localBound.width,
+                x => _template.Q<VisualElement>("Bar").style.width = x, 0, Duration)
+            .SetEase(Ease.Linear);
+            _tweener.OnComplete(() => Close());
+        }
+    }
+    public ExtraItem(int id, Sprite sprite, float Duration, Action<ExtraItem> ActionClose,VisualTreeAsset ExtraTemplate)
+    {
+        this.id = id;
+        template = ExtraTemplate.Instantiate();
+        Icon = sprite;
+        this.Duration = Duration;
+    }
+}
 
 public class GameUI : MonoBehaviour
 {
-    private VisualElement UI, DieFrame, _LoaderUI, StatsFrame, _OxygenUI;
+    private VisualElement UI, DieFrame, _LoaderUI, StatsFrame, _OxygenUI, ExtraItemsHolder;
     private GroupBox LittleSettings;
     private Button Setting, Replay, Resurect, Rating;
     private Label Score, Coins;
@@ -17,10 +85,11 @@ public class GameUI : MonoBehaviour
     private PlayerControl PlayerControl;
     private AdsConroller AdsConroller;
 
+    public VisualTreeAsset ExtraTemplate;
+
     private void Start()
     {
         AdsConroller = GameObject.Find("ADS").GetComponent<AdsConroller>();
-
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("GameUI");
         Setting = UI.Q<Button>("Settings");
         LittleSettings = UI.Q<GroupBox>("LittleSettings");
@@ -31,6 +100,7 @@ public class GameUI : MonoBehaviour
         StatsFrame = UI.Q<VisualElement>("Stats");
         Score = UI.Q<Label>("Score");
         Coins = UI.Q<Label>("Coins");
+        ExtraItemsHolder = UI.Q<VisualElement>("ExtraItemsHolder");
         _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
         _OxygenUI = UI.Q<VisualElement>("_OxygenBarUI");
 
@@ -46,10 +116,22 @@ public class GameUI : MonoBehaviour
     {
         PlayerControl = playerControl;
     }
+    public void AddExtraItem(int id,Sprite sprite,float Duration, Action<ExtraItem> ActionClose)
+    {
+        try
+        {
+            ExtraItemsHolder.Add(new ExtraItem(id, sprite, Duration, ActionClose, ExtraTemplate).template);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
+    }
     public void StartGame()
     {
         UI.visible = true;
         AnimateLoading();
+        
     }
     /*---------------------------DIE FRAME----------------------------*/
     public void Die()
@@ -117,7 +199,6 @@ public class GameUI : MonoBehaviour
     {
         PlayerGeneralData.Coins += PlayerControl.Coins;
     }
-
     public void AnimateLoading()
     {
         VisualElement p = _LoaderUI[1];

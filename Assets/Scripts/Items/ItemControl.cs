@@ -16,9 +16,12 @@ public class ItemControl : MonoBehaviour
                 case ItemModel.TType.Oxygen:{
                         pc.Oxygen += model.Value;
                         if (pc.Oxygen > 100)
-                            pc.Oxygen = 100;
-                                              }; break;
-                case ItemModel.TType.Shield: { pc.isShield = true; pc.ShieldCounddown += 10f; } ; break;
+                            pc.Oxygen = 100;}; break;
+                case ItemModel.TType.Shield: {
+                        pc.isShield = true; pc.ShieldCounddown += 10f;
+                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield, null,
+                            10f, (i) => { });
+                    } ; break;
             }
 
             StartCoroutine(GetAnination());
