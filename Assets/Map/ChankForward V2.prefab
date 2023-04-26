@@ -144,6 +144,7 @@ MonoBehaviour:
   - {fileID: 7525058738907249484, guid: 98e6ebe7332674b2f83360baeb09910d, type: 3}
   - {fileID: 7525058738907249484, guid: ffd772f0d1a1449a1be3e057eed5501d, type: 3}
   - {fileID: 5703830349210026140, guid: b2f05053aeebb4d8aa1e51d43560c705, type: 3}
+  - {fileID: 3900867080486137531, guid: 76131530e2c744aeeb8360d521b54459, type: 3}
   Coins: []
   Stopings: []
   HardChankItems:

@@ -17,13 +17,24 @@ public class ItemControl : MonoBehaviour
                         pc.Oxygen += model.Value;
                         if (pc.Oxygen > 100)
                             pc.Oxygen = 100;}; break;
-                case ItemModel.TType.Shield: {
+                case ItemModel.TType.Shield:
+                    {
                         pc.ShieldCounddown = 10f; pc.isShield = true;
-                        pc.ShieldMenu =  pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield, null, 10f, (s, i) => {
+                        pc.ShieldMenu = pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield, null, 10f, (s, i) =>
+                        {
                             Debug.Log("Done " + i.id);
                             pc.isShield = false;
                         });
-                    } ; break;
+                    }
+                    break;
+                case ItemModel.TType.Magnit:
+                    {
+                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, 10f, (s, i) =>
+                        {
+                            Debug.Log("Done " + i.id);
+                        });
+                    }
+                    break;
             }
 
             StartCoroutine(GetAnination());
