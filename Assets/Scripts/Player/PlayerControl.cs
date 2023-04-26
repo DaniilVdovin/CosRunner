@@ -96,7 +96,7 @@ public class PlayerControl : MonoBehaviour
             ////shield////
             if (isShield)
             {
-
+                //TODO create animation for shield
                 if (CheckRaycastHit(out RaycastHit Right, out RaycastHit Left))
                     if (Right.collider.CompareTag("Danger") || Left.collider.CompareTag("Danger"))
                     {
@@ -111,6 +111,9 @@ public class PlayerControl : MonoBehaviour
                     {
                         ChankControl nextChunk = takenextChunk(ChankNow.gameObject,2);
                         nextChunk.Clear();
+                        Transform chankPoint = nextChunk.transform;
+                        while (chankPoint.rotation.y != transform.rotation.y)
+                            Rotate(ChankNow.transform.rotation.y <= 0 & ChankNow.transform.rotation.y > -91);
                         transform.position = nextChunk.transform.position;
                         isShield = false;
                         ShieldMenu.Close();
@@ -138,11 +141,12 @@ public class PlayerControl : MonoBehaviour
         }
         if (isLive)
         {
-            if (CheckRaycastHit(out RaycastHit ht, out RaycastHit hs)
-                && !ht.collider.CompareTag("Item")
-                && !hs.collider.CompareTag("Item")
-                || Oxygen <= 0)
-                Die();
+            if (CheckRaycastHit(out RaycastHit ht, out RaycastHit hs))
+            {
+                if (!ht.collider.CompareTag("Item")
+                    || !hs.collider.CompareTag("Item") || Oxygen <= 0)
+                    Die();
+            }
         }
     }
     /// <summary>
@@ -159,8 +163,8 @@ public class PlayerControl : MonoBehaviour
     }
     private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
     {
-        bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hitName, transform.forward);
-        bool boy = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hasName, transform.forward);
+        bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right*-1, 3f, out RaycastHit hitName, transform.forward);
+        bool boy = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right, 3f, out RaycastHit hasName, transform.forward);
 
         if (door && boy)
         {
@@ -312,9 +316,7 @@ public class PlayerControl : MonoBehaviour
             Rigidbody.velocity = transform.forward * Speed;
         }
     }
-    /// <summary>
-    /// roatate player
-    /// </summary>
+   
     private void Rotate(bool left)
     {
         transform.Rotate(Vector3.up, angle_rotate * (!left ? -1 : 1));
@@ -326,9 +328,7 @@ public class PlayerControl : MonoBehaviour
         else isRotateL = !isRotateL;
         ChankNow.WeRot = true;
     }
-    /// <summary>
-    /// check buttons events
-    /// </summary>
+    
     private void KeyManager()
     {
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
