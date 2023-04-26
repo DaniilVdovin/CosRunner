@@ -96,7 +96,7 @@ public class PlayerControl : MonoBehaviour
             ////shield////
             if (isShield)
             {
-
+                //TODO create animation for shield
                 if (CheckRaycastHit(out RaycastHit Right, out RaycastHit Left))
                     if (Right.collider.CompareTag("Danger") || Left.collider.CompareTag("Danger"))
                     {
