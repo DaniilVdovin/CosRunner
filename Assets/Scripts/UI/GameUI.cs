@@ -10,6 +10,7 @@ using System;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEditor.VersionControl;
+using UnityEngine.AdaptivePerformance.VisualScripting;
 
 public class ExtraItem
 {
@@ -32,7 +33,6 @@ public class ExtraItem
         get => _Duration; set
         {
             _Duration = value;
-            Start();
         }
     }
     private TemplateContainer _template;
@@ -45,14 +45,14 @@ public class ExtraItem
         }
     }
     private TweenerCore<float, float, FloatOptions> _tweener { get; set; }
-    public Action<ExtraItem> EventClose;
+    public EventHandler<ExtraItem> EventClose;
     private void Click(ClickEvent e)
     {
         Close();
     }
     private void Close()
     {
-        if ( EventClose != null) EventClose.Invoke(this);
+        if ( EventClose != null) EventClose.Invoke(this,this);
         if (_tweener.IsActive()) _tweener.Kill();
         _template.parent.Remove(_template);
     }
@@ -62,17 +62,10 @@ public class ExtraItem
         {
             if (_tweener.IsActive()) _tweener.Kill();
             _tweener = DOTween.To(() => _template.Q<VisualElement>("Holder").localBound.width,
-                x => _template.Q<VisualElement>("Bar").style.width = x, 0, Duration)
-            .SetEase(Ease.Linear);
-            _tweener.OnComplete(() => Close());
+                x => _template.Q<VisualElement>("Bar").style.width = x, 0f, Duration)
+            .SetEase(Ease.Linear)
+            .OnComplete(() => Close());
         }
-    }
-    public ExtraItem(int id, Sprite sprite, float Duration, Action<ExtraItem> ActionClose,TemplateContainer ExtraTemplate)
-    {
-        this.id = id;
-        template = ExtraTemplate;
-        //Icon = sprite;
-        this.Duration = Duration;
     }
 }
 
@@ -88,6 +81,8 @@ public class GameUI : MonoBehaviour
 
     public VisualTreeAsset ExtraTemplate;
 
+    public List<ExtraItem> extraItems;
+
     private void Start()
     {
         AdsConroller = GameObject.Find("ADS").GetComponent<AdsConroller>();
@@ -102,6 +97,7 @@ public class GameUI : MonoBehaviour
         Score = UI.Q<Label>("Score");
         Coins = UI.Q<Label>("Coins");
         ExtraItemsHolder = UI.Q<VisualElement>("ExtraItemsHolder");
+        extraItems = new();
         _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
         _OxygenUI = UI.Q<VisualElement>("_OxygenBarUI");
 
@@ -117,23 +113,29 @@ public class GameUI : MonoBehaviour
     {
         PlayerControl = playerControl;
     }
-    public void AddExtraItem(int id,Sprite sprite,float Duration, Action<ExtraItem> ActionClose)
+    public void AddExtraItem(int id, Sprite sprite, float Duration, EventHandler<ExtraItem> ActionClose)
     {
-        try
+        if (extraItems.Exists((i) => i.id == id))
         {
-            ExtraItem item = new(id, sprite, Duration, ActionClose, ExtraTemplate.Instantiate());
-            ExtraItemsHolder.Add(item.template);
-            item.Start();
+            extraItems.Find((i) => i.id == id).Start();
         }
-        catch (Exception e)
+        else
         {
-            Debug.LogError(e.Message);
+            ExtraItem item = new();
+            item.id = id;
+            item.template = ExtraTemplate.Instantiate();
+            item.Duration = Duration;
+            item.EventClose += ActionClose;
+            ExtraItemsHolder.Add(item.template);
+            extraItems.Add(item);
+            item.Start();
         }
     }
     public void StartGame()
     {
         UI.visible = true;
         AnimateLoading();
+        
     }
     /*---------------------------DIE FRAME----------------------------*/
     public void Die()
