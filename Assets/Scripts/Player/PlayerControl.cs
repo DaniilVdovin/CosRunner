@@ -227,24 +227,25 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    private ChankControl takenextChunk(GameObject chanknow_gameobject, out ChankControl chank_now)
+    private ChankControl takenextChunk(GameObject chanknow_gameobject, out int chankNowIndex)
     {
-        int now = MapGenerator.Map.LastIndexOf(chanknow_gameobject);
-        ChankControl chank_now = MapGenerator.Map[now].GetComponent<ChankControl>();
-        ChankControl chank_next = MapGenerator.Map[now + 1].GetComponent<ChankControl>();
+        chankNowIndex = MapGenerator.Map.LastIndexOf(chanknow_gameobject);
+        ChankControl chank_now = MapGenerator.Map[chankNowIndex].GetComponent<ChankControl>();
+        ChankControl chank_next = MapGenerator.Map[chankNowIndex + 1].GetComponent<ChankControl>();
+
         return chank_next;
     }
 
 
     public void PreRessurect()
     {
-        ChankControl nowChank = takenextChunk(ChankNow.gameObject);
+        ChankControl chank_next = takenextChunk(ChankNow.gameObject, out int chankNowIndex);
 
-        if (nowChank.type == ChankControl.Ttype.Pivot) chank_next = MapGenerator.Map[now + 2].GetComponent<ChankControl>(); ;
+        if (ChankNow.type == ChankControl.Ttype.Pivot) chank_next = MapGenerator.Map[chankNowIndex + 2].GetComponent<ChankControl>(); ;
         chank_next.Clear();
         Transform chankPoint = chank_next.transform;
         while (chankPoint.rotation.y != transform.rotation.y)
-            Rotate(chank_now.transform.rotation.y <= 0 & chank_now.transform.rotation.y > -91);
+            Rotate(ChankNow.transform.rotation.y <= 0 & ChankNow.transform.rotation.y > -91);
         transform.position = chankPoint.position;
         isLive = true;
     }
