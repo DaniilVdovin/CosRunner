@@ -22,7 +22,7 @@ public class PlayerControl : MonoBehaviour
     public bool isLive = false;
     public bool isGround = true;
     public bool CameraFlow = false;
-    public bool isShield;
+    public bool isShield,isMagnit;
 
     [Tooltip("goodmod")]
     public bool godMod = true;
@@ -158,6 +158,10 @@ public class PlayerControl : MonoBehaviour
     {
         return this.transform.Find("PlayerShield").gameObject;
     }
+    private GameObject getPlayerMagnit()
+    {
+        return this.transform.Find("PlayerMagnit").gameObject;
+    }
     private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
     {
         bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hitName, transform.forward);
@@ -197,7 +201,8 @@ public class PlayerControl : MonoBehaviour
     public void Shieldet()
     {
         getPlayerShield().SetActive(isShield);
-
+        getPlayerMagnit().SetActive(isMagnit);
+        
     }
 
     private void UIUpdate()
