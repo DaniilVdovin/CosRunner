@@ -24,7 +24,7 @@ public class PlayerControl : MonoBehaviour
     public bool isGround = true;
     public bool CameraFlow = false;
     public bool isShield,isMagnit;
-
+    public bool isRotate = false;
     [Tooltip("goodmod")]
     public bool godMod = true;
 
@@ -74,6 +74,7 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        SetPlayerParameters();
         if (isLive)
         {
             KeyManager();
@@ -87,7 +88,15 @@ public class PlayerControl : MonoBehaviour
             {
                 Run();
                 UIUpdate();
-                SideMove();
+                if(ChankNow != null)
+                {
+                    if ((ChankNow.type == ChankControl.Ttype.Pivot && isRotate is false) || ChankNow.type == ChankControl.Ttype.Floor)
+                    {
+                        SideMove();
+                    }
+                }
+               
+               
                 Shieldet();
                 Jump();
                 SpeedUp();
@@ -163,18 +172,28 @@ public class PlayerControl : MonoBehaviour
     }
     private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
     {
-        bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right*-1, 3f, out RaycastHit hitName, transform.forward);
-        bool boy = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right, 3f, out RaycastHit hasName, transform.forward);
+        bool door = RaycastConfigure(transform.position + Vector3.up * 4 + transform.right*-2.5f, 3f, out RaycastHit hitName, transform.forward);
+        bool boy = RaycastConfigure(transform.position + Vector3.up * 4 + transform.right*1.2f, 3f, out RaycastHit hasName, transform.forward);
+        Debug.DrawRay(transform.position + Vector3.up * 2 + transform.right * -1.5f, transform.forward,Color.red, 3f);
+        Debug.DrawRay(transform.position + Vector3.up * 2 + transform.right * 1.5f,transform.forward, Color.red, 3f);
 
-        if (door && boy)
+        if (door)
         {
             hiR = hitName;
+            hiL = hitName;
+
+            return door;
+        }
+        else if(boy)
+        {
             hiL = hasName;
-            return true;
+            hiR = hasName;
+            return boy;
         }
         hiR = hitName;
         hiL = hasName;
-        return door && boy;
+        return boy && door;
+
     }
     private void SpeedUp()
     {
@@ -277,8 +296,18 @@ public class PlayerControl : MonoBehaviour
         {
             ChankNow = ht.collider.GetComponent<ChankControl>();
             isGround = true;
+            if (ChankNow is not null)
+            {
+                if (ChankNow.type == ChankControl.Ttype.Floor)
+                {
+                    isRotate = true;
+                    Debug.Log("das");
+                }
+            }
+            
         }
-        
+       
+          
         else isGround = false;
     }
     private void OnRotate()
@@ -288,12 +317,19 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
                 mouse_down_pos = Input.mousePosition;
             if (Input.GetMouseButtonUp(0))
+            {
                 Rotate(Input.mousePosition.x > mouse_down_pos.x);
+                isRotate = false;
+
+            }
+               
         }
     }
     private void SideMove()
     {
-        if (ChankNow != null && isRun && last_mouse_pos is not null&& ChankNow.type != ChankControl.Ttype.Pivot)
+        
+        
+        if (ChankNow != null && isRun && last_mouse_pos is not null)
         {
             float difference = (Input.mousePosition.x - last_mouse_pos.Value) / 30;
             Vector3 new_vector = transform.position;
@@ -318,7 +354,7 @@ public class PlayerControl : MonoBehaviour
     }
    
     private void Rotate(bool left)
-    {
+    {   
         transform.Rotate(Vector3.up, angle_rotate * (!left ? -1 : 1));
         if (isRotateL == true & isRotateR == true)
             if (!left) isRotateR = !isRotateR;
@@ -327,6 +363,7 @@ public class PlayerControl : MonoBehaviour
              if (left) isRotateR = !isRotateR;
         else isRotateL = !isRotateL;
         ChankNow.WeRot = true;
+        
     }
     
     private void KeyManager()
