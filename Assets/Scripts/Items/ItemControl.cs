@@ -30,7 +30,7 @@ public class ItemControl : MonoBehaviour
                 case ItemModel.TType.Magnit:
                     {
                         pc.isMagnit = true;
-                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, 10f, (s, i) =>
+                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, 30f, (s, i) =>
                         {
                             Debug.Log("Done " + i.id);
                             pc.isMagnit = false;

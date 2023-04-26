@@ -326,8 +326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c3681e46d0a424da901b78c61b96b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &606727548
-BoxCollider:
+--- !u!135 &606727551
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -345,8 +345,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5623342, y: 0.4079896, z: 0.38700268}
-  m_Center: {x: -0.0038067428, y: 0.19266063, z: -0.009906969}
+  m_Radius: 0.6
+  m_Center: {x: 0, y: 0.21, z: 0.045345396}
 --- !u!1001 &618799263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -655,6 +655,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
+      propertyPath: Shild
+      value: 
+      objectReference: {fileID: 1157079800}
+    - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
       propertyPath: Speed
       value: 10
       objectReference: {fileID: 0}
@@ -673,6 +678,11 @@ PrefabInstance:
       propertyPath: GameUI
       value: 
       objectReference: {fileID: 1804978032}
+    - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: Magnit
+      value: 
+      objectReference: {fileID: 606727543}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: godMod
@@ -1120,6 +1130,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6716933543107358037, guid: 8a334e7c388e77347a1dddd727ef3446,
     type: 3}
   m_PrefabInstance: {fileID: 1150934662}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1157079800 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5274863564517091243, guid: 9fe270e9efd81412e9588372ad2ea8de,
+    type: 3}
+  m_PrefabInstance: {fileID: 809762070}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1189503677
 PrefabInstance:
@@ -2512,9 +2528,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 97bf7048ddbd04f7cb709509633c54d4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 606727548}
+      addedObject: {fileID: 606727547}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 97bf7048ddbd04f7cb709509633c54d4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 606727547}
+      addedObject: {fileID: 606727551}
   m_SourcePrefab: {fileID: 100100000, guid: 97bf7048ddbd04f7cb709509633c54d4, type: 3}
