@@ -18,7 +18,7 @@ public class ItemControl : MonoBehaviour
                         if (pc.Oxygen > 100)
                             pc.Oxygen = 100;
                                               }; break;
-                case ItemModel.TType.Shield: { pc.isShield = true; pc.ShieldCounddown += 10f; } ; break;
+                case ItemModel.TType.Shield: { pc.ShieldCounddown += 10f; pc.isShield = true;  } ; break;
             }
 
             StartCoroutine(GetAnination());
