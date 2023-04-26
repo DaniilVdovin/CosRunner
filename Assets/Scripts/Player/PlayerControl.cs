@@ -98,18 +98,16 @@ public class PlayerControl : MonoBehaviour
             if (isShield)
             {
  
-                if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) ||
-                    RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward))
-                    if (ht.collider.CompareTag("Danger"))
+                if (CheckRaycastHit(out RaycastHit Right,out RaycastHit Left))
+                    if (Right.collider.CompareTag("Danger")|| Left.collider.CompareTag("Danger"))
                     {
-                        DestroyObject(ht.collider.gameObject);
+                        DestroyObject(Left.collider.gameObject);
                         if (ShieldMenu != null)
                         {
                             ShieldMenu.Close();
                         }
                         isShield = false;
-                    }
-                     
+                    } 
             }
             else
             {
@@ -132,8 +130,9 @@ public class PlayerControl : MonoBehaviour
         }
         if (isLive)
         {
-            if (CheckRaycastHit( out RaycastHit ht) 
-                && !ht.collider.CompareTag("Item") 
+            
+            if (CheckRaycastHit( out RaycastHit ht, out RaycastHit hs) 
+                && !ht.collider.CompareTag("Item") || !hs.collider.CompareTag("Item")
                 || Oxygen <= 0)
                 Die();
         }
@@ -158,11 +157,16 @@ public class PlayerControl : MonoBehaviour
     {
         bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hitName, transform.forward);
         bool boy  = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hasName, transform.forward);
+       
+        if (door && boy)
+        {
+            hiR = hitName;
+            hiL = hasName;
+            return true;
+        }
         hiR = hitName;
         hiL = hasName;
-        if (door && boy)
-           return true;
-        return false;             
+        return door && boy;             
     }
     private void DestroyObject(GameObject DestructibilityObject)
     {
@@ -266,7 +270,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void SideMove()
     {
-        if (ChankNow != null && isRun && last_mouse_pos is not null)
+        if (ChankNow != null && isRun && last_mouse_pos is not null&& ChankNow.type != ChankControl.Ttype.Pivot)
         {
             float difference = (Input.mousePosition.x - last_mouse_pos.Value) / 30;
             Vector3 new_vector = transform.position;
