@@ -29,9 +29,11 @@ public class ItemControl : MonoBehaviour
                     break;
                 case ItemModel.TType.Magnit:
                     {
+                        pc.isMagnit = true;
                         pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, 10f, (s, i) =>
                         {
                             Debug.Log("Done " + i.id);
+                            pc.isMagnit = false;
                         });
                     }
                     break;

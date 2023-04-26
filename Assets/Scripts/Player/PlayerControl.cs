@@ -6,6 +6,7 @@ public class PlayerControl : MonoBehaviour
 {
     [Header("Controls")]
     public Vector3 CameraOffset;
+    public GameObject Shild, Magnit;
     [Range(10, 100)]
     public float Speed;
     [Range(1, 100)]
@@ -154,14 +155,6 @@ public class PlayerControl : MonoBehaviour
         }
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
     }
-    private GameObject getPlayerShield()
-    {
-        return this.transform.Find("PlayerShield").gameObject;
-    }
-    private GameObject getPlayerMagnit()
-    {
-        return this.transform.Find("PlayerMagnit").gameObject;
-    }
     private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
     {
         bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hitName, transform.forward);
@@ -200,8 +193,8 @@ public class PlayerControl : MonoBehaviour
 
     public void Shieldet()
     {
-        getPlayerShield().SetActive(isShield);
-        getPlayerMagnit().SetActive(isMagnit);
+        Shild.SetActive(isShield);
+        Magnit.SetActive(isMagnit);
         
     }
 
