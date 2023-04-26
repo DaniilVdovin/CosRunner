@@ -111,6 +111,9 @@ public class PlayerControl : MonoBehaviour
                     {
                         ChankControl nextChunk = takenextChunk(ChankNow.gameObject,2);
                         nextChunk.Clear();
+                        Transform chankPoint = nextChunk.transform;
+                        while (chankPoint.rotation.y != transform.rotation.y)
+                            Rotate(ChankNow.transform.rotation.y <= 0 & ChankNow.transform.rotation.y > -91);
                         transform.position = nextChunk.transform.position;
                         isShield = false;
                         ShieldMenu.Close();
@@ -312,9 +315,7 @@ public class PlayerControl : MonoBehaviour
             Rigidbody.velocity = transform.forward * Speed;
         }
     }
-    /// <summary>
-    /// roatate player
-    /// </summary>
+   
     private void Rotate(bool left)
     {
         transform.Rotate(Vector3.up, angle_rotate * (!left ? -1 : 1));
@@ -326,9 +327,7 @@ public class PlayerControl : MonoBehaviour
         else isRotateL = !isRotateL;
         ChankNow.WeRot = true;
     }
-    /// <summary>
-    /// check buttons events
-    /// </summary>
+    
     private void KeyManager()
     {
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
