@@ -19,8 +19,7 @@ public class ItemControl : MonoBehaviour
                             pc.Oxygen = 100;}; break;
                 case ItemModel.TType.Shield: {
                         pc.ShieldCounddown += 10f; pc.isShield = true;
-                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield, null,
-                            10f, (i) => { });
+                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield,null,10f, (i) => { });
                     } ; break;
             }
 

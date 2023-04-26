@@ -20,7 +20,7 @@ public class ExtraItem
         get => Icon; set
         {
             Icon = value;
-            if(_template != null)
+            if(_template != null && Icon != null)
             {
                 _template.Q<VisualElement>("Icon").style.backgroundImage = new StyleBackground(Icon);
             }
@@ -60,17 +60,18 @@ public class ExtraItem
     {
         if (_template != null)
         {
+            if (_tweener.IsActive()) _tweener.Kill();
             _tweener = DOTween.To(() => _template.Q<VisualElement>("Holder").localBound.width,
                 x => _template.Q<VisualElement>("Bar").style.width = x, 0, Duration)
             .SetEase(Ease.Linear);
             _tweener.OnComplete(() => Close());
         }
     }
-    public ExtraItem(int id, Sprite sprite, float Duration, Action<ExtraItem> ActionClose,VisualTreeAsset ExtraTemplate)
+    public ExtraItem(int id, Sprite sprite, float Duration, Action<ExtraItem> ActionClose,TemplateContainer ExtraTemplate)
     {
         this.id = id;
-        template = ExtraTemplate.Instantiate();
-        Icon = sprite;
+        template = ExtraTemplate;
+        //Icon = sprite;
         this.Duration = Duration;
     }
 }
@@ -120,7 +121,9 @@ public class GameUI : MonoBehaviour
     {
         try
         {
-            ExtraItemsHolder.Add(new ExtraItem(id, sprite, Duration, ActionClose, ExtraTemplate).template);
+            ExtraItem item = new(id, sprite, Duration, ActionClose, ExtraTemplate.Instantiate());
+            ExtraItemsHolder.Add(item.template);
+            item.Start();
         }
         catch (Exception e)
         {
@@ -131,7 +134,6 @@ public class GameUI : MonoBehaviour
     {
         UI.visible = true;
         AnimateLoading();
-        
     }
     /*---------------------------DIE FRAME----------------------------*/
     public void Die()

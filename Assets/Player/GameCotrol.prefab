@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5634611435690450366}
   - component: {fileID: 859371666545767177}
+  - component: {fileID: 300643158548046513}
   m_Layer: 0
   m_Name: GameCotrol
   m_TagString: Untagged
@@ -44,3 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534b9b17fc78f461b95b792462d990a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerControl: {fileID: 0}
+  Generate: {fileID: 0}
+  Shop: {fileID: 0}
+  LeaderBoard: {fileID: 0}
+--- !u!114 &300643158548046513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997388508218723421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f1aea75873443a4a4104750d9c4f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExtraTemplate: {fileID: 9197481963319205126, guid: 726221336465f4012945dc633ce0f1fb,
+    type: 3}
