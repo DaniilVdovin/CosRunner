@@ -57,15 +57,16 @@ public class ExtraItem
         if (_tweener.IsActive()) _tweener.Kill();
         _template.parent.Remove(_template);
     }
-    public void Start()
+    public void Start(TemplateContainer t = null, float? d = null)
     {
         if (_template != null)
         {
             if (_tweener.IsActive()) _tweener.Kill();
-            _tweener = DOTween.To(() => _template.Q<VisualElement>("Holder").localBound.width,
-                x => _template.Q<VisualElement>("Bar").style.width = x, 0f, Duration);
+            _tweener = DOTween.To(() => (t??_template).Q<VisualElement>("Holder").localBound.width,
+                x => (t ?? _template).Q<VisualElement>("Bar").style.width = x, 0f, d??Duration);
             _tweener.SetEase(Ease.Linear);
             _tweener.OnComplete(() => Close());
+            _tweener.Play();
         }
     }
 }
@@ -133,7 +134,7 @@ public class GameUI : MonoBehaviour
             item.EventClose += ActionClose;
             item.EventClose += (s, i) => extraItems.Remove(i);
             extraItems.Add(item);
-            extraItems.Find((i) => i.id == id).Start();
+            item.Start(temp,Duration);
         }
         return item;
     }
@@ -141,7 +142,6 @@ public class GameUI : MonoBehaviour
     {
         UI.visible = true;
         AnimateLoading();
-        
     }
     /*---------------------------DIE FRAME----------------------------*/
     public void Die()
