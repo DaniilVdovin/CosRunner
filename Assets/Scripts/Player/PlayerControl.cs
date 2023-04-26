@@ -85,11 +85,22 @@ public class PlayerControl : MonoBehaviour
             Autorunning();
             Clamp();
             if (isRun)
+            {
                 Run();
                 UIUpdate();
                 SideMove();
                 Shieldet();
                 Jump();
+            }
+
+               
+            if (isShield)
+            {
+                GameObject shield = getPlayerShield();
+                if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
+                    RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward))
+                     DestroyObject(ht.collider.gameObject);
+            }
         }
 
     }
@@ -107,7 +118,10 @@ public class PlayerControl : MonoBehaviour
         }
         if (isLive)
         {
-            Die();
+            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
+            RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
+                && !hts.collider.CompareTag("Item") || Oxygen <= 0)
+                Die();
         }
     }
     /// <summary>
@@ -121,6 +135,14 @@ public class PlayerControl : MonoBehaviour
                 Time.deltaTime * 3f);
         }
         Camera.transform.rotation = Quaternion.LookRotation(CameraTarget.transform.position - Camera.transform.position);
+    }
+    private GameObject getPlayerShield()
+    {
+       return gameObject.transform.Find("PlayerShield").gameObject;
+    }
+    private void DestroyObject(GameObject DestructibilityObject)
+    {
+        Destroy(DestructibilityObject);
     }
     private void Breath()
     {
@@ -138,7 +160,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (isShield == true)
         {
-            GameObject shield = gameObject.transform.Find("PlayerShield").gameObject;
+            GameObject shield = getPlayerShield();
             shield.SetActive(true);
             if (ShieldCounddown > 0)
             {
@@ -162,9 +184,7 @@ public class PlayerControl : MonoBehaviour
 
         if (isShield == false )
         {
-            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
-            RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
-                && !hts.collider.CompareTag("Item") || Oxygen <= 0)
+            
             {
                 Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
                 Rigidbody.velocity = Vector3.zero;
