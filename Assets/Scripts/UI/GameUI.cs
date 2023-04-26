@@ -215,7 +215,7 @@ public class GameUI : MonoBehaviour
     {
         VisualElement p = _LoaderUI[1];
         Label t = _LoaderUI[2] as Label;
-        var txt = new[] {"Готовим печеньки","Генерируем карту","Э! A когда играть ?","Погнали !"};
+        var txt = new[] {"Готовим печеньки","Генерируем карту","Артем когда релиз ?","Э! A когда играть ?","Погнали !"};
         DOTween.To(() => 0, x =>
         t.text = txt[x], txt.Length-1, 42 * .1f)
             .SetEase(Ease.Linear);

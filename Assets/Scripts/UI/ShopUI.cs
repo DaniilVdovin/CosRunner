@@ -156,6 +156,7 @@ public class ShopUI : MonoBehaviour
         if (PlayerGeneralData.Coins >= item.Price)
         {
             PlayerGeneralData.Coins -= item.Price;
+            PlayerGeneralData.id_Prefs = item.id;
             item.Has = true;
             Debug.LogWarning("You buy item id:"+item.id);
         }

@@ -15,19 +15,22 @@ public static class PlayerGeneralData
         get => _Coins; set
         {
             _Coins += value;
-            StatsUpdate.Invoke(null, EventArgs.Empty);
+
             PlayerPrefs.SetInt("Coins", _Coins);
+            Debug.Log("New Coins: " + _Coins);
+            StatsUpdate.Invoke(null, EventArgs.Empty);
         }
     }
     public static float Score
     {
         get => _Score; set
         {
-            if (_Score != value && _Score > value)
+            if (_Score < value)
             {
                 _Score = value;
-                StatsUpdate.Invoke(null, EventArgs.Empty);
                 PlayerPrefs.SetFloat("BestScore", _Score);
+                Debug.Log("New bestScore: " + _Score);
+                StatsUpdate.Invoke(null, EventArgs.Empty);
             }
         }
     }
@@ -38,8 +41,9 @@ public static class PlayerGeneralData
             if (_id_Prefs != value)
             {
                 _id_Prefs = value;
-                StatsUpdate.Invoke(null, EventArgs.Empty);
                 PlayerPrefs.SetInt("id_Prefs", _id_Prefs);
+                Debug.Log("New id_Prefs: " + _id_Prefs);
+                StatsUpdate.Invoke(null, EventArgs.Empty);
             }
         }
     }
@@ -47,7 +51,8 @@ public static class PlayerGeneralData
     public static EventHandler StatsUpdate;
     public static void Init()
     {
-        //StatsUpdate += (s,e) => PlayerPrefs.Save();
+        StatsUpdate += (s,e) => PlayerPrefs.Save();
+        //Clear();
         LoadData();
     }
     public static void LoadData() {
