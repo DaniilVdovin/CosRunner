@@ -62,9 +62,9 @@ public class ExtraItem
         {
             if (_tweener.IsActive()) _tweener.Kill();
             _tweener = DOTween.To(() => _template.Q<VisualElement>("Holder").localBound.width,
-                x => _template.Q<VisualElement>("Bar").style.width = x, 0f, Duration)
-            .SetEase(Ease.Linear)
-            .OnComplete(() => Close());
+                x => _template.Q<VisualElement>("Bar").style.width = x, 0f, Duration);
+            _tweener.SetEase(Ease.Linear);
+            _tweener.OnComplete(() => Close());
         }
     }
 }
@@ -123,10 +123,12 @@ public class GameUI : MonoBehaviour
         {
             ExtraItem item = new();
             item.id = id;
-            item.template = ExtraTemplate.Instantiate();
+            TemplateContainer temp = ExtraTemplate.Instantiate();
+            ExtraItemsHolder.Add(temp);
+            item.template = temp;
             item.Duration = Duration;
             item.EventClose += ActionClose;
-            ExtraItemsHolder.Add(item.template);
+            item.EventClose += (s, i) => extraItems.Remove(i);
             extraItems.Add(item);
             item.Start();
         }

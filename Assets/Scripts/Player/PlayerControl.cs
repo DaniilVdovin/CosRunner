@@ -138,7 +138,7 @@ public class PlayerControl : MonoBehaviour
     }
     private GameObject getPlayerShield()
     {
-       return gameObject.transform.Find("PlayerShield").gameObject;
+       return this.transform.Find("PlayerShield").gameObject;
     }
     private void DestroyObject(GameObject DestructibilityObject)
     {
@@ -158,20 +158,7 @@ public class PlayerControl : MonoBehaviour
 
     public void Shieldet()
     {
-        if (isShield == true)
-        {
-            GameObject shield = getPlayerShield();
-            shield.SetActive(true);
-            if (ShieldCounddown > 0)
-            {
-                ShieldCounddown -= Time.deltaTime;
-            }
-            else
-            {
-                isShield = false;
-                shield.SetActive(false);  
-            }
-        }
+        getPlayerShield().SetActive(isShield);
     }
 
     private void UIUpdate()
