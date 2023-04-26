@@ -15,7 +15,6 @@ public class PlayerControl : MonoBehaviour
     public int Coins = 0;
     public float Score = 0;
     public float Oxygen = 100f;
-    public float BreathTime = 60f;
     [Space(10)]
     [Header("Statys")]
     public bool CanJump = true;
@@ -80,7 +79,7 @@ public class PlayerControl : MonoBehaviour
         {
             KeyManager();
             SetPlayerParameters();
-            if(isBreath == true)
+            if (isBreath == true)
                 Breath();
             OnRotate();
             Autorunning();
@@ -92,26 +91,34 @@ public class PlayerControl : MonoBehaviour
                 SideMove();
                 Shieldet();
                 Jump();
+                SpeedUp();
             }
 
-               
+
             if (isShield)
             {
- 
-                if (CheckRaycastHit(out RaycastHit Right,out RaycastHit Left))
-                    if (Right.collider.CompareTag("Danger")|| Left.collider.CompareTag("Danger"))
+
+                if (CheckRaycastHit(out RaycastHit Right, out RaycastHit Left))
+                    if (Right.collider.CompareTag("Danger") || Left.collider.CompareTag("Danger"))
                     {
                         DestroyObject(Left.collider.gameObject);
                         if (ShieldMenu != null)
                         {
                             ShieldMenu.Close();
+                            isShield = false;
                         }
+                    }
+                    else if (Right.collider.CompareTag("Map_rot") || Left.collider.CompareTag("Danger"))
+                    {
+                        transform.position = Vector3.back * 3f;
                         isShield = false;
-                    } 
+                        ShieldMenu.Close();
+                    }
+
             }
             else
             {
-               
+
             }
         }
 
@@ -125,13 +132,13 @@ public class PlayerControl : MonoBehaviour
         Animator.SetBool("Die", !isLive);
         if (isRun && GetAverageVelosity() > 1)
         {
-            Score += 0.01f;
+            Score += 0.01f * Speed;
             Oxygen -= 0.01f;
         }
         if (isLive)
         {
-            if (CheckRaycastHit( out RaycastHit ht, out RaycastHit hs) 
-                && !ht.collider.CompareTag("Item") 
+            if (CheckRaycastHit(out RaycastHit ht, out RaycastHit hs)
+                && !ht.collider.CompareTag("Item")
                 && !hs.collider.CompareTag("Item")
                 || Oxygen <= 0)
                 Die();
@@ -151,13 +158,13 @@ public class PlayerControl : MonoBehaviour
     }
     private GameObject getPlayerShield()
     {
-       return this.transform.Find("PlayerShield").gameObject;
+        return this.transform.Find("PlayerShield").gameObject;
     }
     private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
     {
         bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hitName, transform.forward);
-        bool boy  = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hasName, transform.forward);
-       
+        bool boy = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hasName, transform.forward);
+
         if (door && boy)
         {
             hiR = hitName;
@@ -166,7 +173,13 @@ public class PlayerControl : MonoBehaviour
         }
         hiR = hitName;
         hiL = hasName;
-        return door && boy;             
+        return door && boy;
+    }
+    private void SpeedUp()
+    {
+        Speed += Time.deltaTime / 100;
+        if (Speed == 100)
+            Speed = 100;
     }
     private void DestroyObject(GameObject DestructibilityObject)
     {
@@ -174,8 +187,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void Breath()
     {
-        BreathTime-=Time.deltaTime;
-        Oxygen -= Time.deltaTime*1.6f;
+        Oxygen -= Time.deltaTime * 1.6f;
         if (Oxygen <= 0)
         {
             Die();
@@ -198,9 +210,9 @@ public class PlayerControl : MonoBehaviour
     private void Die()
     {
 
-        if (isShield == false )
+        if (isShield == false)
         {
-            
+
             {
                 Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
                 Rigidbody.velocity = Vector3.zero;
@@ -211,12 +223,21 @@ public class PlayerControl : MonoBehaviour
         }
 
     }
-    public void PreRessurect()
+
+    private ChankControl takenextChunk(GameObject chanknow_gameobject, out ChankControl chank_now)
     {
-        int now = MapGenerator.Map.LastIndexOf(ChankNow.gameObject);
+        int now = MapGenerator.Map.LastIndexOf(chanknow_gameobject);
         ChankControl chank_now = MapGenerator.Map[now].GetComponent<ChankControl>();
         ChankControl chank_next = MapGenerator.Map[now + 1].GetComponent<ChankControl>();
-        if (chank_next.type == ChankControl.Ttype.Pivot) chank_next = MapGenerator.Map[now + 2].GetComponent<ChankControl>(); ;
+        return chank_next;
+    }
+
+
+    public void PreRessurect()
+    {
+        ChankControl nowChank = takenextChunk(ChankNow.gameObject);
+
+        if (nowChank.type == ChankControl.Ttype.Pivot) chank_next = MapGenerator.Map[now + 2].GetComponent<ChankControl>(); ;
         chank_next.Clear();
         Transform chankPoint = chank_next.transform;
         while (chankPoint.rotation.y != transform.rotation.y)
