@@ -80,8 +80,4 @@ public class LeaderBoardUI : MonoBehaviour
         UI.visible = false;
         Menu.Menu.visible = true;
     }
-    private void OnDestroy()
-    {
-        Close.UnregisterCallback<ClickEvent>(LBUIClose);
-    }
 }
