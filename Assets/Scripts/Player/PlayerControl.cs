@@ -1,6 +1,7 @@
+using System.Runtime.CompilerServices;
+using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
-
 public class PlayerControl : MonoBehaviour
 {
     [Header("Controls")]
@@ -44,7 +45,7 @@ public class PlayerControl : MonoBehaviour
     public Transform CameraTarget;
     public Generate MapGenerator;
     public GameUI GameUI;
-    
+    public ExtraItem ShieldMenu;
 
     public float ShieldCounddown = 0f;
     private float? last_mouse_pos = null;
@@ -94,10 +95,21 @@ public class PlayerControl : MonoBehaviour
                
             if (isShield)
             {
-                GameObject shield = getPlayerShield();
-                if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
-                    RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward))
-                     DestroyObject(ht.collider.gameObject);
+ 
+                if (CheckRaycastHit(out RaycastHit Right,out RaycastHit Left))
+                    if (Right.collider.CompareTag("Danger")|| Left.collider.CompareTag("Danger"))
+                    {
+                        DestroyObject(Left.collider.gameObject);
+                        if (ShieldMenu != null)
+                        {
+                            ShieldMenu.Close();
+                        }
+                        isShield = false;
+                    } 
+            }
+            else
+            {
+               
             }
         }
 
@@ -116,9 +128,10 @@ public class PlayerControl : MonoBehaviour
         }
         if (isLive)
         {
-            if (RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit ht, transform.forward) && !ht.collider.CompareTag("Item") ||
-            RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hts, transform.forward)
-                && !hts.collider.CompareTag("Item") || Oxygen <= 0)
+            if (CheckRaycastHit( out RaycastHit ht, out RaycastHit hs) 
+                && !ht.collider.CompareTag("Item") 
+                && !hs.collider.CompareTag("Item")
+                || Oxygen <= 0)
                 Die();
         }
     }
@@ -137,6 +150,21 @@ public class PlayerControl : MonoBehaviour
     private GameObject getPlayerShield()
     {
        return this.transform.Find("PlayerShield").gameObject;
+    }
+    private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
+    {
+        bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hitName, transform.forward);
+        bool boy  = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hasName, transform.forward);
+       
+        if (door && boy)
+        {
+            hiR = hitName;
+            hiL = hasName;
+            return true;
+        }
+        hiR = hitName;
+        hiL = hasName;
+        return door && boy;             
     }
     private void DestroyObject(GameObject DestructibilityObject)
     {
@@ -157,6 +185,7 @@ public class PlayerControl : MonoBehaviour
     public void Shieldet()
     {
         getPlayerShield().SetActive(isShield);
+
     }
 
     private void UIUpdate()
@@ -239,7 +268,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void SideMove()
     {
-        if (ChankNow != null && isRun && last_mouse_pos is not null)
+        if (ChankNow != null && isRun && last_mouse_pos is not null&& ChankNow.type != ChankControl.Ttype.Pivot)
         {
             float difference = (Input.mousePosition.x - last_mouse_pos.Value) / 30;
             Vector3 new_vector = transform.position;
