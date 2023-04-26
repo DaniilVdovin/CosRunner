@@ -148,7 +148,7 @@ public class PlayerControl : MonoBehaviour
     {
         BreathTime-=Time.deltaTime;
         Oxygen -= Time.deltaTime*1.6f;
-        if (BreathTime <= 0)
+        if (Oxygen <= 0)
         {
             Die();
         }
