@@ -141,11 +141,12 @@ public class PlayerControl : MonoBehaviour
         }
         if (isLive)
         {
-            if (CheckRaycastHit(out RaycastHit ht, out RaycastHit hs)
-                && !ht.collider.CompareTag("Item")
-                && !hs.collider.CompareTag("Item")
-                || Oxygen <= 0)
-                Die();
+            if (CheckRaycastHit(out RaycastHit ht, out RaycastHit hs))
+            {
+                if (!ht.collider.CompareTag("Item")
+                    || !hs.collider.CompareTag("Item") || Oxygen <= 0)
+                    Die();
+            }
         }
     }
     /// <summary>
@@ -162,8 +163,8 @@ public class PlayerControl : MonoBehaviour
     }
     private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
     {
-        bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hitName, transform.forward);
-        bool boy = RaycastConfigure(transform.position + Vector3.up * 2 + transform.forward, 3f, out RaycastHit hasName, transform.forward);
+        bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right*-1, 3f, out RaycastHit hitName, transform.forward);
+        bool boy = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right, 3f, out RaycastHit hasName, transform.forward);
 
         if (door && boy)
         {
