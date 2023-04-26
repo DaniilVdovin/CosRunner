@@ -11,6 +11,7 @@ using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEditor.VersionControl;
 using UnityEngine.AdaptivePerformance.VisualScripting;
+using static UnityEditor.Progress;
 
 public class ExtraItem
 {
@@ -50,7 +51,7 @@ public class ExtraItem
     {
         Close();
     }
-    private void Close()
+    public void Close()
     {
         if ( EventClose != null) EventClose.Invoke(this,this);
         if (_tweener.IsActive()) _tweener.Kill();
@@ -113,15 +114,17 @@ public class GameUI : MonoBehaviour
     {
         PlayerControl = playerControl;
     }
-    public void AddExtraItem(int id, Sprite sprite, float Duration, EventHandler<ExtraItem> ActionClose)
+    public ExtraItem AddExtraItem(int id, Sprite sprite, float Duration, EventHandler<ExtraItem> ActionClose)
     {
+        ExtraItem item;
         if (extraItems.Exists((i) => i.id == id))
         {
-            extraItems.Find((i) => i.id == id).Start();
+            item = extraItems.Find((i) => i.id == id);
+            item.Start();
         }
         else
         {
-            ExtraItem item = new();
+            item = new();
             item.id = id;
             TemplateContainer temp = ExtraTemplate.Instantiate();
             ExtraItemsHolder.Add(temp);
@@ -130,8 +133,9 @@ public class GameUI : MonoBehaviour
             item.EventClose += ActionClose;
             item.EventClose += (s, i) => extraItems.Remove(i);
             extraItems.Add(item);
-            item.Start();
+            extraItems.Find((i) => i.id == id).Start();
         }
+        return item;
     }
     public void StartGame()
     {
