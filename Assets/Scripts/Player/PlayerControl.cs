@@ -93,7 +93,7 @@ public class PlayerControl : MonoBehaviour
                 SpeedUp();
             }
 
-
+            ////shield////
             if (isShield)
             {
 
@@ -109,7 +109,9 @@ public class PlayerControl : MonoBehaviour
                     }
                     else if (Right.collider.CompareTag("Map_rot") || Left.collider.CompareTag("Danger"))
                     {
-                        transform.position = Vector3.back * 3f;
+                        ChankControl nextChunk = takenextChunk(ChankNow.gameObject,2);
+                        nextChunk.Clear();
+                        transform.position = nextChunk.transform.position;
                         isShield = false;
                         ShieldMenu.Close();
                     }
@@ -220,11 +222,10 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    private ChankControl takenextChunk(GameObject chanknow_gameobject, out int chankNowIndex)
+    private ChankControl takenextChunk(GameObject chanknow_gameobject,int scale = 1)
     {
-        chankNowIndex = MapGenerator.Map.LastIndexOf(chanknow_gameobject);
-        ChankControl chank_now = MapGenerator.Map[chankNowIndex].GetComponent<ChankControl>();
-        ChankControl chank_next = MapGenerator.Map[chankNowIndex + 1].GetComponent<ChankControl>();
+        int chankNowIndex = MapGenerator.Map.LastIndexOf(chanknow_gameobject);
+        ChankControl chank_next = MapGenerator.Map[chankNowIndex + scale].GetComponent<ChankControl>();
 
         return chank_next;
     }
@@ -232,9 +233,9 @@ public class PlayerControl : MonoBehaviour
 
     public void PreRessurect()
     {
-        ChankControl chank_next = takenextChunk(ChankNow.gameObject, out int chankNowIndex);
+        ChankControl chank_next = takenextChunk(ChankNow.gameObject);
 
-        if (ChankNow.type == ChankControl.Ttype.Pivot) chank_next = MapGenerator.Map[chankNowIndex + 2].GetComponent<ChankControl>(); ;
+        if (ChankNow.type == ChankControl.Ttype.Pivot) chank_next = takenextChunk(ChankNow.gameObject, 2);
         chank_next.Clear();
         Transform chankPoint = chank_next.transform;
         while (chankPoint.rotation.y != transform.rotation.y)
