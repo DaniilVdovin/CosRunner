@@ -2,16 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
-/// <summary>
-/// leader board dataclass save id,score,name,result,type
-/// </summary>
+
 public class LeaderBoardItem
 {
     public int id;
@@ -20,9 +13,6 @@ public class LeaderBoardItem
     public string Result { get=>Name+": "+Score.ToString("f2");}
     public int type { get => id < 1 ? 0 : id < 3 ? 1 : id < 7 ? 2 : id < 11 ? 3 : 4; }
 }
-/// <summary>
-/// controller class
-/// </summary>
 public class LeaderBoardUI : MonoBehaviour
 {
     private VisualElement UI, Holder;
@@ -41,7 +31,6 @@ public class LeaderBoardUI : MonoBehaviour
      */
 
     // Start is called before the first frame update
-
     void Start()
     {
         items = new();
@@ -62,11 +51,6 @@ public class LeaderBoardUI : MonoBehaviour
         }
         PlayerGeneralData.StatsUpdate += UPD;
     }
-    /// <summary>
-    /// sets data to Score object its event
-    /// </summary>
-    /// <param name="s"></param>
-    /// <param name="e"></param>
     private void UPD(object s,EventArgs e) {
         Score.text = "Score: " + PlayerGeneralData.Score.ToString("f2");
     }
@@ -75,10 +59,6 @@ public class LeaderBoardUI : MonoBehaviour
         UPD(null, null);
         StartCoroutine(Generate());
     }
-    /// <summary>
-    /// generate leaderboard with yield return WaitForseconds
-    /// </summary>
-    /// <returns></returns>
     private IEnumerator Generate()
     {
         Holder.Clear();

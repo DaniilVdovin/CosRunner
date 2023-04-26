@@ -3,12 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "Item Model", menuName = "Items/Shop Item Model", order = 2)]
 public class ShopItem : ScriptableObject
