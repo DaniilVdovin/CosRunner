@@ -130,9 +130,9 @@ public class PlayerControl : MonoBehaviour
         }
         if (isLive)
         {
-            
             if (CheckRaycastHit( out RaycastHit ht, out RaycastHit hs) 
-                && !ht.collider.CompareTag("Item") || !hs.collider.CompareTag("Item")
+                && !ht.collider.CompareTag("Item") 
+                && !hs.collider.CompareTag("Item")
                 || Oxygen <= 0)
                 Die();
         }
