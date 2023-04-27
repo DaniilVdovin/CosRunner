@@ -449,18 +449,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraOffset: {x: 0, y: 10, z: -20}
+  Shild: {fileID: 0}
+  Magnit: {fileID: 0}
   Speed: 10
   JumpForce: 1
   Coins: 0
   Score: 0
   Oxygen: 100
-  BreathTime: 60
   CanJump: 1
   isRun: 1
   isLive: 1
   isGround: 1
   CameraFlow: 0
   isShield: 0
+  isMagnit: 0
+  isRotate: 0
   godMod: 1
   isRotateR: 0
   isRotateL: 0
@@ -799,8 +802,8 @@ GameObject:
   - component: {fileID: 1884136810404513794}
   - component: {fileID: 4783741892674029818}
   m_Layer: 0
-  m_Name: "\u041A\u0443\u0431"
-  m_TagString: Untagged
+  m_Name: PlayerSkin
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
