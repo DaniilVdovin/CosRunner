@@ -41,6 +41,7 @@ public class LeaderBoadConf : MonoBehaviour
                 id = item.Rank,
                 Name = item.PlayerName,
                 Score = (float)item.Score,
+                itsMe = item.PlayerId == PlayerGeneralData.ID
             });
         }
         return res;

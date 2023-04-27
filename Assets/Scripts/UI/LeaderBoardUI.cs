@@ -10,6 +10,7 @@ public class LeaderBoardItem
     public int id;
     public string Name;
     public float Score;
+    public bool itsMe;
     public string Result { get=>Name+": "+Score.ToString("f2");}
     public int type { get => id < 1 ? 0 : id < 3 ? 1 : id < 7 ? 2 : id < 11 ? 3 : 4; }
 }
@@ -70,6 +71,7 @@ public class LeaderBoardUI : MonoBehaviour
             TemplateContainer temp = Def_Item.Instantiate();
             temp.style.opacity = 0;
             temp.Q<Label>("TextH").text = item.Result;
+            temp.Q<VisualElement>("itsMe").visible = item.itsMe;
             temp.Q<VisualElement>("Icon").style.backgroundImage = new StyleBackground(Spites[item.type]);
             Holder.Add(temp);
             DOTween.To(() => 0f, x => temp.style.opacity = x

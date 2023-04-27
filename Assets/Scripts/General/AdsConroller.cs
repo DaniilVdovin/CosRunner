@@ -81,4 +81,8 @@ public class AdsConroller : MonoBehaviour
         // Создаем экземпляр InterstitialAd
         return new RewardedAd(slotId);
     }
+    private void OnDestroy()
+    {
+        PlayerGeneralData.Clear();
+    }
 }

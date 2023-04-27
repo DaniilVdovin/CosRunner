@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using Unity.Services.CloudSave;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
+using System.Security.Cryptography;
 
 public static class PlayerGeneralData
 {
     private static int _Coins = 0 ;
     private static float _Score = 0;
     private static int _id_Prefs = 0;
-
+    public static string ID;
     public static int Coins
     {
         get => _Coins; set
@@ -58,32 +59,35 @@ public static class PlayerGeneralData
     {
         UnityServices.InitializeAsync();
         Debug.LogError(UnityServices.ExternalUserId);
-        StatsUpdate += (s,e) => PlayerPrefs.Save();
-        Clear();
-        LoadData();
+        StatsUpdate += (s, e) => SaveData();
+        //Clear();
+        //LoadData();
         Login();
     }
     public static void Login()
     {
-        var id = PlayerPrefs.GetString("ID", "_");
+        ID = PlayerPrefs.GetString("ID", "_");
         AuthenticationService.Instance.SignedIn += () =>
         {
-            PlayerPrefs.SetString("ID", AuthenticationService.Instance.PlayerId);
+            ID = AuthenticationService.Instance.PlayerId;
+            PlayerPrefs.SetString("ID", ID);
             PlayerPrefs.Save();
-            Debug.LogError(AuthenticationService.Instance.PlayerId);
+            Debug.LogError("ID:" + ID);
         };
         SignInOptions options = new();
-        options.CreateAccount = id == "_";
-        Debug.LogError("ID:" + id);
+        options.CreateAccount = ID == "_";
+        Debug.LogError("ID:" + ID);
         AuthenticationService.Instance.SignInAnonymouslyAsync(options);
 
     }
     public static void SaveData()
     {
         var data = new Dictionary<string, object> {
-            { "Coins", _Coins }
+            { "Coins", (int)_Coins },
+            { "id_Prefs", (int)_id_Prefs }
         };
         CloudSaveService.Instance.Data.ForceSaveAsync(data);
+        PlayerPrefs.Save();
     }
     public static void LoadData() {
         _Coins = PlayerPrefs.GetInt("Coins", 0);
@@ -98,7 +102,8 @@ public static class PlayerGeneralData
         _Coins = 0;
         _id_Prefs = 0;
         _Score = 0;
+        AuthenticationService.Instance.DeleteAccountAsync();
         PlayerPrefs.DeleteAll();
         StatsUpdate.Invoke(null, EventArgs.Empty);
-    }
+    }  
 }
