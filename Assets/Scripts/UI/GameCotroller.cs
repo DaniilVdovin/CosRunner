@@ -32,8 +32,6 @@ public class GameCotroller : MonoBehaviour
         PlayerControl = FindAnyObjectByType<PlayerControl>();
         Generate = FindAnyObjectByType<Generate>();
 
-        PlayerGeneralData.Init();
-
         Menu.Q<Button>("Start").RegisterCallback<ClickEvent>(StartGame);
         Menu.Q<Button>("Shop").RegisterCallback<ClickEvent>(StartShop);
         Menu.Q<Button>("Rating").RegisterCallback<ClickEvent>(StartLeaderBoard);
@@ -54,10 +52,5 @@ public class GameCotroller : MonoBehaviour
         Menu.visible = false;
         PlayerControl.StartGame();
         Generate.StartGenerate();
-    }
-    private void OnDestroy()
-    {
-        Menu.Q<Button>("Start").UnregisterCallback<ClickEvent>(StartGame);
-        Menu.Q<Button>("Shop").UnregisterCallback<ClickEvent>(StartShop);
     }
 }

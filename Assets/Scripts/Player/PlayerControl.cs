@@ -74,7 +74,7 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        SetPlayerParameters();
+        
         if (isLive)
         {
             KeyManager();
