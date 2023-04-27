@@ -1,3 +1,4 @@
+using Assets.Scripts.Sounds;
 using System.Runtime.CompilerServices;
 using System.Transactions;
 using Unity.VisualScripting;
@@ -228,7 +229,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void Die()
     {
-
+        SoundConroller.PlaySouund("die");
         if (isShield == false)
         {
 
@@ -250,8 +251,6 @@ public class PlayerControl : MonoBehaviour
 
         return chank_next;
     }
-
-
     public void PreRessurect()
     {
         ChankControl chank_next = takenextChunk(ChankNow.gameObject);
