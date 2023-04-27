@@ -22,8 +22,8 @@ public class ItemControl : MonoBehaviour
                             pc.Oxygen = 100;}; break;
                 case ItemModel.TType.Shield:
                     {
-                        pc.ShieldCounddown = 10f; pc.isShield = true;
-                        pc.ShieldMenu = pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield, null, 10f, (s, i) =>
+                        pc.isShield = true;
+                        pc.ShieldMenu = pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield, null, model.Duration, (s, i) =>
                         {
                             Debug.Log("Done " + i.id);
                             pc.isShield = false;
@@ -33,7 +33,7 @@ public class ItemControl : MonoBehaviour
                 case ItemModel.TType.Magnit:
                     {
                         pc.isMagnit = true;
-                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, 30f, (s, i) =>
+                        pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, model.Duration, (s, i) =>
                         {
                             Debug.Log("Done " + i.id);
                             pc.isMagnit = false;
@@ -49,7 +49,8 @@ public class ItemControl : MonoBehaviour
     {
         if (isDo)
         {
-            transform.position = Vector3.Lerp(transform.position, pc.transform.position + Vector3.up * 3,Time.deltaTime*1.5f);
+            transform.position = Vector3.Lerp(transform.position,
+                pc.transform.position + Vector3.up * 5,Time.deltaTime*3f);
             if (!gameObject.activeInHierarchy) isDo = false;
         }
     }

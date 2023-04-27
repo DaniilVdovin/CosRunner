@@ -14,5 +14,6 @@ public class ItemModel : ScriptableObject
     }
     public TType Type;
     public int Value;
+    public float Duration;
     public GameObject Effect;
 }
