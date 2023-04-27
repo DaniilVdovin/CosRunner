@@ -15,5 +15,11 @@ namespace Assets.Scripts.Sounds
         public AudioClip DeathSound;
         public AudioClip embiend;
 
+
+
+        public static void PlaySouund(string name)
+        {
+
+        }
     }
 }

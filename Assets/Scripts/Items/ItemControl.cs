@@ -1,3 +1,4 @@
+using Assets.Scripts.Sounds;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class ItemControl : MonoBehaviour
                             pc.Oxygen = 100;}; break;
                 case ItemModel.TType.Shield:
                     {
+                        SoundConroller.PlaySouund("take_sound");
                         pc.isShield = true;
                         pc.ShieldMenu = pc.GameUI.AddExtraItem((int)ItemModel.TType.Shield, null, model.Duration, (s, i) =>
                         {
@@ -32,16 +34,19 @@ public class ItemControl : MonoBehaviour
                     break;
                 case ItemModel.TType.Magnit:
                     {
+                        SoundConroller.PlaySouund("take_sound");
                         pc.isMagnit = true;
                         pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, model.Duration, (s, i) =>
                         {
                             Debug.Log("Done " + i.id);
+
                             pc.isMagnit = false;
                         });
                     }
                     break;
                 case ItemModel.TType.TimeSmoosh:
                     Time.timeScale = model.Value;
+                    SoundConroller.PlaySouund("take_sound");
                     pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, model.Duration, (s, i) =>
                     {
                         Debug.Log("Done " + i.id);
