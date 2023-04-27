@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 120889018101034152}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: line1
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3544357369088442223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: line3
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 2468031140557690981}
   - component: {fileID: 6059815341458651330}
   - component: {fileID: 4956309566265638542}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ChankRote_Cosmic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7874151065446119040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: line2
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 484695751221311985}
   - component: {fileID: 1986117759372249853}
   - component: {fileID: 4467410332931288439}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ChankRightPiwot V2
   m_TagString: Map_rot
   m_Icon: {fileID: 0}
@@ -235,6 +235,8 @@ MonoBehaviour:
   - {fileID: 3544357369088442223}
   Stoping: []
   Coins: []
+  Stopings: []
+  HardChankItems: []
 --- !u!65 &484695751221311985
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -243,9 +245,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3657342638959005096}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 20, y: 2, z: 20}
   m_Center: {x: 0, y: -1, z: 0}
 --- !u!65 &1986117759372249853
@@ -256,9 +266,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3657342638959005096}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 3, y: 14, z: 20}
   m_Center: {x: -11, y: 7, z: 0}
 --- !u!65 &4467410332931288439
@@ -269,8 +287,16 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3657342638959005096}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 20, y: 14, z: 3}
   m_Center: {x: 0, y: 6, z: 11}

@@ -50,8 +50,12 @@ public class ItemControl : MonoBehaviour
         if (isDo)
         {
             transform.position = Vector3.Lerp(transform.position,
-                pc.transform.position + Vector3.up * 5,Time.deltaTime*3f);
+                pc.transform.position + Vector3.up * 5, Time.deltaTime * 2f);
             if (!gameObject.activeInHierarchy) isDo = false;
+        }
+        else
+        {
+            
         }
     }
     private IEnumerator GetAnination()
@@ -65,4 +69,5 @@ public class ItemControl : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         Destroy(this.gameObject);
     }
+    
 }

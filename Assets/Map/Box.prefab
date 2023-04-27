@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 889287265777458782}
   - component: {fileID: 7566484420460919846}
   - component: {fileID: 8257778268545424475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Danger
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8567622206704586775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box
   m_TagString: Danger
   m_Icon: {fileID: 0}

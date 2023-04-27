@@ -686,7 +686,7 @@ PrefabInstance:
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: godMod
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
@@ -732,6 +732,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5274863564517091243, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5274863564517091243, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5650557049131370858, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
@@ -793,6 +803,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8838977238145716391, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8982493153662964050, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -818,7 +833,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 6.16
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5509800096328599700, guid: 9fe270e9efd81412e9588372ad2ea8de, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 160613903284333054, guid: 9fe270e9efd81412e9588372ad2ea8de,

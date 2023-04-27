@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8567622206704586775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Culinder
   m_TagString: Danger
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2480521814242303379}
   - component: {fileID: 2260676376742991084}
   - component: {fileID: 2694220095965180509}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Danger
   m_Icon: {fileID: 0}

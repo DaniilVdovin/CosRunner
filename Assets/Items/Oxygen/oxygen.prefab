@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4531778914201749068}
   - component: {fileID: 1292081643660103386}
   - component: {fileID: 4908074769561140351}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\u0422\u0435\u043A\u0441\u0442.001"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4005407328495026173}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 6527159104747611585}
   - component: {fileID: 2000011802241056651}
   - component: {fileID: 4795002296707976216}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\u041E\u043A\u0440\u0443\u0436\u043D\u043E\u0441\u0442\u044C.001"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1897762884515118667}
   - component: {fileID: -3146037295236293598}
   - component: {fileID: 325066201057653944}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: oxygen
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -306,6 +306,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Water Splash Continous
+      objectReference: {fileID: 0}
+    - target: {fileID: 6969245875107871824, guid: 2e187e22a11f364409b0a3f4d03c36a8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6969245875107871853, guid: 2e187e22a11f364409b0a3f4d03c36a8,
         type: 3}

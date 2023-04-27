@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4007590739801942827}
   - component: {fileID: 7742233478385720947}
   - component: {fileID: 5362303860308504483}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shield
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 6255629014713585651}
   - component: {fileID: 4194686407555566001}
   - component: {fileID: 7470567354465569980}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1869116761648612682}
   - component: {fileID: 9141419864570601082}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fire
   m_TagString: Danger
   m_Icon: {fileID: 0}
@@ -72,10 +72,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8172849019762374831, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
       propertyPath: m_Name
       value: CFXR2 Firewall A (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659020, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
@@ -167,6 +177,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8172849020746995793, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8172849020746995794, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
       propertyPath: m_Range
@@ -201,10 +216,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8172849019762374831, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
       propertyPath: m_Name
       value: CFXR2 Firewall A (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659020, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
@@ -296,6 +321,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8172849020746995793, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8172849020746995794, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
       propertyPath: m_Range
@@ -329,6 +359,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FlameThrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4545730075028336661, guid: eafb5fe28c005164a92ca42f3f7532a7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4545730075028336662, guid: eafb5fe28c005164a92ca42f3f7532a7,
         type: 3}
@@ -409,6 +444,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlameThrower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4545730075028336661, guid: eafb5fe28c005164a92ca42f3f7532a7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4545730075028336662, guid: eafb5fe28c005164a92ca42f3f7532a7,
         type: 3}
       propertyPath: m_RootOrder
@@ -488,10 +528,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8172849019762374831, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
       propertyPath: m_Name
       value: CFXR2 Firewall A
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659020, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
@@ -583,6 +633,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8172849020746995793, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8172849020746995794, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
       propertyPath: m_Range
@@ -617,10 +672,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8172849019762374831, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
       propertyPath: m_Name
       value: CFXR2 Firewall A (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8172849020266659020, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}
@@ -711,6 +776,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172849020746995793, guid: 2af5562ce69fc2d448481a1587a352a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8172849020746995794, guid: 2af5562ce69fc2d448481a1587a352a5,
         type: 3}

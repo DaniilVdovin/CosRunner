@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3991723119784625087}
   - component: {fileID: 4213232448206565180}
   - component: {fileID: 1505263664475877839}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ MeshRenderer:
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &1505263664475877839
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,7 +103,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7587895646236154011
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +116,7 @@ GameObject:
   - component: {fileID: 3590067347011368290}
   - component: {fileID: 7211955887458451857}
   - component: {fileID: -6270826973114995441}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ItemCoin
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -146,9 +147,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7587895646236154011}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 8.8072845e-17, y: 1.4773047, z: 0.021822572}
 --- !u!114 &-6270826973114995441

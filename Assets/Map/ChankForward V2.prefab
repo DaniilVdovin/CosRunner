@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2999072700718294584}
   - component: {fileID: 894479390602547372}
   - component: {fileID: 8676006975894935430}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ChankForward_Cosmic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1791465853850043279}
   - component: {fileID: 6193103841390197368}
   - component: {fileID: 2059114068023534667}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ChankForward V2
   m_TagString: Map_forw
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7295295295587383013}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: line2
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -252,7 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 663333280463172307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: line3
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -283,7 +283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4875838464225254223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: line1
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}

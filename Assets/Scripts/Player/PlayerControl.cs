@@ -95,8 +95,6 @@ public class PlayerControl : MonoBehaviour
                         SideMove();
                     }
                 }
-               
-               
                 Shieldet();
                 Jump();
                 SpeedUp();
@@ -287,7 +285,12 @@ public class PlayerControl : MonoBehaviour
             Transform chankPoint = ChankNow.transform;
             if (godMod && !ChankNow.WeRot
                 && Vector3.Distance(transform.position, chankPoint.position) <= 2)
-                Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);
+                Rotate(chankPoint.rotation.y <= 0 & chankPoint.rotation.y > -91);   
+        }
+        if (godMod)
+        {
+            isShield = true;
+            isMagnit = true;
         }
     }
     private void SetPlayerParameters()
@@ -301,13 +304,10 @@ public class PlayerControl : MonoBehaviour
                 if (ChankNow.type == ChankControl.Ttype.Floor)
                 {
                     isRotate = true;
-                    Debug.Log("das");
                 }
             }
             
-        }
-       
-          
+        } 
         else isGround = false;
     }
     private void OnRotate()
