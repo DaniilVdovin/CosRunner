@@ -10,10 +10,11 @@ public class ItemModel : ScriptableObject
         Coin,
         Oxygen,
         Shield,
-        Magnit
+        Magnit,
+        TimeSmoosh
     }
     public TType Type;
-    public int Value;
+    public float Value;
     public float Duration;
     public GameObject Effect;
 }

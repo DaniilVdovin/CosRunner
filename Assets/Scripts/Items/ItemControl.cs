@@ -15,7 +15,7 @@ public class ItemControl : MonoBehaviour
             pc = p;
             switch (model.Type)
             {
-                case ItemModel.TType.Coin: pc.Coins += model.Value; break;
+                case ItemModel.TType.Coin: pc.Coins += (int)model.Value; break;
                 case ItemModel.TType.Oxygen:{
                         pc.Oxygen += model.Value;
                         if (pc.Oxygen > 100)
@@ -40,6 +40,14 @@ public class ItemControl : MonoBehaviour
                         });
                     }
                     break;
+                case ItemModel.TType.TimeSmoosh:
+                    Time.timeScale = model.Value;
+                    pc.GameUI.AddExtraItem((int)ItemModel.TType.Magnit, null, model.Duration, (s, i) =>
+                    {
+                        Debug.Log("Done " + i.id);
+                        Time.timeScale = 1;
+                    });
+                    break;
             }
             isDo = true;
             StartCoroutine(GetAnination());
@@ -52,10 +60,6 @@ public class ItemControl : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position,
                 pc.transform.position + Vector3.up * 5, Time.deltaTime * 2f);
             if (!gameObject.activeInHierarchy) isDo = false;
-        }
-        else
-        {
-            
         }
     }
     private IEnumerator GetAnination()
