@@ -6,10 +6,13 @@ public class ItemControl : MonoBehaviour
 {
     public ItemModel model;
     public bool CanTake = true;
-    public void Get(PlayerControl pc)
+    private bool isDo = false;
+    PlayerControl pc;
+    public void Get(PlayerControl p)
     {
         if (CanTake)
         {
+            pc = p;
             switch (model.Type)
             {
                 case ItemModel.TType.Coin: pc.Coins += model.Value; break;
@@ -38,11 +41,18 @@ public class ItemControl : MonoBehaviour
                     }
                     break;
             }
-
+            isDo = true;
             StartCoroutine(GetAnination());
         }
     }
-
+    private void Update()
+    {
+        if (isDo)
+        {
+            transform.position = Vector3.Lerp(transform.position, pc.transform.position + Vector3.up * 3,Time.deltaTime*1.5f);
+            if (!gameObject.activeInHierarchy) isDo = false;
+        }
+    }
     private IEnumerator GetAnination()
     {
         GameObject er_temp = Instantiate(model.Effect, transform.position+Vector3.up*2, Quaternion.identity);
