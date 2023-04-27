@@ -42,7 +42,7 @@ public class Generate : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isGenerate && PlayerControl.ChankNow != null)
-            if (Map.LastIndexOf(PlayerControl.ChankNow.gameObject) >= Map.Count - ChankCount)
+            if (Map.Count!=0 && Map.LastIndexOf(PlayerControl.ChankNow.gameObject) >= Map.Count - ChankCount)
                 StartCoroutine(GenerateRoad(ChankCount));
     }
     IEnumerator GenerateRoad(int count)
