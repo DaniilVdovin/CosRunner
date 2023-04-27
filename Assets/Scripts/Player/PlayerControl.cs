@@ -195,7 +195,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void SpeedUp()
     {
-        Speed += Time.deltaTime / 100;
+        Speed += Time.deltaTime / 10;
         if (Speed == 100)
             Speed = 100;
     }
