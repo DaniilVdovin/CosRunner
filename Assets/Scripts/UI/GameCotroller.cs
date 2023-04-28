@@ -21,6 +21,7 @@ public class GameCotroller : MonoBehaviour
     {
         if (!GameObject.Find("ADS"))
             SceneManager.LoadSceneAsync("NDY", LoadSceneMode.Additive);
+        Application.targetFrameRate = 60;
     }
     private void Start()
     {
