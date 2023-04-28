@@ -16,6 +16,7 @@ public class AdsConroller : MonoBehaviour
     }
     private void Start()
     {
+        MyTargetManager.InitSdk();
         MyTargetManager.DebugMode = true;
         MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("b51e3a7a-b7c2-4563-999b-10ca1ad1abel",
            "9c6130f4-28dc-4623-bb75-78182d6d508c").Build();

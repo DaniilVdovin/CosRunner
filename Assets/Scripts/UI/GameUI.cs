@@ -141,7 +141,8 @@ public class GameUI : MonoBehaviour
     public void StartGame()
     {
         UI.visible = true;
-        AnimateLoading();
+        AnimateLoading(new[] { "Готовим печеньки", "Генерируем карту", "Артем когда релиз ?", "Э! A когда играть ?", "Погнали !" },
+             42 * .1f);
     }
     /*---------------------------DIE FRAME----------------------------*/
     public void Die()
@@ -155,6 +156,8 @@ public class GameUI : MonoBehaviour
     }
     private void CallbackResurect(ClickEvent e)
     {
+        AnimateLoading(new[] {"Начали грузить","Только для вас"},
+             5f);
         AdsConroller.SkipByAD((T, M) =>
         {
             if (T)
@@ -211,16 +214,15 @@ public class GameUI : MonoBehaviour
     {
         PlayerGeneralData.Coins = temp_Coins;
     }
-    public void AnimateLoading()
+    public void AnimateLoading(String[] txt,float Duration)
     {
         VisualElement p = _LoaderUI[1];
         Label t = _LoaderUI[2] as Label;
-        var txt = new[] {"Готовим печеньки","Генерируем карту","Артем когда релиз ?","Э! A когда играть ?","Погнали !"};
         DOTween.To(() => 0, x =>
-        t.text = txt[x], txt.Length-1, 42 * .1f)
+        t.text = txt[x], txt.Length-1,Duration)
             .SetEase(Ease.Linear);
         DOTween.To(() => 0, x =>
-        p.style.width = x, _LoaderUI.worldBound.width, 42 * .1f)
+        p.style.width = x, _LoaderUI.worldBound.width, Duration)
             .SetEase(Ease.Linear)
             .OnComplete(()=>_LoaderUI.visible = false);
     }
