@@ -141,23 +141,30 @@ public class ShopUI : MonoBehaviour
         Debug.Log(item.Name);
 
         if (item.Has) {
-            item.Selected = !item.Selected;
-            items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
+            Selected(item);
         }
         else {
             Buy(item);
         }
+        
 
         //UPDATE
         item.Update();
     }
+    private void Selected(ShopItem item)
+    {
+        item.Selected = !item.Selected;
+        items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
+        PlayerGeneralData.id_Prefs = item.id;
+    }
+
     private void Buy(ShopItem item)
     {
         if (PlayerGeneralData.Coins >= item.Price)
         {
             PlayerGeneralData.Coins -= item.Price;
-            PlayerGeneralData.id_Prefs = item.id;
             item.Has = true;
+            Selected(item);
             Debug.LogWarning("You buy item id:"+item.id);
         }
         else
