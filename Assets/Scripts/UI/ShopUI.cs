@@ -155,6 +155,7 @@ public class ShopUI : MonoBehaviour
     {
         item.Selected = !item.Selected;
         items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
+        SkinChangerController.curentSkin.prefab = item.Prefab;
         PlayerGeneralData.id_Prefs = item.id;
     }
 
@@ -165,7 +166,7 @@ public class ShopUI : MonoBehaviour
             PlayerGeneralData.Coins -= item.Price;
             item.Has = true;
             Selected(item);
-            SkinChangerController.SetSkinData(item.id);
+           
             Debug.LogWarning("You buy item id:"+item.id);
         }
         else

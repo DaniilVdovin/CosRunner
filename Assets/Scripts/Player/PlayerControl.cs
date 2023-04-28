@@ -294,9 +294,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (RaycastConfigure(3f, out RaycastHit ht))
         {
-            
-            GetComponent<plat>
-            SkinChangerController.GetSkinData();
+
+           
             ChankNow = ht.collider.GetComponent<ChankControl>();
             isGround = true;
             if (ChankNow is not null)

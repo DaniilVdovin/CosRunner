@@ -11,5 +11,6 @@ namespace Assets.Scripts.SkinChanger
     {
         int id=0;
         Color color = new Color(0, 231, 255);
+        public GameObject prefab;
     }
 }

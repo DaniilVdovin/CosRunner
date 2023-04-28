@@ -49,6 +49,7 @@ public static class PlayerGeneralData
                 _id_Prefs = value;
                 PlayerPrefs.SetInt("id_Prefs", _id_Prefs);
                 Debug.Log("New id_Prefs: " + _id_Prefs);
+       
                 StatsUpdate.Invoke(null, EventArgs.Empty);
             }
         }
