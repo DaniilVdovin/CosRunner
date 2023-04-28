@@ -804,7 +804,7 @@ PrefabInstance:
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
       propertyPath: godMod
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
@@ -2781,6 +2781,11 @@ PrefabInstance:
         type: 3}
       propertyPath: debugOverlay
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 618450877678469359, guid: 8c522c6cb76de4c2895e07519289085d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 618450877678469359, guid: 8c522c6cb76de4c2895e07519289085d,
         type: 3}

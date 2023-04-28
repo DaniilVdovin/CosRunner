@@ -84,7 +84,6 @@ public class PlayerControl : MonoBehaviour
                 Breath();
             OnRotate();
             Autorunning();
-            Clamp();
             if (isRun)
             {
                 Run();
@@ -100,7 +99,6 @@ public class PlayerControl : MonoBehaviour
                 Jump();
                 SpeedUp();
             }
-
             ////shield////
             if (isShield)
             {
@@ -133,7 +131,7 @@ public class PlayerControl : MonoBehaviour
 
             }
         }
-
+        Clamp();
     }
     /// <summary>
     /// Update actions something like 50 times per second
@@ -153,7 +151,10 @@ public class PlayerControl : MonoBehaviour
             {
                 if (!ht.collider.CompareTag("Item")
                     || !hs.collider.CompareTag("Item") || Oxygen <= 0)
+                {
                     Die();
+                    Debug.LogError(ht.collider.name + " | "+ hs.collider.name);
+                }
             }
         }
     }
@@ -232,14 +233,11 @@ public class PlayerControl : MonoBehaviour
         SoundConroller.PlaySouund("die");
         if (isShield == false)
         {
-
-            {
-                Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
-                Rigidbody.velocity = Vector3.zero;
-                isLive = false;
-                isRun = false;
-                GameUI.Die();
-            }
+            Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
+            Rigidbody.velocity = Vector3.zero;
+            isLive = false;
+            isRun = false;
+            GameUI.Die();
         }
 
     }
@@ -271,7 +269,7 @@ public class PlayerControl : MonoBehaviour
             Vector3 vector = transform.position;
             Vector3 chankPoint = ChankNow.transform.position;
             if (isRotateL == isRotateR)
-                vector.x = chankPoint.x + ClampValue(vector.x - chankPoint.x);
+                 vector.x = chankPoint.x + ClampValue(vector.x - chankPoint.x);
             else vector.z = chankPoint.z + ClampValue(vector.z - chankPoint.z);
             transform.position = vector;
         }
