@@ -16,3 +16,4 @@ MonoBehaviour:
   Value: 1
   Duration: 20
   Effect: {fileID: 2708598583397607911, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+  Audio: {fileID: 8300000, guid: b36d879274d331f48b5794cc6c229623, type: 3}

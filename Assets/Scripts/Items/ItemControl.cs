@@ -1,6 +1,8 @@
 using Assets.Scripts.Sounds;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ItemControl : MonoBehaviour
@@ -9,11 +11,22 @@ public class ItemControl : MonoBehaviour
     public bool CanTake = true;
     private bool isDo = false;
     PlayerControl pc;
+    private AudioSource source;
+    private Collider i_collider;
+    public void Start()
+    {
+        source = this.AddComponent<AudioSource>();
+        i_collider = this.GetComponent<Collider>();
+        source.playOnAwake = false;
+        source.volume = 0.2f;
+        source.priority = 256;
+    }
     public void Get(PlayerControl p)
     {
         if (CanTake)
         {
             pc = p;
+            i_collider.enabled = false;
             switch (model.Type)
             {
                 case ItemModel.TType.Coin: pc.Coins += (int)model.Value; break;
@@ -56,6 +69,7 @@ public class ItemControl : MonoBehaviour
             }
             isDo = true;
             StartCoroutine(GetAnination());
+            source.PlayOneShot(model.Audio);
         }
     }
     private void Update()

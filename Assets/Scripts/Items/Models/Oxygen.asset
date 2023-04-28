@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   Value: 40
+  Duration: 0
   Effect: {fileID: 8205706795460263314, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
+  Audio: {fileID: 8300000, guid: b36d879274d331f48b5794cc6c229623, type: 3}

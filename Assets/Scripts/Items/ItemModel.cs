@@ -17,4 +17,5 @@ public class ItemModel : ScriptableObject
     public float Value;
     public float Duration;
     public GameObject Effect;
+    public AudioClip Audio;
 }
