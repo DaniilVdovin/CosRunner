@@ -165,6 +165,7 @@ public class ShopUI : MonoBehaviour
             PlayerGeneralData.Coins -= item.Price;
             item.Has = true;
             Selected(item);
+            SkinChangerController.SetSkinData(item.id);
             Debug.LogWarning("You buy item id:"+item.id);
         }
         else

@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
 {
     [Header("Controls")]
     public Vector3 CameraOffset;
-    public GameObject Shild, Magnit;
+    public GameObject Shild, Magnit,playerSkin;
     [Range(10, 100)]
     public float Speed;
     [Range(1, 100)]
@@ -294,6 +294,9 @@ public class PlayerControl : MonoBehaviour
     {
         if (RaycastConfigure(3f, out RaycastHit ht))
         {
+            
+            GetComponent<plat>
+            SkinChangerController.GetSkinData();
             ChankNow = ht.collider.GetComponent<ChankControl>();
             isGround = true;
             if (ChankNow is not null)
