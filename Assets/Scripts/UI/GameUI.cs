@@ -85,8 +85,8 @@ public class GameUI : MonoBehaviour
     public VisualTreeAsset ExtraTemplate;
 
     public List<ExtraItem> extraItems;
-
-    private float temp_Score;
+    
+    private int temp_Score;
     private int temp_Coins;
 
     private void Start()
@@ -195,13 +195,13 @@ public class GameUI : MonoBehaviour
         if (this.enabled)
         {
             PC = pc;
-            temp_Score = Score;
+            temp_Score = (int)Score;
             temp_Coins = Coin;
             SetCoins(Coin);
-            SetScore(Score);
+            SetScore((int)Score);
         }
     }
-    public void SetScore(float value) => Score.text = "Score: " + value.ToString("f2");
+    public void SetScore(int value) => Score.text = "Score: " + value.ToString();
     public void SetCoins(int value) => Coins.text = "Coins: " + value.ToString();
     public void SetOxygen(float value)
         => _OxygenUI.Q<VisualElement>("Ox_Bar").style.height = (float)(((float)_OxygenUI.localBound.height/100f)*value);

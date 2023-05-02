@@ -142,7 +142,8 @@ public class PlayerControl : MonoBehaviour
         Animator.SetBool("Die", !isLive);
         if (isRun && GetAverageVelosity() > 1)
         {
-            Score += 0.01f * Speed;
+            
+            Score += 1 * Speed;
             Oxygen -= 0.01f;
         }
         if (isLive)
