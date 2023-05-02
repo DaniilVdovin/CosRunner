@@ -19,11 +19,7 @@ public class ChankControl : MonoBehaviour
 
     public GameObject[] HardChankItems;
 
-    public void Start()
-    {
-        Generate();
-    }
-    private void Generate()
+    public void Generate()
     {
         if (Lines.Length > 0)
             if (type == Ttype.Floor) {

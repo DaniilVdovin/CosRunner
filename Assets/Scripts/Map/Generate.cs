@@ -17,6 +17,8 @@ public class Generate : MonoBehaviour
     }
     public struct TTransform
     {
+        public int index;
+        public string type;
         public Vector3 position;
         public Quaternion rotation;
         public GameObject Chank;
@@ -35,6 +37,7 @@ public class Generate : MonoBehaviour
     public GameObject PrefCoin, PrefOxygen;
     private int CoinnPosOlds = 1;
     private bool firstGeneration = true;
+    private bool lastpivot = false;
     public void StartGenerate()
     {
         StartCoroutine(GenerateRoad(ChankCount * 2));
@@ -85,7 +88,12 @@ public class Generate : MonoBehaviour
     private void AddChank(TTransform temp)
         => Map.Add(ChankInstantiate(temp));
     private GameObject ChankInstantiate(TTransform temp)
-        => Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform);
+    {
+        temp.Chank = Instantiate(temp.Chank, temp.position, temp.rotation, MapParent.transform);
+        if (Map.Count>1 && !Map[temp.index].CompareTag("Map_rot"))
+            temp.Chank.GetComponent<ChankControl>().Generate();
+        return temp.Chank;
+    }
     private void ChankReplace(int i,TTransform temp)
         => Map[i] = ChankInstantiate(temp);
     private void ChankMove(TTransform temp)
@@ -154,7 +162,7 @@ public class Generate : MonoBehaviour
     TTransform GetNextPosotion(Vector3 LastPosition,bool move = false) {
         int side = 0;
         side = (int)LastSide;
-        TTransform result = new TTransform();
+        TTransform result = new ();
         
         switch (side) {
             case ((int)Side.Forward):
@@ -172,6 +180,8 @@ public class Generate : MonoBehaviour
         }
         if (LastSide != (Side)side)
         {
+            result.type = "pivot";
+            lastpivot = true;
             result.Chank = Chanks[1];
             if (side == (int)Side.Forward)
                 if (LastSide == Side.Left)
@@ -187,6 +197,8 @@ public class Generate : MonoBehaviour
         }
         else
         {
+            result.type = "forward";
+            lastpivot = false;
             result.Chank = Chanks[0];
             switch (LastSide)
             {
@@ -202,6 +214,7 @@ public class Generate : MonoBehaviour
             }
             if (move) result.Chank = null;
         }
+        result.index = Map.Count - 1;
         result.position *= offset;
         result.position += LastPosition;
         return result;

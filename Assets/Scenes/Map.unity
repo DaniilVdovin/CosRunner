@@ -823,6 +823,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
         type: 3}
+      propertyPath: ClampOffset
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012297025888165251, guid: 9fe270e9efd81412e9588372ad2ea8de,
+        type: 3}
       propertyPath: MapGenerator
       value: 
       objectReference: {fileID: 790793296}
@@ -2785,7 +2790,7 @@ PrefabInstance:
     - target: {fileID: 618450877678469359, guid: 8c522c6cb76de4c2895e07519289085d,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 618450877678469359, guid: 8c522c6cb76de4c2895e07519289085d,
         type: 3}
@@ -2830,7 +2835,7 @@ PrefabInstance:
     - target: {fileID: 618450877678469360, guid: 8c522c6cb76de4c2895e07519289085d,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 618450877678469361, guid: 8c522c6cb76de4c2895e07519289085d,
         type: 3}

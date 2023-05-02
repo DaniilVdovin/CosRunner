@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using GooglePlayGames;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -45,8 +46,9 @@ public class GameCotroller : MonoBehaviour
     }
     private void StartLeaderBoard(ClickEvent e)
     {
-        Menu.visible = false;
-        LeaderBoard.StartLeaderBoard();
+        //Menu.visible = false;
+        //LeaderBoard.StartLeaderBoard();
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(LeaderBoadConf.LeaderboardId);
     }
     private void StartGame(ClickEvent e = null)
     {

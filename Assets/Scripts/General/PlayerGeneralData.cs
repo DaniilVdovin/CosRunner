@@ -4,10 +4,9 @@ using System;
 using System.ComponentModel;
 using Unity.VisualScripting;
 using System.Collections.Generic;
-using Unity.Services.CloudSave;
-using Unity.Services.Core;
-using Unity.Services.Authentication;
 using System.Security.Cryptography;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 
 public static class PlayerGeneralData
 {
@@ -35,7 +34,7 @@ public static class PlayerGeneralData
                 _Score = value;
                 PlayerPrefs.SetFloat("BestScore", _Score);
                 Debug.Log("New bestScore: " + _Score);
-                LeaderBoadConf.AddScore(_Score);
+                LeaderBoadConf.AddScoreAsync(_Score);
                 StatsUpdate.Invoke(null, EventArgs.Empty);
             }
         }
@@ -57,16 +56,32 @@ public static class PlayerGeneralData
     public static EventHandler StatsUpdate;
     public static void Init()
     {
-        UnityServices.InitializeAsync();
-        Debug.LogError(UnityServices.ExternalUserId);
+        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         StatsUpdate += (s, e) => SaveData();
         //Clear();
         //LoadData();
         Login();
     }
+
+    private static void ProcessAuthentication(SignInStatus obj)
+    {
+        if (obj == SignInStatus.Success)
+        {
+            // Continue with Play Games Services
+            //Social.ShowLeaderboardUI();
+            PlayGamesPlatform.Instance.ShowLeaderboardUI();
+        }
+        else
+        {
+            // Disable your integration with Play Games Services or show a login button
+            // to ask users to sign-in. Clicking it should call
+            // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
+        }
+    }
     public static void Login()
     {
         ID = PlayerPrefs.GetString("ID", "_");
+        /*
         AuthenticationService.Instance.SignedIn += () =>
         {
             ID = AuthenticationService.Instance.PlayerId;
@@ -74,10 +89,8 @@ public static class PlayerGeneralData
             PlayerPrefs.Save();
             Debug.LogError("ID:" + ID);
         };
-        SignInOptions options = new();
-        options.CreateAccount = ID == "_";
-        Debug.LogError("ID:" + ID);
-        AuthenticationService.Instance.SignInAnonymouslyAsync(options);
+        */
+        //login
 
     }
     public static void SaveData()
@@ -86,7 +99,7 @@ public static class PlayerGeneralData
             { "Coins", (int)_Coins },
             { "id_Prefs", (int)_id_Prefs }
         };
-        CloudSaveService.Instance.Data.ForceSaveAsync(data);
+        //cloud save
         PlayerPrefs.Save();
     }
     public static void LoadData() {
@@ -102,7 +115,6 @@ public static class PlayerGeneralData
         _Coins = 0;
         _id_Prefs = 0;
         _Score = 0;
-        AuthenticationService.Instance.DeleteAccountAsync();
         PlayerPrefs.DeleteAll();
         StatsUpdate.Invoke(null, EventArgs.Empty);
     }  
