@@ -172,8 +172,8 @@ public class PlayerControl : MonoBehaviour
     }
     private bool CheckRaycastHit(out RaycastHit hiR, out RaycastHit hiL)
     {
-        bool door = RaycastConfigure(transform.position + Vector3.up * 4 + transform.right*-2.5f, 3f, out RaycastHit hitName, transform.forward);
-        bool boy = RaycastConfigure(transform.position + Vector3.up * 4 + transform.right*1.2f, 3f, out RaycastHit hasName, transform.forward);
+        bool door = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right*-2.2f, 3f, out RaycastHit hitName, transform.forward);
+        bool boy = RaycastConfigure(transform.position + Vector3.up * 2 + transform.right*1.1f, 3f, out RaycastHit hasName, transform.forward);
         Debug.DrawRay(transform.position + Vector3.up * 2 + transform.right * -1.5f, transform.forward,Color.red, 3f);
         Debug.DrawRay(transform.position + Vector3.up * 2 + transform.right * 1.5f,transform.forward, Color.red, 3f);
 
