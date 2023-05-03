@@ -74,9 +74,8 @@ public class ExtraItem
 
 public class GameUI : MonoBehaviour
 {
-    private VisualElement UI, DieFrame, _LoaderUI, StatsFrame, _OxygenUI, ExtraItemsHolder;
-    private GroupBox LittleSettings;
-    private Button Setting, Replay, Resurect, Rating;
+    private VisualElement UI, DieFrame, _LoaderUI, StatsFrame, _OxygenUI, ExtraItemsHolder,PauseFrame;
+    private Button Setting, Replay, Resurect, Rating,Return;
     private Label Score, Coins;
 
     private PlayerControl PC;
@@ -91,10 +90,11 @@ public class GameUI : MonoBehaviour
 
     private void Start()
     {
+        //UiObjects
+       
         AdsConroller = GameObject.Find("ADS").GetComponent<AdsConroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("GameUI");
         Setting = UI.Q<Button>("Settings");
-        LittleSettings = UI.Q<GroupBox>("LittleSettings");
         DieFrame = UI.Q<VisualElement>("DieFrame");
         Replay = UI.Q<Button>("Replay");
         Resurect = UI.Q<Button>("Resurect");
@@ -104,6 +104,10 @@ public class GameUI : MonoBehaviour
         Coins = UI.Q<Label>("Coins");
         ExtraItemsHolder = UI.Q<VisualElement>("ExtraItemsHolder");
         extraItems = new();
+
+        Return = UI.Q<Button>("Return");
+        PauseFrame = UI.Q<VisualElement>("PauseMenu");
+
         _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
         _OxygenUI = UI.Q<VisualElement>("_OxygenBarUI");
 
@@ -111,10 +115,21 @@ public class GameUI : MonoBehaviour
         Resurect.RegisterCallback<ClickEvent>(CallbackResurect);
         Rating.RegisterCallback<ClickEvent>(CallbackReplay);
 
-        Setting.RegisterCallback<ClickEvent>((e) => {
-            LittleSettings.visible = !LittleSettings.visible;
-        });
+        Setting.RegisterCallback<ClickEvent>(CallbackMenu);
+        Return.RegisterCallback<ClickEvent>(CallbackStart);
     }
+
+
+    private void CallbackStart(ClickEvent e)
+    {
+        StartCoroutine(UnShowPauseFrame());
+        
+    }
+    private void CallbackMenu(ClickEvent e)
+    {
+        ShowPauseFrame();
+    }
+    
     public ExtraItem AddExtraItem(int id, Sprite sprite, float Duration, EventHandler<ExtraItem> ActionClose)
     {
         ExtraItem item;
@@ -144,10 +159,34 @@ public class GameUI : MonoBehaviour
         AnimateLoading(new[] { "Готовим печеньки", "Генерируем карту", "Артем когда релиз ?", "Э! A когда играть ?", "Погнали !" },
              42 * .1f);
     }
+    /*---------------------------PAUSE FRAME----------------------------*/
+     private void ShowPauseFrame()
+     {
+        Time.timeScale = 0f;
+        PauseFrame.visible = true;
+       
+    }
+     private IEnumerator UnShowPauseFrame()
+     { 
+        PauseFrame.visible = false;
+        Time.timeScale = 1;
+        PC.isRun = false;
+        PC.RigidBody.velocity = Vector3.zero;
+        for (int i = 4; i >= 1; i--)
+        {
+            Debug.Log("PAUSE: " + i);
+            yield return new WaitForSeconds(1f);
+        }
+        PC.isRun = true;
+       
+    }
+
+
+    /*-------------------------END PAUSE FRAME-------------------------*/
+
     /*---------------------------DIE FRAME----------------------------*/
     public void Die()
-    {
-        StartCoroutine(ShowDieFrame());
+    {StartCoroutine(ShowDieFrame());
     }
     private void CallbackReplay(ClickEvent e) {
         SaveStats();

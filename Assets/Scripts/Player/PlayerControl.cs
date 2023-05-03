@@ -54,14 +54,13 @@ public class PlayerControl : MonoBehaviour
     private int angle_rotate = 90;
     private bool isBreath = false;
     private Animator Animator;
-    private Rigidbody Rigidbody;
-    [HideInInspector]
-    public ChankControl ChankNow;
+    [HideInInspector] public Rigidbody RigidBody;
+    [HideInInspector] public ChankControl ChankNow;
     //Sets Physycs and anim fields
     void Start()
     {
         Animator = GetComponent<Animator>();
-        Rigidbody = GetComponent<Rigidbody>();
+        RigidBody = GetComponent<Rigidbody>();
     }
     public void StartGame()
     {
@@ -143,8 +142,8 @@ public class PlayerControl : MonoBehaviour
         if (isRun && GetAverageVelosity() > 1)
         {
             
-            Score += 1 * Speed;
-            Oxygen -= 0.01f;
+            Score += 1 + Speed/10;
+            Oxygen -= 0.03f;
         }
         if (isLive)
         {
@@ -235,7 +234,7 @@ public class PlayerControl : MonoBehaviour
         if (isShield == false)
         {
             Destroy(Instantiate(Boom, transform.position + Vector3.up * 4, Quaternion.identity), 4f);
-            Rigidbody.velocity = Vector3.zero;
+            RigidBody.velocity = Vector3.zero;
             isLive = false;
             isRun = false;
             GameUI.Die();
@@ -349,7 +348,7 @@ public class PlayerControl : MonoBehaviour
         isBreath = true;
         if (isRun && isGround)
         {
-            Rigidbody.velocity = transform.forward * Speed;
+            RigidBody.velocity = transform.forward * Speed;
         }
     }
    
@@ -400,19 +399,13 @@ public class PlayerControl : MonoBehaviour
 
 
                     // Vector3 force = 120 * JumpForce * Vector3.up;
-                    // Rigidbody.AddForce(force, ForceMode.Impulse);
+                    // RigidBody.AddForce(force, ForceMode.Impulse);
                     Animator.SetTrigger("Jump");
 
                     isGround = false;
 
                 }
             }
-
-
-               
-
-            
-
         }
         return;
     }
@@ -427,7 +420,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     private float GetAverageVelosity()
-        => Mathf.Abs(Rigidbody.velocity.x) + Mathf.Abs(Rigidbody.velocity.z);
+        => Mathf.Abs(RigidBody.velocity.x) + Mathf.Abs(RigidBody.velocity.z);
     private bool RaycastConfigure(float duration, out RaycastHit hit)
         => Physics.Raycast(new Ray(transform.position + Vector3.up * 2, Vector3.down), out hit, duration);
     private bool RaycastConfigure(Vector3 start, float duration, out RaycastHit hit, Vector3 direction)

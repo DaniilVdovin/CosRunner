@@ -98,8 +98,14 @@ public class Generate : MonoBehaviour
         => Map[i] = ChankInstantiate(temp);
     private void ChankMove(TTransform temp)
     {
-        Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
-        Map.Last().GetComponent<ChankControl>().Regenerate();
+        
+            Map.Last().transform.SetPositionAndRotation(temp.position, temp.rotation);
+
+
+
+        Map.Last().GetComponent<ChankControl>().Clear();
+        if (Map.Count > 1 && !Map[temp.index].CompareTag("Map_rot"))
+            Map.Last().GetComponent<ChankControl>().Generate();
     }
     private IEnumerator GenerateCoins(int Start, int End)
     {

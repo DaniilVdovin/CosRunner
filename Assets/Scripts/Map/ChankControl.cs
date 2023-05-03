@@ -33,6 +33,7 @@ public class ChankControl : MonoBehaviour
                         transform.position,Quaternion.identity,transform));
                     Stopings.Last().transform.localRotation = Quaternion.Euler(0, (Random.Range(0, 2) == 1 ? 0 : 180), 0);
                 }
+                
             }
     }
     public void Regenerate()
