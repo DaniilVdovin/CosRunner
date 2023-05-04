@@ -165,7 +165,7 @@ public class GameUI : MonoBehaviour
         Time.timeScale = 0f;
         PauseFrame.visible = true;
        
-    }
+     }
      private IEnumerator UnShowPauseFrame()
      { 
         PauseFrame.visible = false;
@@ -178,10 +178,7 @@ public class GameUI : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         PC.isRun = true;
-       
-    }
-
-
+     }
     /*-------------------------END PAUSE FRAME-------------------------*/
 
     /*---------------------------DIE FRAME----------------------------*/
