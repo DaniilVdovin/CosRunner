@@ -7,7 +7,8 @@ public class PlayerControl : MonoBehaviour
 {
     [Header("Controls")]
     public Vector3 CameraOffset;
-    public GameObject Shild, Magnit,playerSkin;
+    public GameObject Shild, Magnit;
+    public static string playerSkin;
     [Range(10, 100)]
     public float Speed;
     [Range(1, 100)]
@@ -194,6 +195,10 @@ public class PlayerControl : MonoBehaviour
         hiL = hasName;
         return boy && door;
 
+    }
+    public  void SchangeSkin(string Name)
+    {
+        playerSkin = Name;
     }
     private void SpeedUp()
     {

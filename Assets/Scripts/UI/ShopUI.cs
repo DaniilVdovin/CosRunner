@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Data;
 using DG.Tweening;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "Item Model", menuName = "Items/Shop Item Model", order = 2)]
-public class ShopItem : ScriptableObject
+public class ShopItemScr
 {
     public int id;
     private string _name;
@@ -51,9 +53,10 @@ public class ShopItem : ScriptableObject
             Update();
         }
     }
-    public Action<ShopItem, ClickEvent> EventClick;
-    public Action<ShopItem> EventUpdate;
+    public Action<ShopItemScr, ClickEvent> EventClick;
+    public Action<ShopItemScr> EventUpdate;
     private void ClickEvent(ClickEvent e) => EventClick.Invoke(this, e);
+    
 
     public void Update() {
         if (_template != null)
@@ -65,22 +68,28 @@ public class ShopItem : ScriptableObject
         if (EventUpdate != null)
             EventUpdate.Invoke(this);
     }
+    public override bool Equals(object other)
+    {
+        return id == (other as ShopItemScr).id;
+    }
 }
 public class ShopUI : MonoBehaviour
 {
-    public List<ShopItem> items;
-
+    public delegate void Skinny(string Name);
+    public List<ShopItemScr> items;
+    private PrefencesController fabris = new PrefencesController();
     private VisualElement UI;
+    private ReadOnlyList<ShopItem> ShopItems;
     private VisualElement Holder;
     public VisualTreeAsset Def_Item;
     public Label Coin;
     public Sprite SpriteLock;
     public Button Close;
-
     public GameCotroller Menu;
 
     void Start()
     {
+        LoadItems();
         Menu = GetComponent<GameCotroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShopUI");
         Holder = UI.Q<VisualElement>("ShopContainer");
@@ -96,19 +105,7 @@ public class ShopUI : MonoBehaviour
     }
     private void LoadItems()//TEST
     {
-        items = new();
-        for (int i = 0; i < 30; i++)
-        {
-            ShopItem temp = new()
-            {
-                Name = "Pers: " + i,
-                Prefab = null,
-                Icon = null,
-                Has = false,
-                Price = 100 * i
-            };
-            items.Add(temp);
-        }
+        items = fabris.get();
     }
     private IEnumerator Generate()
     {
@@ -128,30 +125,37 @@ public class ShopUI : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
     }
-    private void ItemUpdate(ShopItem item)
+    private void ItemUpdate(ShopItemScr item)
     {
         //Debug.Log(item.Name);
         bool allunsel = false;
         items.ForEach((i) => allunsel = i.Selected?true:allunsel);
         if (!allunsel) { items[0].Selected = true; }
     }
-    private void ClickEvent(ShopItem item,ClickEvent e)
+
+    //click
+    private void ClickEvent(ShopItemScr item,ClickEvent e)
     {
         //Instantiate(item.Prefab);
         Debug.Log(item.Name);
 
         if (item.Has) {
             Selected(item);
+
+
+
         }
         else {
             Buy(item);
+            fabris.add(item);
+
         }
         
 
         //UPDATE
         item.Update();
     }
-    private void Selected(ShopItem item)
+    private void Selected(ShopItemScr item)
     {
         item.Selected = !item.Selected;
         items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
@@ -159,7 +163,7 @@ public class ShopUI : MonoBehaviour
         PlayerGeneralData.id_Prefs = item.id;
     }
 
-    private void Buy(ShopItem item)
+    private void Buy(ShopItemScr item)
     {
         if (PlayerGeneralData.Coins >= item.Price)
         {

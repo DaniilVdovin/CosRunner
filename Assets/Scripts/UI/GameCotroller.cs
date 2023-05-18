@@ -32,6 +32,7 @@ public class GameCotroller : MonoBehaviour
         LeaderBoard = GetComponent<LeaderBoardUI>();
 
         PlayerControl = FindAnyObjectByType<PlayerControl>();
+        
         Generate = FindAnyObjectByType<Generate>();
 
         Menu.Q<Button>("Start").RegisterCallback<ClickEvent>(StartGame);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Collections>
+    <Object>
+      <ShopItem>
+        <Array>
+          <Object>
+            <Id xsi:type="xs:int">1</Id>
+            <Name xsi:type="xs:string">BlackSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">150</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+          <Object>
+            <Id xsi:type="xs:int">2</Id>
+            <Name xsi:type="xs:string">WhiteSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">1500</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+          <Object>
+            <Id xsi:type="xs:int">3</Id>
+            <Name xsi:type="xs:string">BlueSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">20</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+          <Object>
+            <Id xsi:type="xs:int">7</Id>
+            <Name xsi:type="xs:string">RedSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">251</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+        </Array>
+      </ShopItem>
+    </Object>
+  </Collections>
+  <Success xsi:type="xs:string">true</Success>
+</Object>

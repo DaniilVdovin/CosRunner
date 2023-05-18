@@ -59,8 +59,6 @@ public static class PlayerGeneralData
     {
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         StatsUpdate += (s, e) => SaveData();
-        //Clear();
-        //LoadData();
         Login();
     }
 
@@ -68,8 +66,8 @@ public static class PlayerGeneralData
     {
         if (obj == SignInStatus.Success)
         {
-            // Continue with Play Games Services
-            //Social.ShowLeaderboardUI();
+            //Continue with Play Games Services
+            Social.ShowLeaderboardUI();
             PlayGamesPlatform.Instance.ShowLeaderboardUI();
         }
         else
@@ -111,6 +109,7 @@ public static class PlayerGeneralData
         Debug.Log($"Stats:\nCoins:\t{_Coins}\nBestScore:\t{_Score}\nid_Prefs:\t{_id_Prefs}");
     }
     //DANGER
+    /*
     public static void Clear()
     {
         _Coins = 0;
@@ -118,5 +117,6 @@ public static class PlayerGeneralData
         _Score = 0;
         PlayerPrefs.DeleteAll();
         StatsUpdate.Invoke(null, EventArgs.Empty);
-    }  
+    }
+    */
 }

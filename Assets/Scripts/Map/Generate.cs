@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using Assets.Scripts.General;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,14 @@ using UnityEngine.UIElements;
 
 public class Generate : MonoBehaviour
 {
+
+
+
+
+   /// <summary>
+   /// ADS VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   /// </summary>
+    internal static GoogleAds ads;
     public enum Side
     {
         Rigth,
@@ -38,6 +47,16 @@ public class Generate : MonoBehaviour
     private int CoinnPosOlds = 1;
     private bool firstGeneration = true;
     private bool lastpivot = false;
+    //ADS IS IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    private void Awake()
+    {
+        ads = new GoogleAds();
+        ads.LoadRewardedAd();
+       
+    }
+
+
     public void StartGenerate()
     {
         StartCoroutine(GenerateRoad(ChankCount * 2));

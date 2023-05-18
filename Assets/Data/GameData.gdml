@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ToolsVersion xsi:type="xs:string">2020.1.1.0</ToolsVersion>
+  <ChangeNumber xsi:type="xs:int">10</ChangeNumber>
+  <Collections>
+    <Object>
+      <Entity>
+        <Array>
+          <Object>
+            <Id xsi:type="xs:string">18d4bf318f3c49688087dbed</Id>
+            <Name xsi:type="xs:string">Entity</Name>
+            <DisplayName xsi:type="xs:string">Entity</DisplayName>
+            <Group xsi:type="xs:string">Design</Group>
+            <Description xsi:nil="true" />
+            <IdGenerator xsi:type="xs:int">1</IdGenerator>
+            <Specifications xsi:type="xs:string">classgen=skip&#x0026;icon=blueprint</Specifications>
+            <Attributes>
+              <Array>
+                <Object>
+                  <Id xsi:type="xs:string">53bd34a376a21229219cb156</Id>
+                  <Name xsi:type="xs:string">Id</Name>
+                  <DisplayName xsi:type="xs:string">Id</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">1</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">12</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">3ad672c130f6192149605540</Id>
+                  <Name xsi:type="xs:string">Name</Name>
+                  <DisplayName xsi:type="xs:string">Name</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">2</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">16e2300bf6a23c488629e69d</Id>
+                  <Name xsi:type="xs:string">DisplayName</Name>
+                  <DisplayName xsi:type="xs:string">Display Name</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">59088257983a362690093cf2</Id>
+                  <Name xsi:type="xs:string">Group</Name>
+                  <DisplayName xsi:type="xs:string">Group</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">128</Size>
+                  <Specifications xsi:type="xs:string">editor=combobox</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">59088257983a362690093cf4</Id>
+                  <Name xsi:type="xs:string">Description</Name>
+                  <DisplayName xsi:type="xs:string">Description</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:type="xs:string">editor=textareafield&#x0026;editor.grow=true</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">41a0a2dd9519fbb5e32c5932</Id>
+                  <Name xsi:type="xs:string">IdGenerator</Name>
+                  <DisplayName xsi:type="xs:string">Id Generator</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">18</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">4</Size>
+                  <Specifications xsi:type="xs:string">pick.None=0&#x0026;pick.ObjectId=1&#x0026;pick.Guid=2&#x0026;pick.Sequence=3&#x0026;pick.GlobalSequence=4</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">356560097834457153bb7b64</Id>
+                  <Name xsi:type="xs:string">Specifications</Name>
+                  <DisplayName xsi:type="xs:string">Specifications</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">cec3d153d20fdb588c1161c9</Id>
+                  <Name xsi:type="xs:string">Attributes</Name>
+                  <DisplayName xsi:type="xs:string">Attributes</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">23</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType>
+                    <Object>
+                      <Id xsi:type="xs:string">d40d8eb1a23248b69b252eea</Id>
+                      <DisplayName xsi:type="xs:string">Attribute</DisplayName>
+                    </Object>
+                  </ReferenceType>
+                  <Size xsi:type="xs:int">0</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+              </Array>
+            </Attributes>
+          </Object>
+          <Object>
+            <Id xsi:type="xs:string">55a4f32faca22e191098f3d9</Id>
+            <Name xsi:type="xs:string">ProjectSettings</Name>
+            <DisplayName xsi:type="xs:string">Project Settings</DisplayName>
+            <Group xsi:type="xs:string">Settings</Group>
+            <Description xsi:nil="true" />
+            <IdGenerator xsi:type="xs:int">1</IdGenerator>
+            <Specifications xsi:type="xs:string">classgen=skip&#x0026;icon=gear&#x0026;type=settings</Specifications>
+            <Attributes>
+              <Array>
+                <Object>
+                  <Id xsi:type="xs:string">59088258983a362690093d00</Id>
+                  <Name xsi:type="xs:string">Id</Name>
+                  <DisplayName xsi:type="xs:string">Id</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">1</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">24</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">59088258983a362690093d01</Id>
+                  <Name xsi:type="xs:string">Name</Name>
+                  <DisplayName xsi:type="xs:string">Project Name</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:type="xs:string">Untitled Project</DefaultValue>
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">128</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">59088259983a362690093d0f</Id>
+                  <Name xsi:type="xs:string">PrimaryLanguage</Name>
+                  <DisplayName xsi:type="xs:string">Primary Language</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">32</Size>
+                  <Specifications xsi:type="xs:string">editor=languagefield</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">59088259983a362690093d0d</Id>
+                  <Name xsi:type="xs:string">Languages</Name>
+                  <DisplayName xsi:type="xs:string">Languages</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:type="xs:string">editor=languagelistfield</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">59088259983a362690093d0b</Id>
+                  <Name xsi:type="xs:string">Copyright</Name>
+                  <DisplayName xsi:type="xs:string">Copyright</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">512</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+              </Array>
+            </Attributes>
+          </Object>
+          <Object>
+            <Id xsi:type="xs:string">5ee065647cba93650200001c</Id>
+            <Name xsi:type="xs:string">ShopItem</Name>
+            <DisplayName xsi:type="xs:string">Shop Item</DisplayName>
+            <Group xsi:nil="true" />
+            <Description xsi:nil="true" />
+            <IdGenerator xsi:type="xs:int">3</IdGenerator>
+            <Specifications xsi:type="xs:string">icon=asterisk-small-yellow&#x0026;displayName=Name</Specifications>
+            <Attributes>
+              <Array>
+                <Object>
+                  <Id xsi:type="xs:string">5ee065647cba93650300001c</Id>
+                  <Name xsi:type="xs:string">Id</Name>
+                  <DisplayName xsi:type="xs:string">Id</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">13</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">1</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">4</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">5ee065647cba93650400001c</Id>
+                  <Name xsi:type="xs:string">Name</Name>
+                  <DisplayName xsi:type="xs:string">Name</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">1</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">afee6564bbba9365020000b0</Id>
+                  <Name xsi:type="xs:string">HaveIt</Name>
+                  <DisplayName xsi:type="xs:string">Have_It</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">12</DataType>
+                  <DefaultValue xsi:type="xs:string">0</DefaultValue>
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">4</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">81e065647cba93650500001c</Id>
+                  <Name xsi:type="xs:string">Cost</Name>
+                  <DisplayName xsi:type="xs:string">Cost</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">afee6564bbba9365010000b0</Id>
+                  <Name xsi:type="xs:string">Prefab</Name>
+                  <DisplayName xsi:type="xs:string">Prefab</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+              </Array>
+            </Attributes>
+          </Object>
+          <Object>
+            <Id xsi:type="xs:string">d40d8eb1a23248b69b252eea</Id>
+            <Name xsi:type="xs:string">Attribute</Name>
+            <DisplayName xsi:type="xs:string">Attribute</DisplayName>
+            <Group xsi:type="xs:string">Design</Group>
+            <Description xsi:nil="true" />
+            <IdGenerator xsi:type="xs:int">1</IdGenerator>
+            <Specifications xsi:type="xs:string">classgen=skip&#x0026;type=component</Specifications>
+            <Attributes>
+              <Array>
+                <Object>
+                  <Id xsi:type="xs:string">dfd84fc9957e94f02f9f60cc</Id>
+                  <Name xsi:type="xs:string">Id</Name>
+                  <DisplayName xsi:type="xs:string">Id</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">1</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">12</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">bd453e1e7f1543a7133d7fb1</Id>
+                  <Name xsi:type="xs:string">Name</Name>
+                  <DisplayName xsi:type="xs:string">Name</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">2</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">993520ecbe361cf06d060f2a</Id>
+                  <Name xsi:type="xs:string">DisplayName</Name>
+                  <DisplayName xsi:type="xs:string">Display Name</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">59088257983a362690093cf6</Id>
+                  <Name xsi:type="xs:string">Description</Name>
+                  <DisplayName xsi:type="xs:string">Description</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:type="xs:string">editor=textareafield&#x0026;editor.grow=true</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">7286478a63f200a094a1cdc8</Id>
+                  <Name xsi:type="xs:string">DataType</Name>
+                  <DisplayName xsi:type="xs:string">Data Type</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">18</DataType>
+                  <DefaultValue xsi:type="xs:string">0</DefaultValue>
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">4</Size>
+                  <Specifications xsi:type="xs:string">pick.Text=0&#x0026;pick.LocalizedText=1&#x0026;pick.Logical=5&#x0026;pick.Time=8&#x0026;pick.Date=9&#x0026;pick.Number=12&#x0026;pick.Document=22&#x0026;pick.DocumentList=23&#x0026;pick.Integer=13&#x0026;pick.PickList=18&#x0026;pick.Formula=35&#x0026;pick.Flags=19&#x0026;pick.Reference=28&#x0026;pick.ReferenceList=29</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">a15529ef753f70deed4af17e</Id>
+                  <Name xsi:type="xs:string">DefaultValue</Name>
+                  <DisplayName xsi:type="xs:string">Default Value</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">caaa34c8708b5550c95004d9</Id>
+                  <Name xsi:type="xs:string">Uniqueness</Name>
+                  <DisplayName xsi:type="xs:string">Uniqueness</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">18</DataType>
+                  <DefaultValue xsi:type="xs:string">0</DefaultValue>
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">4</Size>
+                  <Specifications xsi:type="xs:string">pick.None=0&#x0026;pick.Unique=1&#x0026;pick.UniqueInContainer=2</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">d3e46e75b8a33b2b202f1a45</Id>
+                  <Name xsi:type="xs:string">Requirement</Name>
+                  <DisplayName xsi:type="xs:string">Requirement</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">18</DataType>
+                  <DefaultValue xsi:type="xs:string">0</DefaultValue>
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">4</Size>
+                  <Specifications xsi:type="xs:string">pick.None=0&#x0026;pick.NotDefault=1&#x0026;pick.NotEmpty=2</Specifications>
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">e3664a130c8c9f45220f08a7</Id>
+                  <Name xsi:type="xs:string">ReferenceType</Name>
+                  <DisplayName xsi:type="xs:string">Reference Type</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">28</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType>
+                    <Object>
+                      <Id xsi:type="xs:string">18d4bf318f3c49688087dbed</Id>
+                      <DisplayName xsi:type="xs:string">Entity</DisplayName>
+                    </Object>
+                  </ReferenceType>
+                  <Size xsi:type="xs:int">0</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">8ddc9671536310356d553f7b</Id>
+                  <Name xsi:type="xs:string">Size</Name>
+                  <DisplayName xsi:type="xs:string">Size</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">13</DataType>
+                  <DefaultValue xsi:type="xs:string">8000</DefaultValue>
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">2</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">4</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+                <Object>
+                  <Id xsi:type="xs:string">f1c2a71b2da0b365a852ae7a</Id>
+                  <Name xsi:type="xs:string">Specifications</Name>
+                  <DisplayName xsi:type="xs:string">Specifications</DisplayName>
+                  <Description xsi:nil="true" />
+                  <DataType xsi:type="xs:int">0</DataType>
+                  <DefaultValue xsi:nil="true" />
+                  <Uniqueness xsi:type="xs:int">0</Uniqueness>
+                  <Requirement xsi:type="xs:int">0</Requirement>
+                  <ReferenceType xsi:nil="true" />
+                  <Size xsi:type="xs:int">8000</Size>
+                  <Specifications xsi:nil="true" />
+                </Object>
+              </Array>
+            </Attributes>
+          </Object>
+        </Array>
+      </Entity>
+      <ShopItem>
+        <Array>
+          <Object>
+            <Id xsi:type="xs:int">1</Id>
+            <Name xsi:type="xs:string">BlackSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">150</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+          <Object>
+            <Id xsi:type="xs:int">2</Id>
+            <Name xsi:type="xs:string">WhiteSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">1500</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+          <Object>
+            <Id xsi:type="xs:int">3</Id>
+            <Name xsi:type="xs:string">BlueSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">20</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+          <Object>
+            <Id xsi:type="xs:int">7</Id>
+            <Name xsi:type="xs:string">RedSkin</Name>
+            <HaveIt xsi:type="xs:float">0</HaveIt>
+            <Cost xsi:type="xs:string">251</Cost>
+            <Prefab xsi:nil="true" />
+          </Object>
+        </Array>
+      </ShopItem>
+    </Object>
+  </Collections>
+</Object>

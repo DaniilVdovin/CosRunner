@@ -79,7 +79,6 @@ public class GameUI : MonoBehaviour
     private Label Score, Coins;
 
     private PlayerControl PC;
-    private AdsConroller AdsConroller;
 
     public VisualTreeAsset ExtraTemplate;
 
@@ -92,7 +91,6 @@ public class GameUI : MonoBehaviour
     {
         //UiObjects
        
-        AdsConroller = GameObject.Find("ADS").GetComponent<AdsConroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("GameUI");
         Setting = UI.Q<Button>("Settings");
         DieFrame = UI.Q<VisualElement>("DieFrame");
@@ -194,21 +192,12 @@ public class GameUI : MonoBehaviour
     {
         AnimateLoading(new[] {"Начали грузить","Только для вас"},
              5f);
-        AdsConroller.SkipByAD((T, M) =>
-        {
-            if (T)
-            {
-                Time.timeScale = 1;
-                DieFrame.visible = false;
-                StartCoroutine(ResurestAction());
-                Debug.Log(M);
-            }
-            else
-            {
-                CallbackReplay(new ClickEvent());
-                Debug.LogError(M);
-            }
-        });
+
+        Generate.ads.ShowRewardedAd();
+   
+
+        
+        ResurestAction();
     }
     private IEnumerator ResurestAction() {
         PC.PreRessurect();

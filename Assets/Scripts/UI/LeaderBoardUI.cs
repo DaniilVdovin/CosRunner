@@ -43,7 +43,7 @@ public class LeaderBoardUI : MonoBehaviour
         Holder = UI.Q<VisualElement>("LeaderBoardContainer");
         Close = UI.Q<Button>("LeaderBoardClose");
         Close.RegisterCallback<ClickEvent>(LBUIClose);
-        /*for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 100; i++)
         {
             items.Add(new LeaderBoardItem()
             {
@@ -51,7 +51,7 @@ public class LeaderBoardUI : MonoBehaviour
                 Name = "Name " + i,
                 Score = 1234 * i
             });
-        }*/
+        }
         PlayerGeneralData.StatsUpdate += UPD;
     }
     private void UPD(object s,EventArgs e) {
