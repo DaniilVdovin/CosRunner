@@ -80,7 +80,7 @@ public class ShopUI : MonoBehaviour
     public List<ShopItemScr> items;
     private PrefencesController fabris = new PrefencesController();
     private VisualElement UI;
-    private ReadOnlyList<ShopItem> ShopItems;
+   
     private VisualElement Holder;
     public VisualTreeAsset Def_Item;
     public Label Coin;
