@@ -8,6 +8,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Controls")]
     public Vector3 CameraOffset;
     public GameObject Shild, Magnit;
+    public SkinnedMeshRenderer SkinnedMeshRenderer;
     public static string playerSkin;
     [Range(10, 100)]
     public float Speed;
@@ -196,9 +197,11 @@ public class PlayerControl : MonoBehaviour
         return boy && door;
 
     }
-    public  void SchangeSkin(string Name)
+    public static  void SchangeSkin(string Name)
     {
         playerSkin = Name;
+        
+        Debug.Log(playerSkin);
     }
     private void SpeedUp()
     {

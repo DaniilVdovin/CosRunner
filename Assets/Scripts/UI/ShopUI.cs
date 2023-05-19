@@ -76,6 +76,7 @@ public class ShopItemScr
 public class ShopUI : MonoBehaviour
 {
     public delegate void Skinny(string Name);
+    Skinny skinChanhge = PlayerControl.SchangeSkin;
     public List<ShopItemScr> items;
     private PrefencesController fabris = new PrefencesController();
     private VisualElement UI;
@@ -118,6 +119,7 @@ public class ShopUI : MonoBehaviour
             temp.name = item.Name;
             item.EventUpdate += ItemUpdate;
             item.EventClick += ClickEvent;
+           
             Holder.Add(temp);
             DOTween.To(() => 0f, x => temp.style.opacity = x
                     , 1f, .5f)
@@ -141,14 +143,11 @@ public class ShopUI : MonoBehaviour
 
         if (item.Has) {
             Selected(item);
-
-
-
+          
         }
         else {
             Buy(item);
             fabris.add(item);
-
         }
         
 
@@ -159,7 +158,8 @@ public class ShopUI : MonoBehaviour
     {
         item.Selected = !item.Selected;
         items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
-        SkinChangerController.curentSkin.prefab = item.Prefab;
+        if (skinChanhge != null)
+            skinChanhge(item.Name);
         PlayerGeneralData.id_Prefs = item.id;
     }
 
