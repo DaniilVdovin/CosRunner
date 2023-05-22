@@ -1,4 +1,5 @@
 using Assets.Scripts.Sounds;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Transactions;
 using Unity.VisualScripting;
@@ -8,8 +9,8 @@ public class PlayerControl : MonoBehaviour
     [Header("Controls")]
     public Vector3 CameraOffset;
     public GameObject Shild, Magnit;
-    public SkinnedMeshRenderer SkinnedMeshRenderer;
-    public static string playerSkin;
+    public SkinnedMeshRenderer SkinnedMeshRender;
+
     [Range(10, 100)]
     public float Speed;
     [Range(1, 100)]
@@ -58,6 +59,7 @@ public class PlayerControl : MonoBehaviour
     private Animator Animator;
     [HideInInspector] public Rigidbody RigidBody;
     [HideInInspector] public ChankControl ChankNow;
+
     //Sets Physycs and anim fields
     void Start()
     {
@@ -197,11 +199,11 @@ public class PlayerControl : MonoBehaviour
         return boy && door;
 
     }
-    public static  void SchangeSkin(string Name)
+    public void SchangeSkin(string Name , Mesh mesh)
     {
-        playerSkin = Name;
-        
-        Debug.Log(playerSkin);
+        SkinnedMeshRender.sharedMesh = mesh;
+        SkinnedMeshRender.name = mesh.name;
+
     }
     private void SpeedUp()
     {

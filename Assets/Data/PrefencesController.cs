@@ -12,74 +12,46 @@ namespace Assets.Data
     internal class PrefencesController
     {
         private List<ShopItemScr> shopItems = new() {
-        new()
-        {
-             id = 0,
-             Name = "Black",
-             Prefab = null,
-             Icon = null,
-             Has = false,
-             Price = 20
-        },
-        new()
-        {
-             id = 1,
-             Name = "Yellow",
-             Prefab = null,
-             Icon = null,
-             Has = false,
-             Price = 20
-         },
-        new ()
-        {
-             id = 2,
-             Name = "Green",
-             Prefab = null,
-             Icon = null,
-             Has = false,
-             Price = 20
-         },
-        new ()
-        {
-             id = 3,
-             Name = "RED",
-             Prefab = null,
-             Icon = null,
-             Has = false,
-             Price = 20
-        },
-        new ()
-        {
-
-             id = 4,
-             Name = "White",
-             Prefab = null,
-             Icon = null,
-             Has = false,
-             Price = 20
-        }
-
-
+      
 };
+
         public void add(ShopItemScr item)
         {
             if (!shopItems.Contains(item)) return;
-                
-                
-            PlayerPrefs.SetInt("ShopItemID:"+item.id,1);
-            shopItems.Where(x => x.id == item.id).First().Has=true;
 
+
+            PlayerPrefs.SetInt("ShopItemID:" + item.id, 1);
+            shopItems.Where(x => x.id == item.id).First().Has = true;
             PlayerPrefs.Save();
-                
+
+
         }
         public List<ShopItemScr> get()
         {
             foreach (var i in shopItems)
             {
                i.Has =  PlayerPrefs.GetInt("ShopItemID:" + i.id, 0)==1?true:false;
-               
             }
             return shopItems;
+            
+        }
+        public PrefencesController(List<Mesh> prefs,Sprite icon)
+        {
+            int i = 0;
+            foreach (var item1 in prefs)
+            {
+                ShopItemScr item = new ShopItemScr();
+                item.id = i;
+                i++;
+                item.Name = item1.name;
+                item.Prefab = item1;
+                if(item.Has == false)
+                    item.Icon = icon;
+                item.Has = false;
+                item.Price = (i + 1) * 10;
+                shopItems.Add(item);
+
+            }
             
         }
     }

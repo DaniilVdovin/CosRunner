@@ -6,7 +6,9 @@ using Assets.Data;
 using DG.Tweening;
 using Unity.Services.Analytics;
 using UnityEngine;
+using UnityEngine.U2D.IK;
 using UnityEngine.UIElements;
+using UnityEngine.XR;
 
 [CreateAssetMenu(fileName = "Item Model", menuName = "Items/Shop Item Model", order = 2)]
 public class ShopItemScr
@@ -31,7 +33,7 @@ public class ShopItemScr
             Update();
         }
     }
-    public GameObject Prefab;
+    public Mesh Prefab;
     public int Price;
     public Sprite Icon;
     private bool _selected;
@@ -62,7 +64,12 @@ public class ShopItemScr
         if (_template != null)
         {
             template.Q<VisualElement>("ItemSelected").visible = _selected;
-            if (_has) template.Q<Label>("Price").text = "Have";
+            if (_has)
+            {
+                template.Q<VisualElement>("Icon").style.backgroundImage = new StyleBackground(Icon);
+                template.Q<Label>("Price").text = "Have";
+            
+            }
             else template.Q<Label>("Price").text = Price == 0 ? "FREE" : Price.ToString();
         }
         if (EventUpdate != null)
@@ -75,18 +82,21 @@ public class ShopItemScr
 }
 public class ShopUI : MonoBehaviour
 {
-    public delegate void Skinny(string Name);
-    Skinny skinChanhge = PlayerControl.SchangeSkin;
-    public List<ShopItemScr> items;
-    private PrefencesController fabris = new PrefencesController();
-    private VisualElement UI;
    
+    public List<ShopItemScr> items;
+
+  
+   
+    private VisualElement UI;
     private VisualElement Holder;
     public VisualTreeAsset Def_Item;
     public Label Coin;
     public Sprite SpriteLock;
+    public List<Mesh> meshes;
+    public List<Sprite> ShopItemIcons;
     public Button Close;
     public GameCotroller Menu;
+    private PrefencesController fabris; 
 
     void Start()
     {
@@ -106,20 +116,25 @@ public class ShopUI : MonoBehaviour
     }
     private void LoadItems()//TEST
     {
+        fabris = new PrefencesController(meshes,SpriteLock);
         items = fabris.get();
     }
     private IEnumerator Generate()
     {
         Holder.Clear();
+
         foreach (var item in items)
         {
+            if (item.Has == true)
+                item.Icon = ShopItemIcons[0];
             TemplateContainer temp = Def_Item.Instantiate();
+            
             temp.style.opacity = 0;
             item.template = temp;
             temp.name = item.Name;
             item.EventUpdate += ItemUpdate;
             item.EventClick += ClickEvent;
-           
+            
             Holder.Add(temp);
             DOTween.To(() => 0f, x => temp.style.opacity = x
                     , 1f, .5f)
@@ -139,15 +154,17 @@ public class ShopUI : MonoBehaviour
     private void ClickEvent(ShopItemScr item,ClickEvent e)
     {
         //Instantiate(item.Prefab);
-        Debug.Log(item.Name);
+        
 
         if (item.Has) {
             Selected(item);
           
         }
         else {
-            Buy(item);
             fabris.add(item);
+            Buy(item);
+
+            
         }
         
 
@@ -158,8 +175,8 @@ public class ShopUI : MonoBehaviour
     {
         item.Selected = !item.Selected;
         items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
-        if (skinChanhge != null)
-            skinChanhge(item.Name);
+
+        Menu.PlayerControl.SchangeSkin(item.Name,item.Prefab);
         PlayerGeneralData.id_Prefs = item.id;
     }
 
