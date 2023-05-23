@@ -18,7 +18,7 @@ public static class PlayerGeneralData
     {
         get => _Coins; set
         {
-            _Coins += value;
+            _Coins = value;
 
             PlayerPrefs.SetInt("Coins", _Coins);
             Debug.Log("New Coins: " + _Coins);
@@ -48,7 +48,6 @@ public static class PlayerGeneralData
                 _id_Prefs = value;
                 PlayerPrefs.SetInt("id_Prefs", _id_Prefs);
                 Debug.Log("New id_Prefs: " + _id_Prefs);
-       
                 StatsUpdate.Invoke(null, EventArgs.Empty);
             }
         }
@@ -59,6 +58,7 @@ public static class PlayerGeneralData
     {
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         StatsUpdate += (s, e) => SaveData();
+        LoadData();
         Login();
     }
 
@@ -77,7 +77,7 @@ public static class PlayerGeneralData
             // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
         }
     }
-    public static void Login()
+    public static void Login() 
     {
         ID = PlayerPrefs.GetString("ID", "_");
         /*

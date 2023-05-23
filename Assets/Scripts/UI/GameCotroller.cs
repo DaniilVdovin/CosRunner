@@ -12,7 +12,7 @@ public class GameCotroller : MonoBehaviour
 {
     public PlayerControl PlayerControl;
     public Generate Generate;
-
+    
     public VisualElement Menu;
 
     public ShopUI Shop;
@@ -38,6 +38,8 @@ public class GameCotroller : MonoBehaviour
         Menu.Q<Button>("Start").RegisterCallback<ClickEvent>(StartGame);
         Menu.Q<Button>("Shop").RegisterCallback<ClickEvent>(StartShop);
         Menu.Q<Button>("Rating").RegisterCallback<ClickEvent>(StartLeaderBoard);
+
+        PlayerGeneralData.Init();
     }
 
     private void StartShop(ClickEvent e)

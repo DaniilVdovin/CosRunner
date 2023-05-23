@@ -10,12 +10,26 @@ using UnityEngine.U2D.IK;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 
-[CreateAssetMenu(fileName = "Item Model", menuName = "Items/Shop Item Model", order = 2)]
-public class ShopItemScr
+[CreateAssetMenu(fileName = "Shop Item Model", menuName = "Items/Shop Item Model", order = 2)]
+
+public class ShopItemScr : ScriptableObject
 {
     public int id;
     private string _name;
+
+    public ShopItemScr(ShopItemScr arg)
+    {
+        this.id = arg.id;
+        this._name = arg.name;
+        this.Icon = arg.Icon;
+        this.Has = arg.Has;
+        this.Icon_mask = arg.Icon_mask;
+        this.Price = arg.Price;
+        this.Prefab = arg.Prefab;
+        
+    }
     
+        
     public string Name
     {
         get => _name; set
@@ -36,6 +50,7 @@ public class ShopItemScr
     public Mesh Prefab;
     public int Price;
     public Sprite Icon;
+    public Sprite Icon_mask;
     private bool _selected;
     public bool Selected
     {
@@ -68,31 +83,30 @@ public class ShopItemScr
             {
                 template.Q<VisualElement>("Icon").style.backgroundImage = new StyleBackground(Icon);
                 template.Q<Label>("Price").text = "Have";
-            
             }
-            else template.Q<Label>("Price").text = Price == 0 ? "FREE" : Price.ToString();
+            else
+            {
+                template.Q<Label>("Price").text = Price == 0 ? "FREE" : Price.ToString();
+                template.Q("Icon").style.backgroundImage = new StyleBackground(Icon_mask);
+            }
         }
         if (EventUpdate != null)
             EventUpdate.Invoke(this);
     }
-    public override bool Equals(object other)
+    public ShopItemScr clone()
     {
-        return id == (other as ShopItemScr).id;
+        return new ShopItemScr(this);
     }
 }
 public class ShopUI : MonoBehaviour
 {
-   
     public List<ShopItemScr> items;
-
-  
-   
     private VisualElement UI;
     private VisualElement Holder;
     public VisualTreeAsset Def_Item;
     public Label Coin;
     public Sprite SpriteLock;
-    public List<Mesh> meshes;
+    public static List<ShopItemScr> staItem;
     public List<Sprite> ShopItemIcons;
     public Button Close;
     public GameCotroller Menu;
@@ -100,7 +114,7 @@ public class ShopUI : MonoBehaviour
 
     void Start()
     {
-        LoadItems();
+        staItem = items;
         Menu = GetComponent<GameCotroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShopUI");
         Holder = UI.Q<VisualElement>("ShopContainer");
@@ -116,25 +130,25 @@ public class ShopUI : MonoBehaviour
     }
     private void LoadItems()//TEST
     {
-        fabris = new PrefencesController(meshes,SpriteLock);
-        items = fabris.get();
+        fabris = new PrefencesController(items);
+        foreach(var Item in items)
+        {
+            Debug.Log(Item);
+        }
+        staItem = fabris.get();
     }
     private IEnumerator Generate()
     {
         Holder.Clear();
 
-        foreach (var item in items)
+        foreach (var item in staItem)
         {
-            if (item.Has == true)
-                item.Icon = ShopItemIcons[0];
             TemplateContainer temp = Def_Item.Instantiate();
-            
             temp.style.opacity = 0;
             item.template = temp;
             temp.name = item.Name;
-            item.EventUpdate += ItemUpdate;
             item.EventClick += ClickEvent;
-            
+            item.EventUpdate += ItemUpdate;
             Holder.Add(temp);
             DOTween.To(() => 0f, x => temp.style.opacity = x
                     , 1f, .5f)
@@ -146,37 +160,28 @@ public class ShopUI : MonoBehaviour
     {
         //Debug.Log(item.Name);
         bool allunsel = false;
-        items.ForEach((i) => allunsel = i.Selected?true:allunsel);
-        if (!allunsel) { items[0].Selected = true; }
+        staItem.ForEach((i) => allunsel = i.Selected || allunsel);
+        if (!allunsel) { staItem[0].Selected = true; }
     }
 
     //click
     private void ClickEvent(ShopItemScr item,ClickEvent e)
     {
         //Instantiate(item.Prefab);
-        
-
         if (item.Has) {
             Selected(item);
-          
         }
         else {
-            fabris.add(item);
+            Debug.Log("buy");
             Buy(item);
-
-            
         }
-        
-
         //UPDATE
         item.Update();
     }
     private void Selected(ShopItemScr item)
     {
         item.Selected = !item.Selected;
-        items.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
-
-        Menu.PlayerControl.SchangeSkin(item.Name,item.Prefab);
+        staItem.Where((i) => i != item).ToList().ForEach((i) => i.Selected = false);
         PlayerGeneralData.id_Prefs = item.id;
     }
 
@@ -187,29 +192,28 @@ public class ShopUI : MonoBehaviour
             PlayerGeneralData.Coins -= item.Price;
             item.Has = true;
             Selected(item);
-           
-            Debug.LogWarning("You buy item id:"+item.id);
+            fabris.add(item);
+            Debug.Log("You buy item id:"+item.id);
         }
         else
         {
-            //Dont Have Coins
-            Debug.LogWarning("Dont Have Coins");
+            Debug.Log("Dont Have Coins");
         }
     }
     public void StartShop()
     {
         UI.visible = true;
-        //LoadItems();//TEST
+        LoadItems();
         UPD(null, null);
         StartCoroutine(Generate());
     }
     private void ShopClose(ClickEvent evt)
     {
         UI.visible = false;
-        items.ForEach((i) => {
+        staItem.ForEach((i) => {
             i.template.Q<VisualElement>("ItemSelected").visible = false;
             i.EventClick -= ClickEvent;
-            i.EventUpdate -= ItemUpdate;
+
             });
         Menu.Menu.visible = true;
     }

@@ -9,6 +9,7 @@ using System;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class ExtraItem
 {
@@ -75,7 +76,7 @@ public class ExtraItem
 public class GameUI : MonoBehaviour
 {
     private VisualElement UI, DieFrame, _LoaderUI, StatsFrame, _OxygenUI, ExtraItemsHolder,PauseFrame;
-    private Button Setting, Replay, Resurect, Rating,Return;
+    private Button Setting, Replay, Resurect, Rating,Return, menu;
     private Label Score, Coins;
 
     private PlayerControl PC;
@@ -105,9 +106,13 @@ public class GameUI : MonoBehaviour
 
         Return = UI.Q<Button>("Return");
         PauseFrame = UI.Q<VisualElement>("PauseMenu");
+        menu = UI.Q<Button>("Menu");
+
 
         _LoaderUI = UI.Q<VisualElement>("_LoaderUI");
         _OxygenUI = UI.Q<VisualElement>("_OxygenBarUI");
+
+
 
         Replay.RegisterCallback<ClickEvent>(CallbackReplay);
         Resurect.RegisterCallback<ClickEvent>(CallbackResurect);
@@ -115,6 +120,7 @@ public class GameUI : MonoBehaviour
 
         Setting.RegisterCallback<ClickEvent>(CallbackMenu);
         Return.RegisterCallback<ClickEvent>(CallbackStart);
+        menu.RegisterCallback<ClickEvent>(CallbackReplay);
     }
 
 

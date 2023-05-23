@@ -1,4 +1,6 @@
+using Assets.Data;
 using Assets.Scripts.Sounds;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Transactions;
@@ -65,6 +67,14 @@ public class PlayerControl : MonoBehaviour
     {
         Animator = GetComponent<Animator>();
         RigidBody = GetComponent<Rigidbody>();
+        SkinnedMeshRender = GetComponentInChildren<SkinnedMeshRenderer>();
+        PlayerGeneralData.StatsUpdate += StatsUpdate;
+      
+    }
+    void StatsUpdate(object sender,EventArgs args)
+    {
+        SchangeSkin(ShopUI.staItem[PlayerGeneralData.id_Prefs].Prefab);
+        Debug.Log("ss");
     }
     public void StartGame()
     {
@@ -72,6 +82,8 @@ public class PlayerControl : MonoBehaviour
         CameraFlow = true;
 
         GameUI.StartGame();
+
+       
     }
     /// <summary>
     /// update is makes something actions every frame
@@ -199,7 +211,8 @@ public class PlayerControl : MonoBehaviour
         return boy && door;
 
     }
-    public void SchangeSkin(string Name , Mesh mesh)
+
+    public void SchangeSkin( Mesh mesh)
     {
         SkinnedMeshRender.sharedMesh = mesh;
         SkinnedMeshRender.name = mesh.name;
@@ -437,5 +450,10 @@ public class PlayerControl : MonoBehaviour
         => Physics.Raycast(new Ray(start, direction), out hit, duration);
     private float ClampValue(float value)
         => Mathf.Clamp(value, -ClampOffset, ClampOffset);
+
+    private void OnDestroy()
+    {
+        PlayerGeneralData.StatsUpdate -= StatsUpdate;
+    }
 }
 

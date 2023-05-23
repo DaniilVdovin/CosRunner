@@ -11,48 +11,33 @@ namespace Assets.Data
 {
     internal class PrefencesController
     {
-        private List<ShopItemScr> shopItems = new() {
-      
-};
-
+        private List<ShopItemScr> shopItems = new(){};
         public void add(ShopItemScr item)
         {
             if (!shopItems.Contains(item)) return;
-
-
+            Debug.Log("Item ADded");
             PlayerPrefs.SetInt("ShopItemID:" + item.id, 1);
             shopItems.Where(x => x.id == item.id).First().Has = true;
             PlayerPrefs.Save();
-
-
         }
+
+        
         public List<ShopItemScr> get()
         {
             foreach (var i in shopItems)
             {
-               i.Has =  PlayerPrefs.GetInt("ShopItemID:" + i.id, 0)==1?true:false;
+                i.Has =  PlayerPrefs.GetInt("ShopItemID:" + i.id, 0)==1;
+                i.Selected =  PlayerGeneralData.id_Prefs == i.id;
             }
             return shopItems;
-            
         }
-        public PrefencesController(List<Mesh> prefs,Sprite icon)
-        {
-            int i = 0;
-            foreach (var item1 in prefs)
+        public PrefencesController(List<ShopItemScr> datas)
+        { 
+            foreach(ShopItemScr data in datas)
             {
-                ShopItemScr item = new ShopItemScr();
-                item.id = i;
-                i++;
-                item.Name = item1.name;
-                item.Prefab = item1;
-                if(item.Has == false)
-                    item.Icon = icon;
-                item.Has = false;
-                item.Price = (i + 1) * 10;
-                shopItems.Add(item);
-
+                shopItems.Add(data.clone());
             }
-            
+           
         }
     }
 }
