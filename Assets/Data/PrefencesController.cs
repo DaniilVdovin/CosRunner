@@ -11,7 +11,7 @@ namespace Assets.Data
 {
     internal class PrefencesController
     {
-        private List<ShopItemScr> shopItems = new(){};
+        private List<ShopItemScr> shopItems = new();
         public void add(ShopItemScr item)
         {
             if (!shopItems.Contains(item)) return;
@@ -32,12 +32,10 @@ namespace Assets.Data
             return shopItems;
         }
         public PrefencesController(List<ShopItemScr> datas)
-        { 
-            foreach(ShopItemScr data in datas)
-            {
-                shopItems.Add(data.clone());
-            }
-           
+        {
+            
+            shopItems = datas.Select(x => x.clone()).ToList();
+
         }
     }
 }

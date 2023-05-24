@@ -26,7 +26,8 @@ public class GameCotroller : MonoBehaviour
     }
     private void Start()
     {
-       
+        PlayerGeneralData.Init();
+
         Menu = GetComponent<UIDocument>().rootVisualElement.Q<TemplateContainer>("MainUI");
         Shop = GetComponent<ShopUI>();
         LeaderBoard = GetComponent<LeaderBoardUI>();
@@ -39,7 +40,6 @@ public class GameCotroller : MonoBehaviour
         Menu.Q<Button>("Shop").RegisterCallback<ClickEvent>(StartShop);
         Menu.Q<Button>("Rating").RegisterCallback<ClickEvent>(StartLeaderBoard);
 
-        PlayerGeneralData.Init();
     }
 
     private void StartShop(ClickEvent e)

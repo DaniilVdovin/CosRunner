@@ -11,7 +11,6 @@ using UnityEngine.UIElements;
 using UnityEngine.XR;
 
 [CreateAssetMenu(fileName = "Shop Item Model", menuName = "Items/Shop Item Model", order = 2)]
-
 public class ShopItemScr : ScriptableObject
 {
     public int id;
@@ -22,7 +21,7 @@ public class ShopItemScr : ScriptableObject
         this.id = arg.id;
         this._name = arg.name;
         this.Icon = arg.Icon;
-        this.Has = arg.Has;
+        this._has = arg.Has;
         this.Icon_mask = arg.Icon_mask;
         this.Price = arg.Price;
         this.Prefab = arg.Prefab;
@@ -114,7 +113,7 @@ public class ShopUI : MonoBehaviour
 
     void Start()
     {
-        staItem = items;
+       
         Menu = GetComponent<GameCotroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShopUI");
         Holder = UI.Q<VisualElement>("ShopContainer");
@@ -128,7 +127,7 @@ public class ShopUI : MonoBehaviour
     {
         Coin.text = "Coins: " + PlayerGeneralData.Coins;
     }
-    private void LoadItems()//TEST
+    private void LoadItems()
     {
         fabris = new PrefencesController(items);
         foreach(var Item in items)
@@ -213,8 +212,8 @@ public class ShopUI : MonoBehaviour
         staItem.ForEach((i) => {
             i.template.Q<VisualElement>("ItemSelected").visible = false;
             i.EventClick -= ClickEvent;
-
-            });
+            i.EventUpdate -= ItemUpdate;
+        });
         Menu.Menu.visible = true;
     }
 }

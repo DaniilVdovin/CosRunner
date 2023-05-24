@@ -72,6 +72,7 @@ public static class PlayerGeneralData
         }
         else
         {
+            Debug.Log("Auth Bad");
             // Disable your integration with Play Games Services or show a login button
             // to ask users to sign-in. Clicking it should call
             // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
