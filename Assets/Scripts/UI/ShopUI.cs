@@ -113,7 +113,7 @@ public class ShopUI : MonoBehaviour
 
     void Start()
     {
-       
+        LoadItems();
         Menu = GetComponent<GameCotroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShopUI");
         Holder = UI.Q<VisualElement>("ShopContainer");
@@ -202,7 +202,7 @@ public class ShopUI : MonoBehaviour
     public void StartShop()
     {
         UI.visible = true;
-        LoadItems();
+       
         UPD(null, null);
         StartCoroutine(Generate());
     }
