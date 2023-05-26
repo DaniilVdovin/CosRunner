@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Data;
+using Assets.Scripts.Items;
 using DG.Tweening;
 using Unity.Services.Analytics;
 using UnityEngine;
@@ -10,8 +11,7 @@ using UnityEngine.U2D.IK;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 
-[CreateAssetMenu(fileName = "Shop Item Model", menuName = "Items/Shop Item Model", order = 2)]
-public class ShopItemScr : ScriptableObject
+public class ShopItemScr
 {
     public int id;
     private string _name;
@@ -19,7 +19,7 @@ public class ShopItemScr : ScriptableObject
     public ShopItemScr(ShopItemScr arg)
     {
         this.id = arg.id;
-        this._name = arg.name;
+        this._name = arg.Name;
         this.Icon = arg.Icon;
         this._has = arg.Has;
         this.Icon_mask = arg.Icon_mask;
@@ -27,8 +27,11 @@ public class ShopItemScr : ScriptableObject
         this.Prefab = arg.Prefab;
         
     }
-    
-        
+
+    public ShopItemScr()
+    {
+    }
+
     public string Name
     {
         get => _name; set
@@ -99,20 +102,26 @@ public class ShopItemScr : ScriptableObject
 }
 public class ShopUI : MonoBehaviour
 {
-    public List<ShopItemScr> items;
+    private List<ShopItemScr> items = new();
+    public static List<ShopItemScr> staItem;
+    public List<Sprite> ShopItemIcons;
     private VisualElement UI;
     private VisualElement Holder;
     public VisualTreeAsset Def_Item;
     public Label Coin;
     public Sprite SpriteLock;
-    public static List<ShopItemScr> staItem;
-    public List<Sprite> ShopItemIcons;
     public Button Close;
     public GameCotroller Menu;
-    private PrefencesController fabris; 
+    private PrefencesController fabris;
 
+    private void Awake()
+    {
+        items = new SkinList();
+
+    }
     void Start()
     {
+        fabris = new PrefencesController(items);
         LoadItems();
         Menu = GetComponent<GameCotroller>();
         UI = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("ShopUI");
@@ -129,12 +138,12 @@ public class ShopUI : MonoBehaviour
     }
     private void LoadItems()
     {
-        fabris = new PrefencesController(items);
+       
         foreach(var Item in items)
         {
             Debug.Log(Item);
         }
-        staItem = fabris.get();
+       staItem = fabris.get();
     }
     private IEnumerator Generate()
     {
@@ -202,7 +211,6 @@ public class ShopUI : MonoBehaviour
     public void StartShop()
     {
         UI.visible = true;
-       
         UPD(null, null);
         StartCoroutine(Generate());
     }
@@ -215,5 +223,9 @@ public class ShopUI : MonoBehaviour
             i.EventUpdate -= ItemUpdate;
         });
         Menu.Menu.visible = true;
+    }
+    private void OnDestroy()
+    {
+        PlayerGeneralData.StatsUpdate -= UPD;
     }
 }

@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 
@@ -54,6 +50,7 @@ public static class PlayerGeneralData
     }
 
     public static EventHandler StatsUpdate;
+    //??????????????????
     public static void Init()
     {
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
@@ -75,9 +72,10 @@ public static class PlayerGeneralData
             Debug.Log("Auth Bad");
             // Disable your integration with Play Games Services or show a login button
             // to ask users to sign-in. Clicking it should call
-            // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
+            PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication);
         }
     }
+    //??????????????????
     public static void Login() 
     {
         ID = PlayerPrefs.GetString("ID", "_");
@@ -103,9 +101,9 @@ public static class PlayerGeneralData
         PlayerPrefs.Save();
     }
     public static void LoadData() {
-        _Coins = PlayerPrefs.GetInt("Coins", 0);
-        _id_Prefs = PlayerPrefs.GetInt("id_Prefs", 0);
-        _Score = PlayerPrefs.GetFloat("BestScore", 0);
+        _Coins      = PlayerPrefs.GetInt("Coins", 0);
+        _id_Prefs   = PlayerPrefs.GetInt("id_Prefs", 0);
+        _Score      = PlayerPrefs.GetFloat("BestScore", 0);
 
         Debug.Log($"Stats:\nCoins:\t{_Coins}\nBestScore:\t{_Score}\nid_Prefs:\t{_id_Prefs}");
     }

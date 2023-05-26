@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Assets.Scripts.GoogleServices;
 using GooglePlayGames;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,12 +24,14 @@ public class GameCotroller : MonoBehaviour
         if (!GameObject.Find("ADS"))
             SceneManager.LoadSceneAsync("NDY", LoadSceneMode.Additive);
         Application.targetFrameRate = 60;
+        GoogleClientConfig.Auth();
+        //???????????????
+        //PlayerGeneralData.Init();
     }
     private void Start()
     {
-        PlayerGeneralData.Init();
-
         Menu = GetComponent<UIDocument>().rootVisualElement.Q<TemplateContainer>("MainUI");
+        // check
         Shop = GetComponent<ShopUI>();
         LeaderBoard = GetComponent<LeaderBoardUI>();
 
@@ -45,11 +48,21 @@ public class GameCotroller : MonoBehaviour
     private void StartShop(ClickEvent e)
     {
         Menu.visible = false;
-        Shop.StartShop();
+        //Check
+        if(Shop != null)
+        {
+            Debug.Log(Shop);
+            Debug.Log(Shop.Coin);
+            Debug.Log("Shop started");
+            Shop.StartShop();
+        }
+            
+        else
+            Debug.Log("Shop not started");
     }
     private void StartLeaderBoard(ClickEvent e)
     {
-        //Menu.visible = false;
+        Menu.visible = false;
         //LeaderBoard.StartLeaderBoard();
         PlayGamesPlatform.Instance.ShowLeaderboardUI(LeaderBoadConf.LeaderboardId);
     }

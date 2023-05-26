@@ -241,9 +241,10 @@ public class GameUI : MonoBehaviour
     {
         PlayerGeneralData.Score = temp_Score;
     }
+    //Fix
     private void SaveCoins()
     {
-        PlayerGeneralData.Coins += temp_Coins;
+       // PlayerGeneralData.Coins += temp_Coins;
     }
     public void AnimateLoading(String[] txt,float Duration)
     {

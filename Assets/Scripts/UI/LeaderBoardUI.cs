@@ -58,12 +58,12 @@ public class LeaderBoardUI : MonoBehaviour
         Score.text = "Score: " + PlayerGeneralData.Score.ToString("f2");
     }
     public async void StartLeaderBoard() {
-        UI.visible = true;
+       // UI.visible = true;
 
-        items = await LeaderBoadConf.GetPlayerRangeAsync();
+        //items = await LeaderBoadConf.GetPlayerRangeAsync();
 
-        UPD(null, null);
-        StartCoroutine(Generate());
+        //UPD(null, null);
+        //StartCoroutine(Generate());
     }
     private IEnumerator Generate()
     {
@@ -90,5 +90,9 @@ public class LeaderBoardUI : MonoBehaviour
             i.template.Q<VisualElement>("itsMe").visible = false;
         });
         Menu.Menu.visible = true;
+    }
+    private void OnDestroy()
+    {
+        PlayerGeneralData.StatsUpdate -= UPD;
     }
 }

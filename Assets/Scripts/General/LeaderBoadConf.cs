@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GooglePlayGames;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class LeaderBoadConf : MonoBehaviour
@@ -22,18 +21,18 @@ public class LeaderBoadConf : MonoBehaviour
     public static async Task<List<LeaderBoardItem>> GetPlayerRangeAsync()
     {
         List<LeaderBoardItem> res = new();
-        /*
-        foreach (var item in ?)
-        {
-            res.Add(new LeaderBoardItem()
-            {
-                id = item.Rank,
-                Name = item.PlayerName,
-                Score = (float)item.Score,
-                itsMe = item.PlayerId == PlayerGeneralData.ID
-            });
-        }
-        */
+        
+        //foreach (var item in )
+        //{
+        //    res.Add(new LeaderBoardItem()
+        //    {
+        //        id = item.Rank,
+        //        Name = item.PlayerName,
+        //        Score = (float)item.Score,
+        //        itsMe = item.PlayerId == PlayerGeneralData.ID
+        //    });
+        //}
+        
         return res;
     }
 }
