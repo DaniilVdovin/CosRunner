@@ -24,7 +24,7 @@ public class GameCotroller : MonoBehaviour
         if (!GameObject.Find("ADS"))
             SceneManager.LoadSceneAsync("NDY", LoadSceneMode.Additive);
         Application.targetFrameRate = 60;
-        GoogleClientConfig.Auth();
+        //GoogleClientConfig.Auth();
         //???????????????
         //PlayerGeneralData.Init();
     }
@@ -62,7 +62,7 @@ public class GameCotroller : MonoBehaviour
     }
     private void StartLeaderBoard(ClickEvent e)
     {
-        Menu.visible = false;
+        //Menu.visible = false;
         //LeaderBoard.StartLeaderBoard();
         PlayGamesPlatform.Instance.ShowLeaderboardUI(LeaderBoadConf.LeaderboardId);
     }

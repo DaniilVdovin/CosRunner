@@ -6,7 +6,7 @@ using GooglePlayGames.BasicApi;
 
 public static class PlayerGeneralData
 {
-    private static int _Coins = 0 ;
+    private static int _Coins = 6000 ;
     private static float _Score = 0;
     private static int _id_Prefs = 0;
     public static string ID;
@@ -72,7 +72,7 @@ public static class PlayerGeneralData
             Debug.Log("Auth Bad");
             // Disable your integration with Play Games Services or show a login button
             // to ask users to sign-in. Clicking it should call
-            PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication);
+            //PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication);
         }
     }
     //??????????????????

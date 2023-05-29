@@ -117,7 +117,6 @@ public class ShopUI : MonoBehaviour
     private void Awake()
     {
         items = new SkinList();
-
     }
     void Start()
     {
@@ -162,11 +161,11 @@ public class ShopUI : MonoBehaviour
                     , 1f, .5f)
             .SetEase(Ease.Linear);
             yield return new WaitForSeconds(.1f);
+            Debug.Log(item._has); 
         }
     }
     private void ItemUpdate(ShopItemScr item)
     {
-        //Debug.Log(item.Name);
         bool allunsel = false;
         staItem.ForEach((i) => allunsel = i.Selected || allunsel);
         if (!allunsel) { staItem[0].Selected = true; }
@@ -176,7 +175,7 @@ public class ShopUI : MonoBehaviour
     private void ClickEvent(ShopItemScr item,ClickEvent e)
     {
         //Instantiate(item.Prefab);
-        if (item.Has) {
+        if (item._has) {
             Selected(item);
         }
         else {
@@ -198,7 +197,7 @@ public class ShopUI : MonoBehaviour
         if (PlayerGeneralData.Coins >= item.Price)
         {
             PlayerGeneralData.Coins -= item.Price;
-            item.Has = true;
+            item._has = true;
             Selected(item);
             fabris.add(item);
             Debug.Log("You buy item id:"+item.id);

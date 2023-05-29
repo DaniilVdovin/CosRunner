@@ -43,11 +43,29 @@ namespace Assets.Scripts.Items
             this.Add(new()
             {
                 id = 3,
-                _has = true,
+                _has = false,
                 Price = 1200,
-                Prefab = Resources.Load<Mesh>("Player_meshes/"),
-                Icon = Resources.Load<Sprite>("Player_icons/devil_icon"),
-                Icon_mask = Resources.Load<Sprite>("Player_icons/devil_mask")
+                Prefab = Resources.Load<Mesh>("Player_meshes/Mexican"),
+                Icon = Resources.Load<Sprite>("Player_icons/mexican_icon"),
+                Icon_mask = Resources.Load<Sprite>("Player_icons/mexican_mask")
+            });
+            this.Add(new()
+            {
+                id = 4,
+                _has = false,
+                Price = 1900,
+                Prefab = Resources.Load<Mesh>("Player_meshes/Rock"),
+                Icon = Resources.Load<Sprite>("Player_icons/rock_icon"),
+                Icon_mask = Resources.Load<Sprite>("Player_icons/rock_mask")
+            });
+            this.Add(new()
+            {
+                id = 5,
+                _has = false,
+                Price = 2100,
+                Prefab = Resources.Load<Mesh>("Player_meshes/Rocket"),
+                Icon = Resources.Load<Sprite>("Player_icons/rocket_icon"),
+                Icon_mask = Resources.Load<Sprite>("Player_icons/rocket_mask")
             });
         }
     }
