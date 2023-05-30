@@ -53,6 +53,9 @@ public static class PlayerGeneralData
     //??????????????????
     public static void Init()
     {
+        
+
+        PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         StatsUpdate += (s, e) => SaveData();
         LoadData();

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using GooglePlayGames;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
@@ -58,10 +59,8 @@ public class LeaderBoardUI : MonoBehaviour
         Score.text = "Score: " + PlayerGeneralData.Score.ToString("f2");
     }
     public async void StartLeaderBoard() {
-       // UI.visible = true;
-
-        //items = await LeaderBoadConf.GetPlayerRangeAsync();
-
+        
+        items = await LeaderBoadConf.GetPlayerRangeAsync();
         //UPD(null, null);
         //StartCoroutine(Generate());
     }

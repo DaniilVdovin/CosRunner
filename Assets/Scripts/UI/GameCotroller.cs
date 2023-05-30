@@ -30,6 +30,8 @@ public class GameCotroller : MonoBehaviour
     }
     private void Start()
     {
+        PlayerGeneralData.Init();
+        
         Menu = GetComponent<UIDocument>().rootVisualElement.Q<TemplateContainer>("MainUI");
         // check
         Shop = GetComponent<ShopUI>();
@@ -62,8 +64,7 @@ public class GameCotroller : MonoBehaviour
     }
     private void StartLeaderBoard(ClickEvent e)
     {
-        //Menu.visible = false;
-        //LeaderBoard.StartLeaderBoard();
+        LeaderBoard.StartLeaderBoard();
         PlayGamesPlatform.Instance.ShowLeaderboardUI(LeaderBoadConf.LeaderboardId);
     }
     private void StartGame(ClickEvent e = null)
